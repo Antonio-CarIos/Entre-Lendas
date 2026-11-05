@@ -1,12 +1,12 @@
 # Sprint 01 — Fundação Top-Down, Mundo Reativo e Inventário
 
-- [ ] **Task 1.1: Configuração do Projeto (`project.godot`)**
+- [x] **Task 1.1: Configuração do Projeto (`project.godot`)**
   - Configurar janela base (ex: `640x360` com stretch mode `canvas_items` e aspect `keep` para pixel art 32x32).
   - Definir `default_texture_filter` para `Nearest` (0).
   - Configurar Input Map: `move_up`, `move_down`, `move_left`, `move_right`, `interact`, `stealth`, `open_inventory`.
   - Nomear as 6 Collision Layers de 2D Physics conforme `03_physics_and_layers.md`.
 
-- [ ] **Task 1.2: Autoloads Core (`WorldState` e `EventBus`)**
+- [x] **Task 1.2: Autoloads Core (`WorldState` e `EventBus`)**
   - Criar `res://core/autoloads/event_bus.gd`.
   - Criar `res://core/autoloads/world_state.gd` contendo o registro de decisões (`CAPTURE` vs `FRIENDSHIP`), o contador `nature_balance` e sinais de mudança de estado do mundo.
   - Escrever teste unitário para `WorldState` em `res://tests/test_world_state.gd`.
