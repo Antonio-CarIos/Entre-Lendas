@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://mfmw4gxq0hky" path="res://background/livro - virando 2.png" id="6_3c50b"]
 [ext_resource type="Texture2D" uid="uid://bq1vu5kn8divw" path="res://background/livro - desmanche.png" id="7_fetjp"]
 [ext_resource type="Shader" uid="uid://bfhiy527mvl46" path="res://scene/scene2.gdshader" id="10_3c50b"]
-[ext_resource type="Texture2D" uid="uid://lnfl4s384dxb" path="res://background/rasgo 1.png" id="11_fetjp"]
+[ext_resource type="Texture2D" uid="uid://6dvk80p6hhxs" path="res://background/rasgo 1.webp" id="11_fetjp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tlmrg"]
 shader = ExtResource("2_c7c3h")
@@ -18,8 +18,10 @@ shader_parameter/amount = 2.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_k1mgw"]
 shader = ExtResource("10_3c50b")
-shader_parameter/next_texture = ExtResource("11_fetjp")
-shader_parameter/progress = 0.0
+shader_parameter/dissolve = 0.0
+shader_parameter/noise_tex = ExtResource("11_fetjp")
+shader_parameter/edge_color = Color(0.85, 0.45, 0.1, 1)
+shader_parameter/edge_width = 0.08
 
 [node name="Scene" type="Control" unique_id=949060490]
 layout_mode = 3
@@ -73,3 +75,8 @@ color = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
+
+[node name="Control" type="Control" parent="." unique_id=270079336]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0

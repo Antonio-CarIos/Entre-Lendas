@@ -6,7 +6,6 @@ extends Control
 # ==========================================
 
 @export var imagens_do_livro: Array[Texture2D]
-@export var imagens_rasgo: Array[Texture2D]
 
 @export_file("*.tscn") var proxima_cena: String = ""
 
@@ -109,20 +108,6 @@ func avancar_animacao():
 
 		# Terminou o livro: começa a sequência de rasgos
 		etapa_rasgo = true
-
-		if not imagens_rasgo.is_empty():
-			rasgo_atual = 0
-			livro.texture = imagens_rasgo[rasgo_atual]
-			return
-
-	# IMAGENS DE RASGO
-	if etapa_rasgo:
-
-		if rasgo_atual < imagens_rasgo.size() - 1:
-
-			rasgo_atual += 1
-			livro.texture = imagens_rasgo[rasgo_atual]
-			return
 
 		# ACABARAM TODAS AS IMAGENS: TELA PRETA
 		escurecer_tela()
