@@ -268,7 +268,7 @@ Qualquer desenvolvedor humano ou agente de IA atuando neste repositório deve re
 
 ### Organização da introdução da Fase 1
 
-A introdução do livro está em `stages/stage_01_saci/scene_01_book_intro.tscn`, junto do seu script. Imagens e shaders utilizados pela cena estão em `assets/art/ui/stage_01/book_intro/`. A cena principal abre essa introdução; para continuar desenhando o térreo, abra `stages/stage_01_saci/house_interior.tscn` e execute a cena atual (F6).
+A introdução do livro está em `stages/stage_01_saci/scene_01_book_intro.tscn`, junto do seu script. Imagens e shaders utilizados pela cena estão em `assets/art/ui/stage_01/book_intro/`. A configuração principal do projeto permanece exatamente como estava antes da integração, inclusive a cena inicial. Para testar a cutscene, abra `stages/stage_01_saci/scene_01_book_intro.tscn` e execute a cena atual (F6).
 
 O mapa `house_interior.tscn` e seus componentes em `components/props/` foram preservados durante a integração dos commits `b3ecccf` (Atualizando projeto) e `2d7e47d` (Cena 1). O projeto mantém Compatibility, janela 640×360, inputs, Autoloads e camadas de física existentes.
 
