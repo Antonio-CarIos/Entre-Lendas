@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Entre Lendas"
+run/main_scene="uid://bnl0oekw26ma6"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -24,32 +25,10 @@ WorldState="*res://core/autoloads/world_state.gd"
 window/size/viewport_width=640
 window/size/viewport_height=360
 window/stretch/mode="canvas_items"
-window/stretch/aspect="keep"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/gut/plugin.cfg")
-
-[layer_names]
-
-2d_physics/layer_1="World_Environment"
-2d_physics/layer_2="Player"
-2d_physics/layer_3="NPCs_Entities"
-2d_physics/layer_4="Interactables"
-2d_physics/layer_5="Stealth_LineOfSight"
-2d_physics/layer_6="Combat_Box"
-
-[physics]
-
-2d/default_gravity=0.0
-3d/physics_engine="Jolt Physics"
-
-[rendering]
-
-rendering_device/driver.windows="d3d12"
-renderer/rendering_method="gl_compatibility"
-renderer/rendering_method.mobile="gl_compatibility"
-textures/canvas_textures/default_texture_filter=0
 
 [input]
 
@@ -94,3 +73,24 @@ open_inventory={
 , Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":4194306,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
 ])
 }
+
+[layer_names]
+
+2d_physics/layer_1="World_Environment"
+2d_physics/layer_2="Player"
+2d_physics/layer_3="NPCs_Entities"
+2d_physics/layer_4="Interactables"
+2d_physics/layer_5="Stealth_LineOfSight"
+2d_physics/layer_6="Combat_Box"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+2d/default_gravity=0.0
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

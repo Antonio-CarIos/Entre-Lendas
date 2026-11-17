@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://cqrvyjx5roye"]
+
+[ext_resource type="Texture2D" uid="uid://5kxdbtho7raa" path="res://assets/art/props/stage_01/house/house_furniture_atlas.png" id="1_xjrsb"]
+
+[node name="PlantPot" type="StaticBody2D" unique_id=1256516688]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=390576505]
+position = Vector2(0, 0)
+texture = ExtResource("1_xjrsb")
+region_enabled = true
+region_rect = Rect2(4, 611, 24, 27.61737)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1570821988]
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1569770618]
+position = Vector2(0, -13)
+texture = ExtResource("1_xjrsb")
+region_enabled = true
+region_rect = Rect2(63.161453, 646.25037, 33.02179, 22.792603)

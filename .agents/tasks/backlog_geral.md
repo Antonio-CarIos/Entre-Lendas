@@ -3,14 +3,14 @@
 ## Épico 1: Sistemas Transversais (Core Engine)
 - [ ] Sistema de Diálogo Ramificado com suporte a escolhas morais e verificação de itens/pistas.
 - [ ] UI de Inventário dividida em abas: "Itens Usáveis", "Artefatos" e "Diário de Investigação".
-- [ ] Sistema de Combate por Turnos (Caixa de Batalha + Menu de Ações: Confrontar, Compreender, Item, Aliança).
+- [ ] Sistema de Combate por Turnos (Caixa de Batalha + Menu de Ações: Confrontar, Interagir/Brincar, Item, Amizade/Poupar).
 - [ ] Componente de Mundo Reativo (`NatureStateResponder`) que troca sprites de árvores/rios com base no `WorldState.nature_balance`.
 
 ## Épico 2: Fase 1 — O Saci-Pererê
-- [ ] Mapa urbano/rural brasileiro (Tileset 32x32 derivado de `_templates/tileset_base/`) e interiores de casas com objetos revirados interagíveis.
-- [ ] Customização do sprite do Saci (`32x64`) no PixelLab a partir de `_templates/character_base/`.
-- [ ] Mecânica de Redemoinho e captura com a Peneira + desafio de obstáculos top-down pelo Gorro.
-- [ ] Minigame de Jogo da Memória cultural do Saci + puzzles cooperativos.
+- [ ] Mapa urbano/rural brasileiro em Santa Teresa (`32x32`) e interiores da casa divididos em cenas conectadas (`house_interior.tscn` para térreo, `house_bedroom.tscn` para quarto e quintal separado) com estados organizado e caótico.
+- [ ] Implementação de animações 4 direções (`idle` e `walk`) da Protagonista e do Saci (`32x64`, com furacão na base) a partir dos frames em `res://assets/art/characters/`.
+- [ ] Investigação dos 7 Pontos de Interesse (Varal de gorros, Praça, Muro de Grafites, Bonde de 1917, Cavalo/Porteira, Quitanda e Bambuzal) e combinação de itens (`peneira` + `fita_vermelha`).
+- [ ] Clímax em Combate por Turnos (`saci_turn_combat.tscn`) com resolução para os 3 Finais (Final A: Captura, Final B: Amizade/Pacífico, Final C: Incompleto).
 
 ## Épico 3: Fase 2 — A Mula sem Cabeça
 - [ ] Vilarejo com sistema de ciclo/transição Dia -> Noite (`CanvasModulate` + `PointLight2D` + crossfade de áudio).
@@ -19,7 +19,7 @@
 
 ## Épico 4: Fase 3 — Os Guardiões da Floresta
 - [ ] Floresta Amazônica com zonas devastadas e zonas preservadas + Caverna Ancestral do Boitatá.
-- [ ] Customização dos sprites de Curupira, Caipora e Caçadores (`32x64`) a partir de `_templates/character_base/`.
+- [ ] Sprites de Curupira, Caipora e Caçadores (`32x64`) em `res://assets/art/characters/`.
 - [ ] IA de Caçadores com cone de visão (`RayCast2D`) e reação ao item `Pegada Falsa`.
 - [ ] Libertação de animais enjaulados, uso do `Assobio da Caipora` e minigame de plantio de mudas.
 - [ ] Sequência de clímax: condução furtiva dos caçadores até a caverna e despertar do Boitatá.

@@ -15,6 +15,7 @@ Antes de gerar código, criar assets ou modificar cenas, consulte os documentos 
 - `.agents/context/04_engine_guidelines.md`: Regras estritas de GDScript 2.0, tipagem estática e prevenção de alucinações da Godot 3.
 - `.agents/context/05_art_direction.md`: Regras obrigatórias de escala, uso dos templates base (`_templates/`) e diretrizes conceituais de `_inspirations/`.
 - `.agents/context/06_pixellab_mcp_docs.md`: Documentação técnica local das ferramentas e parâmetros do PixelLab MCP (Fonte: `@https://api.pixellab.ai/mcp/docs`).
+- `.agents/context/07_stage_01_saci_design.md`: Especificação completa da Fase 1 (Saci-Pererê), roteiro das 8 cenas, coordenadas de mapa e regras dos 3 finais.
 
 ## 3. Catálogo de Skills (Receitas de Implementação)
 Quando solicitado a criar um sistema complexo ou gerar arte, siga o padrão definido em:

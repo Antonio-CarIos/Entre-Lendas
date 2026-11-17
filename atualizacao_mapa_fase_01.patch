@@ -1,0 +1,166 @@
+--- a/.agents/context/07_stage_01_saci_design.md
++++ b/.agents/context/07_stage_01_saci_design.md
+@@ -3,12 +3,14 @@
+ ## 1. Visão Geral e Arquitetura de Cenas
+ O jogador lê o livro *Lendas do Brasil* e é transportado para Santa Teresa (Rio de Janeiro). Ao entrar em uma casa silenciosa e abrir uma garrafa misteriosa, liberta o Saci-Pererê. Após um diálogo e um redemoinho que o faz desmaiar, o jogador acorda com a casa e a rua em estado caótico. Ele deve investigar 7 pontos de interesse, coletar pistas no Diário e itens no inventário para subir a ladeira, interagir com o grande furacão do Saci e iniciar o **Combate por Turnos**, escolhendo entre **Capturar o Saci (Final A - Rota Agressiva)**, **Fazer Amizade/Pacífico (Final B - Rota de Compreensão)** ou **Subir Despreparado (Final C - Incompleto)**.
+ 
+-Para evitar duplicação de mapas e telas de carregamento desnecessárias na Godot 4, todas as **8 Cenas** são distribuídas em **3 arquivos `.tscn` de exploração/narrativa** + a interface/cena de **Combate por Turnos**:
++Para evitar duplicação de mapas e telas de carregamento desnecessárias na Godot 4, as **8 cenas narrativas** são distribuídas entre as seguintes cenas de exploração e a interface de combate. Os nomes das novas cenas são sugestões, sujeitos à implementação:
+ 
+ | Arquivo de Cena (`res://stages/stage_01_saci/...`) | Cenas do Roteiro Contempladas | Resolução (Tiles `32x32`) | Dimensão em Pixels |
+ | :--- | :--- | :--- | :--- |
+ | **`scene_01_book_intro.tscn`** | **Cena 1** (O Livro - Tutorial) | Viewport Fixa | `640 x 360` px |
+-| **`house_interior.tscn`** | **Cenas 3, 4, 5, 6** + **Epílogo Final C** | `20 x 16` tiles | `640 x 512` px |
++| **`house_interior.tscn`** | Térreo: cozinha, sala e escada; Cenas 3, 4, 5, 6 e Epílogo C | A definir conforme o mapa | A definir |
++| **`house_bedroom.tscn`** | Quarto no andar superior, acessado pela escada do térreo | A definir | A definir |
++| **`house_backyard.tscn`** | Quintal, acessado pela porta da cozinha; varal e demais elementos do quintal | A definir | A definir |
+ | **`santa_teresa_map.tscn`** | **Cenas 2, 7, 8 (Mapa)** + **Epílogos Finais A e B** | `60 x 70` tiles | `1920 x 2240` px |
+ | **`saci_turn_combat.tscn`** | **Cena 8 (Batalha por Turnos)** | Viewport Fixa | `640 x 360` px |
+ 
+@@ -26,9 +28,9 @@
+ 
+ ### 2.2. Catálogo de Itens e Pistas (`res://assets/art/items/stage_01/`)
+ 1. **`garrafa_vazia.tres`**: Coletada no chão da sala na Cena 6 `(464, 336)`.
+-2. **`gorro_saci.tres`**: Coletado no puzzle do Varal na Cena 7 `(416, 1152)`.
++2. **`gorro_saci.tres`**: Coletado no puzzle do varal do quintal na Cena 7 (posição a definir).
+ 3. **`cachimbo_fumo.tres`**: Coletado na mesa da sala (Cena 3) ou no Banco da Praça (Cena 7).
+-4. **`fita_vermelha.tres`**: Coletada na porteira do Quintal na Cena 7 `(1392, 1472)`.
++4. **`fita_vermelha.tres`**: Coletada na porteira do quintal na Cena 7 (posição a definir).
+ 5. **`peneira.tres`**: Entregue pela Quitandeira na Cena 7 `(512, 1984)` após `viu_muro_ou_bonde == true`.
+ 6. **`peneira_cruz.tres`**: Resultado da combinação no inventário de `peneira.tres` + `fita_vermelha.tres`.
+ 
+@@ -56,40 +58,16 @@
+ ## 4. Especificação do Mapa Interno: A Casa (`house_interior.tscn`)
+ 
+ ### 4.1. Dimensões e Estrutura
+-- **Tamanho Total:** `20 x 16` tiles (`640 x 512` px).
+-- **Divisão:** Cozinha a Noroeste (`X: 0..320, Y: 0..224`), Quarto a Nordeste (`X: 320..640, Y: 0..224`), Sala de Estar ao Sul (`X: 0..640, Y: 224..512`).
+-
+-### 4.2. Árvore de Nós Obrigatória (`house_interior.tscn`)
+-```text
+-HouseInterior (Node2D) [script: house_interior.gd]
+-├── HouseModulate (CanvasModulate)
+-├── FloorAndWallsLayer (TileMapLayer)       # TileSet: house_interior_structure.png (32x32)
+-├── YSortRoot (Node2D) [y_sort_enabled = true]
+-│   ├── Player (CharacterBody2D)
+-│   ├── SaciNPC (CharacterBody2D)           # Visível apenas nas Cenas 4 e 5
+-│   ├── SharedProps (Node2D) [y_sort_enabled = true]
+-│   │   ├── WallClock (StaticBody2D)        # Pos: (320, 224)
+-│   │   ├── BottleShelf (StaticBody2D)      # Pos: (512, 288)
+-│   │   ├── KitchenDoorway (Node2D)         # Pos: (192, 224)
+-│   │   ├── BedroomDoor (StaticBody2D)      # Pos: (448, 224)
+-│   │   └── FrontDoorExit (Area2D)          # Pos: (320, 480)
+-│   ├── State_Organized (Node2D) [y_sort_enabled = true] # Visível na Cena 3
+-│   │   ├── SofaClean (StaticBody2D)        # Pos: (160, 352)
+-│   │   ├── CenterTablePipe (StaticBody2D)  # Pos: (320, 368)
+-│   │   ├── KitchenTableMilk (StaticBody2D) # Pos: (192, 160)
+-│   │   └── BedroomBedClean (StaticBody2D)  # Pos: (480, 96)
+-│   └── State_Chaotic (Node2D) [y_sort_enabled = true]   # Visível na Cena 6
+-│       ├── SofaTipped (StaticBody2D)       # Pos: (160, 352) [rotation = 90°]
+-│       ├── ChandelierCushion (Sprite2D)    # Pos: (320, 272)
+-│       ├── SpilledMilkSmiles (Area2D)      # Pos: (192, 176)
+-│       ├── HairKnotLock (Sprite2D)         # Pos: (448, 224) [Bloqueia BedroomDoor]
+-│       ├── EmptyBottleItem (Area2D)        # Pos: (464, 336) [Coletável: garrafa_vazia]
+-│       └── WallCharcoalGraffiti (Area2D)   # Pos: (96, 240)
+-└── SpawnPoints (Node2D)
+-    ├── EntrySpawn (Marker2D)               # Pos: (320, 440)
+-    ├── WakeUpSpawn (Marker2D)              # Pos: (320, 384)
+-    └── SaciSpawn (Marker2D)                # Pos: (480, 336)
+-```
++- O térreo de `house_interior.tscn` está sendo desenhado e contém sala, cozinha e escada para o quarto.
++- A escada conecta ao quarto em cena própria; a porta da cozinha conecta ao quintal em cena própria; a porta principal conecta à cidade. As transições devem permitir o retorno e usar pontos de entrada adequados.
++- O quintal contém o varal, o cavalo e a porteira com a fita vermelha. As dimensões e coordenadas desses mapas serão definidas durante a construção.
++- O desenho do mapa vem primeiro; colisões de cenário, móveis e áreas de transição serão configuradas posteriormente, conforme a matriz de física do projeto.
++
++### 4.2. Organização das Cenas
++- No térreo, preservar camadas `TileMapLayer`, `YSortRoot`, móveis, estados organizado/bagunçado, pontos de entrada, escada e saídas para quintal e cidade.
++- Quarto e quintal devem ter seus próprios pontos de entrada e saída, e apresentar os estados e interações relevantes à fase.
++- O estado narrativo e os itens coletados devem persistir ao transitar entre cenas; não recriar ou reiniciar o progresso ao retornar.
++- As coordenadas do projeto original descritas nas interações abaixo são referências narrativas antigas, não posições obrigatórias para o térreo ou o quarto. Adapte-as ao mapa efetivamente desenhado.
+ 
+ ### 4.3. Comportamento e Diálogos por Estado na Casa
+ 
+@@ -98,7 +76,7 @@
+ - **Sofá `(160, 352)`:** *"A almofada ainda tem a marca de alguém sentado. Mas a poeira cobre o resto da casa inteira."*
+ - **Relógio `(320, 224)`:** Ponteiros giram devagar para trás. *"Os ponteiros giram devagar... para trás? Está quebrado?"*
+ - **Mesa da Cozinha `(192, 160)`:** *"Uma jarra de leite aberta sobre a mesa. Você cheira. Está azedo. Mas a data da embalagem é de hoje."*
+-- **Cama no Quarto `(480, 96)`:** *"A cama está feita. Em cima do travesseiro, um fio de crina de cavalo, trançado em um nó perfeito."*
++- **Cama no quarto (cena separada; posição a definir):** *"A cama está feita. Em cima do travesseiro, um fio de crina de cavalo, trançado em um nó perfeito."*
+ - **Cachimbo na Mesa de Centro `(320, 368)`:** Dispara flashback com tela tremendo:
+   > **Saci:** *"Eu nasci num gomo de bambu. Sete anos lá dentro, ouvindo o vento... Aprontei tanto que me deram setenta e sete anos para aprontar. Depois disso, viro cogumelo... Antes de ter gorro e de ter cachimbo, eu era um curumim... Os mais velhos me chamavam de Saci-Cererê."*
+   - Desbloqueia página `clue_origem_saci`. Exibe escolha `[Deseja guardar? Sim / Colocar de volta]`. Se Sim, adiciona `cachimbo_fumo.tres`.
+@@ -121,7 +99,7 @@
+ - **Sofá `(160, 352)` / Lustre `(320, 272)`:** *"A almofada está pendurada no lustre. Não tem escada. Não tem corda. Só uma risadinha, bem baixa, vinda do teto."*
+ - **Relógio `(320, 224)`:** *"Agora ele marca todas as horas ao mesmo tempo. Os ponteiros giram. Todos para o lado errado."*
+ - **Cozinha `(192, 176)`:** *"A jarra de leite virou. O chão está branco. Cada gota formou uma carinha sorrindo. Você prefere não pisar."*
+-- **Porta do Quarto `(448, 224)`:** Bloqueada fisicamente. *"A cama está desfeita e o travesseiro, no armário. A crina trançada virou um laço enorme na maçaneta, impedindo a passagem para o quarto."*
++- **Acesso ao quarto pela escada:** Bloqueado fisicamente por um laço de crina na entrada do quarto. *"A cama está desfeita e o travesseiro, no armário. A crina trançada virou um laço enorme na maçaneta, impedindo a passagem para o quarto."*
+ - **Estante `(512, 288)`:** *"A garrafa não está mais aqui. No lugar dela, um bilhete de carvão: 'Obrigado pela rolha. Hihihi!'"*
+ - **Garrafa Vazia no Chão `(464, 336)`:** Coletável -> Adiciona `garrafa_vazia.tres` ao inventário.
+ - **Parede com Grafite `(96, 240)`:** *"Um desenho a carvão: um menino de uma perna só, rindo. Ao lado: 'Quem perde o gorro perde o rumo.'"* -> Desbloqueia `clue_poder_gorro_parede`.
+@@ -136,7 +114,9 @@
+ - **Eixo Central da Rua Principal:** `X = 960 px` (Largura: `256 px` / 8 tiles).
+ - **Trilhos Horizontais do Bonde:** Cruzam de `X = 0` a `X = 1920` na altura `Y = 1472 px`.
+ 
+-### 5.2. Planta Baixa e Coordenadas de Todos os Elementos
++### 5.2. Planta Baixa e Coordenadas de Referência
++
++Os pontos da cidade mantêm as coordenadas planejadas abaixo. Varal, cavalo e porteira pertencem à cena separada do quintal, acessível pela cozinha; suas antigas coordenadas no mapa da cidade não se aplicam.
+ 
+ | ID / Ponto no Mapa | Coordenada `(X, Y)` | Visível na Cena 2? | Visível na Cena 7? | Descrição e Regras de Interação |
+ | :--- | :--- | :--- | :--- | :--- |
+@@ -145,17 +125,18 @@
+ | **Fachada da Casa** | `(736, 1696)` | Sim | Sim | Porta entreaberta. Na Cena 2, escolher `[Ainda não]` diz: *"Algo no seu peito diz que não há para onde voltar."* |
+ | **Janela da Casa** | `(688, 1664)` | Sim | Sim | Na Cena 2 balança sozinha: *"Ela abre e fecha sozinha, no ritmo de uma risadinha abafada."* |
+ | **Placa da Rua** | `(1120, 1696)` | Sim | Sim | *"'Rua do Saci.' Estranho. Você tem quase certeza de que não era esse o nome."* |
+-| **POI 1: Varal Completo** | `(416, 1152)` | Não | **Sim** | Contém os 6 sub-itens interativos e o puzzle dos 7 gorros (ver Seção 5.3). |
++| **POI 1: Varal no quintal** | A definir na cena do quintal | Não | **Sim** | Contém os 6 sub-itens interativos e o puzzle dos 7 gorros (ver Seção 5.3). |
+ | **POI 2: Praça + Banco** | `(960, 1152)` | Sim (Vazio)| **Sim (Com Item)** | Cachimbo e fumo de corda fumegando em `(972, 1144)`. Dá `cachimbo_fumo.tres` + memória de 77 anos. |
+ | **POI 3: Muro de Grafites**| `(1504, 1152)` | Sim (Limpo)| **Sim (Pintado)** | 6 Quadros (`X: 1400` a `1580`) + Pincel no chão em `(1580, 1180)` (ver Seção 5.4). |
+ | **POI 4: Bonde Amarelo** | `(480, 1472)` | Sim (Limpo)| **Sim (Com Jornais)**| **Cena 2:** *"O banco ainda está quente."* **Cena 7:** Páginas do Inquérito de 1917 (Monteiro Lobato). Define `viu_muro_ou_bonde = true` e dá `clue_inquerito_1917`. |
+-| **POI 5: Quintal e Cavalo**| `(1472, 1472)` | Sim (Fechado)| **Sim (Aberto)** | Porteira em `(1392, 1472)` dá `fita_vermelha.tres`. Cavalo em `(1520, 1456)` dá `clue_crina_cavalo`. |
++| **POI 5: Quintal e Cavalo** | A definir na cena do quintal | Conforme acesso à casa | **Sim** | Porteira dá `fita_vermelha.tres`; cavalo dá `clue_crina_cavalo`. |
+ | **POI 6: Quitanda** | `(512, 1984)` | Sim (Fechada)| **Sim (Com NPC)** | Quitandeira atrás do balcão `(512, 1968)`. Se `viu_muro_ou_bonde == true`, entrega `peneira.tres`. |
+ | **POI 7: Bambuzal** | `(1408, 1984)` | Sim | **Sim (Rachado)** | Gomo rachado em `(1360, 2016)` com marca de mãozinha. Piscando em sincronia com o Quadro 2 do Muro. Dá `clue_bambu_rachado`. |
+ | **Gatilho da Ladeira** | `(960, 864)` | Bloqueado | **Sim** | Checa requisitos mínimos antes de subir para a Praça do Clímax. |
+ | **Furacão do Saci (Cena 8)**| `(960, 320)` | Inativo | **Ativo na Cena 8** | Grande redemoinho com `InteractableArea`. O jogador se aproxima, interage e inicia o **Combate por Turnos**. |
+ 
+-### 5.3. Detalhamento do POI 1: O Varal (`(416, 1152)`)
++### 5.3. Detalhamento do POI 1: O Varal no Quintal
++As posições locais do varal e seus elementos serão definidas no mapa do quintal; as coordenadas abaixo são apenas referências antigas.
+ Ao se aproximar, exibe a narração das roupas pingando sem vento. Possui **6 interações**:
+ 1. **Meias Soltas `(368, 1152)`:** *"Nenhuma é par da outra. Alguém tem uma perna só. Ou muito azar com as meias."*
+ 2. **Camisa de Time `(392, 1152)`:** *"Com um buraco no formato de uma risada. O número nas costas está de cabeça para baixo."*
+--- a/.agents/tasks/sprint_02_stage_01.md
++++ b/.agents/tasks/sprint_02_stage_01.md
+@@ -19,23 +19,25 @@
+ ---
+ 
+ ## Task 2.3: Mapa Interno — A Casa (`house_interior.tscn` — Cenas 3, 4, 5 e 6)
+-- [ ] Estruturar `res://stages/stage_01_saci/house_interior.tscn` (`640 x 512` px) seguindo a hierarquia e coordenadas da Seção 4 de `07_stage_01_saci_design.md`.
++- [ ] Estruturar `res://stages/stage_01_saci/house_interior.tscn` como térreo com cozinha, sala e escada, respeitando o mapa em construção e a Seção 4 de `07_stage_01_saci_design.md`.
++- [ ] Criar cena separada para o quarto, conectada à escada do térreo, e cena separada para o quintal, conectada à porta da cozinha; a porta principal conecta o térreo à cidade. Prever pontos de retorno e persistência do estado.
++- [ ] Após o desenho dos mapas, configurar colisões de cenário, móveis e transições conforme `03_physics_and_layers.md`.
+ - [ ] Implementar em `house_interior.gd` a função `apply_house_state(phase: StringName) -> void` alternando entre `State_Organized` (Cena 3) e `State_Chaotic` (Cena 6).
+ - [ ] Configurar todas as `InteractableArea` da **Cena 3**: Sofá, Relógio (ponteiros para trás), Leite azedo, Quarto (crina no travesseiro), Cachimbo (flashback de 77 anos + página `clue_origem_saci`) e Garrafa na estante (`[Abrir]/[Deixar]` com shake e piscar de luz).
+ - [ ] Implementar o fluxo de diálogo ramificado da **Cena 4** (registrando `saci_empatico = true` na opção empática) e a animação de redemoinho/desmaio da **Cena 5**.
+-- [ ] Configurar as interações da **Cena 6**: Almofada no lustre, Relógio maluco, Leite com carinhas sorrindo, Porta do quarto trancada pelo laço de crina, Bilhete na estante, coleta de `garrafa_vazia.tres`, leitura do grafite na parede (`clue_poder_gorro_parede`) e saída pela porta torta rumo à Cena 7.
++- [ ] Configurar as interações da **Cena 6**: Almofada no lustre, Relógio maluco, Leite com carinhas sorrindo, acesso ao quarto pela escada bloqueado pelo laço de crina, Bilhete na estante, coleta de `garrafa_vazia.tres`, leitura do grafite na parede (`clue_poder_gorro_parede`) e saída pela porta torta rumo à Cena 7.
+ 
+ ---
+ 
+ ## Task 2.4: Mapa Externo — Santa Teresa e os 7 Pontos de Interesse (`santa_teresa_map.tscn`)
+ - [ ] Estruturar `res://stages/stage_01_saci/santa_teresa_map.tscn` (`1920 x 2240` px) com suporte aos estados `&"scene_2_sunset"` (`CanvasModulate` dourado `#ffdfb3`) e `&"scene_7_street_hub"` (`CanvasModulate` dessaturado `#9eaab8`).
+ - [ ] Configurar as interações da **Cena 2**: Bonde quente, Placa *"Rua do Saci"*, Janela balançando e Porta entreaberta da casa.
+-- [ ] Implementar os **7 Pontos de Interesse da Cena 7** nas coordenadas exatas:
+-  1. **POI 1 (Varal - `416, 1152`):** 5 interações de roupas/poste + Puzzle dos 7 gorros (6 com `Tween` de vento, 1 parado dando `gorro_saci.tres` + pausa de 3s na trilha sonora).
++- [ ] Implementar os **7 Pontos de Interesse da Cena 7**, distribuídos entre cidade e quintal; coordenadas do quintal serão definidas no seu próprio mapa:
++  1. **POI 1 (Varal no quintal - posição a definir):** 5 interações de roupas/poste + Puzzle dos 7 gorros (6 com `Tween` de vento, 1 parado dando `gorro_saci.tres` + pausa de 3s na trilha sonora).
+   2. **POI 2 (Praça + Banco - `960, 1152`):** Coleta de `cachimbo_fumo.tres` (caso não pego na casa) e memória.
+   3. **POI 3 (Muro de Grafites - `1504, 1152`):** Leitura dos Quadros 1 a 5 (`viu_muro_ou_bonde = true`) + Quadro 6 com escolha `[Pintar]/[Deixar em branco]` e seleção de símbolo (`gorro`, `bambu`, `redemoinho`).
+   4. **POI 4 (Bonde - `480, 1472`):** Inquérito de 1917 (`viu_muro_ou_bonde = true` + `clue_inquerito_1917`).
+-  5. **POI 5 (Quintal - `1472, 1472`):** Cavalo (`clue_crina_cavalo`) + Porteira (`fita_vermelha.tres`).
++  5. **POI 5 (Cavalo e porteira no quintal - posições a definir):** Cavalo (`clue_crina_cavalo`) + Porteira (`fita_vermelha.tres`).
+   6. **POI 6 (Quitanda - `512, 1984`):** Diálogo com a Quitandeira entregando `peneira.tres` (condicionado a `viu_muro_ou_bonde`).
+   7. **POI 7 (Bambuzal - `1408, 1984`):** Gomo rachado piscando em sincronia com o Quadro 2 (`clue_bambu_rachado`).
+ 

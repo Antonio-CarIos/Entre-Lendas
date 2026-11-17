@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://k351uvwiqqyv"]
+
+[ext_resource type="Texture2D" uid="uid://5kxdbtho7raa" path="res://assets/art/props/stage_01/house/house_furniture_atlas.png" id="1_1ikqa"]
+
+[node name="CountertopTypeA" type="StaticBody2D" unique_id=358394438]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=755653547]
+position = Vector2(0, 3e-05)
+scale = Vector2(1.0029293, 1.0025843)
+texture = ExtResource("1_1ikqa")
+region_enabled = true
+region_rect = Rect2(32, 1216, 32, 21.109741)
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=78437029]
+position = Vector2(0, -22)
+texture = ExtResource("1_1ikqa")
+region_enabled = true
+region_rect = Rect2(192, 1128, 32, 24)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1813592807]

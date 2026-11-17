@@ -60,6 +60,7 @@ Quando um conflito se inicia, a transição para a tela de batalha oferece quatr
 1. **Fase 1 — O Saci-Pererê (Cotidiano Brasileiro):**
    * *Ambientação:* Ruazinhas urbanas/rurais brasileiras e interiores domésticos repletos de identidade visual nacional (muros pichados, quintais com varais, móveis revirados).
    * *Gameplay:* Investigação da origem multicultural do Saci. O jogador decide entre capturar seus redemoinhos com uma peneira (seguido de desafios espaciais pelo gorro) ou provar que compreende sua história em um desafio de memória e travessia cooperativa.
+   * *Organização dos mapas:* O térreo reúne sala, cozinha e escada para uma cena separada do quarto. A porta da cozinha leva a uma cena separada do quintal, com varal; a saída principal leva à cidade. O cenário está sendo desenhado antes da configuração das colisões.
 2. **Fase 2 — A Mula sem Cabeça (Vilarejo e Transição Dia/Noite):**
    * *Ambientação:* Vilarejo do interior que transiciona gradualmente da luz do dia para a escuridão tensa da noite de quinta-feira.
    * *Gameplay:* Durante o dia, investigação social e coleta de pistas no Diário para descobrir quem é a mulher por trás da maldição. À noite, mecânica de furtividade (*stealth*) guiada pelo áudio posicional dos relinchos e uso de esconderijos.
