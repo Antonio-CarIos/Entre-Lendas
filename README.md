@@ -265,3 +265,13 @@ Qualquer desenvolvedor humano ou agente de IA atuando neste repositório deve re
 3. **Camadas de Física Documentadas:** Antes de configurar colisões em cenas `.tscn`, consulte a matriz oficial em `.agents/context/03_physics_and_layers.md`.
 4. **Respeito Estrito aos Templates de Arte:** Novos sprites e tilesets jamais devem ser gerados fora da escala ou sem derivar dos arquivos contidos em `res://assets/art/_templates/`.
 5. **Testes Antes de Merge:** Novas regras de negócio no `WorldState`, inventário ou combate devem vir acompanhadas de seu respectivo teste em `res://tests/` com aprovação integral no executor CLI do GUT.
+
+### Organização da introdução da Fase 1
+
+A introdução do livro está em `stages/stage_01_saci/scene_01_book_intro.tscn`, junto do seu script. Imagens e shaders utilizados pela cena estão em `assets/art/ui/stage_01/book_intro/`. A cena principal abre essa introdução; para continuar desenhando o térreo, abra `stages/stage_01_saci/house_interior.tscn` e execute a cena atual (F6).
+
+O mapa `house_interior.tscn` e seus componentes em `components/props/` foram preservados durante a integração dos commits `b3ecccf` (Atualizando projeto) e `2d7e47d` (Cena 1). O projeto mantém Compatibility, janela 640×360, inputs, Autoloads e camadas de física existentes.
+
+Os PNGs do pacote World Build idênticos aos templates foram deduplicados. Arquivos de edição e termos ficam em `assets/art/_templates/tileset_base/_source/world_build/`, isolados da importação por `.gdignore`. Mockups e a prancha conceitual de Santa Teresa ficam em `assets/art/_inspirations/moodboards_scenarios/`.
+
+**Pendência da introdução:** os commits recebidos não incluem os arquivos `livro - abrindo.png`, `livro - aberto completo.png`, `livro - virando.png`, `livro - virando 2.png` e `livro - desmanche.png`. A cena usa a imagem disponível e carrega essas páginas automaticamente quando forem adicionadas a `assets/art/ui/stage_01/book_intro/`, mantendo a ordem original. Os metadados recebidos dos arquivos ausentes foram preservados em `_inspirations/moodboards_scenarios/stage_01/intro_missing_imports/`. A transição seguinte continua sem destino configurado: `scene_02_santa_teresa_placeholder.tscn` é apenas o nó vazio recebido, não o mapa definitivo da cidade.

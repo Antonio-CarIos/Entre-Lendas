@@ -1,0 +1,74 @@
+[gd_scene format=3 uid="uid://sjw1q4mhvc0r"]
+
+[ext_resource type="Texture2D" uid="uid://rl3sxre0u1iu" path="res://assets/art/ui/stage_01/book_intro/inicio.jpg" id="1_4gp4q"]
+[ext_resource type="Script" uid="uid://dnexetrcdfuhn" path="res://stages/stage_01_saci/scene_01_book_intro.gd" id="1_31dbv"]
+[ext_resource type="Texture2D" uid="uid://dd0auxwsx2deo" path="res://assets/art/ui/stage_01/book_intro/livro_aberto.png" id="2_31dbv"]
+[ext_resource type="Shader" uid="uid://cljuleeoc7dh2" path="res://assets/art/ui/stage_01/book_intro/background_blur.gdshader" id="2_c7c3h"]
+[ext_resource type="Shader" uid="uid://bfhiy527mvl46" path="res://assets/art/ui/stage_01/book_intro/book_transition.gdshader" id="10_3c50b"]
+[ext_resource type="Texture2D" uid="uid://6dvk80p6hhxs" path="res://assets/art/ui/stage_01/book_intro/rasgo_1.webp" id="11_fetjp"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlmrg"]
+shader = ExtResource("2_c7c3h")
+shader_parameter/amount = 2.5
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_k1mgw"]
+shader = ExtResource("10_3c50b")
+shader_parameter/dissolve = 0.0
+shader_parameter/progress = 0.0
+shader_parameter/noise_tex = ExtResource("11_fetjp")
+shader_parameter/edge_color = Color(0.85, 0.45, 0.1, 1)
+shader_parameter/edge_width = 0.08
+
+[node name="BookIntro" type="Control" unique_id=949060490]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_31dbv")
+imagens_do_livro = Array[Texture2D]([ExtResource("2_31dbv")])
+
+[node name="Fundo" type="TextureRect" parent="." unique_id=1039528106]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_4gp4q")
+expand_mode = 1
+
+[node name="Desfoque" type="ColorRect" parent="." unique_id=227027495]
+material = SubResource("ShaderMaterial_tlmrg")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Livro" type="TextureRect" parent="." unique_id=20606382]
+material = SubResource("ShaderMaterial_k1mgw")
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -267.6
+offset_top = -149.2
+offset_right = 267.6
+offset_bottom = 149.2
+expand_mode = 1
+texture = ExtResource("2_31dbv")
+
+[node name="TelaPreta" type="ColorRect" parent="." unique_id=1487611115]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
