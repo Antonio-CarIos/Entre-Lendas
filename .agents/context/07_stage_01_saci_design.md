@@ -1,238 +1,218 @@
-# Fase 1: O Saci-Pererê (Santa Teresa) — Level Design & Especificação Técnica
+# Fase 1 — O Saci-Pererê: design e contrato de implementação
 
-## 1. Visão Geral e Arquitetura de Cenas
-O jogador lê o livro *Lendas do Brasil* e é transportado para Santa Teresa (Rio de Janeiro). Ao entrar em uma casa silenciosa e abrir uma garrafa misteriosa, liberta o Saci-Pererê. Após um diálogo e um redemoinho que o faz desmaiar, o jogador acorda com a casa e a rua em estado caótico. Ele deve investigar 7 pontos de interesse, coletar pistas no Diário e itens no inventário para subir a ladeira, interagir com o grande furacão do Saci e iniciar o **Combate por Turnos**, escolhendo entre **Capturar o Saci (Final A - Rota Agressiva)**, **Fazer Amizade/Pacífico (Final B - Rota de Compreensão)** ou **Subir Despreparado (Final C - Incompleto)**.
+> Revisão funcional da Task 2.7, 19/11/2026. Fonte narrativa: `Fase 1 - Saci.odt`, adaptado para RPG top-down inspirado em Undertale, EarthBound, Mother 3 e Omori. A ordem das entregas está em `.agents/tasks/sprint_02_stage_01.md`. Orientações mais recentes do usuário prevalecem.
 
-Para evitar duplicação de mapas e telas de carregamento desnecessárias na Godot 4, as **8 cenas narrativas** são distribuídas entre as seguintes cenas de exploração e a interface de combate. Os nomes das novas cenas são sugestões, sujeitos à implementação:
+## 1. Escopo e situação atual
 
-| Arquivo de Cena (`res://stages/stage_01_saci/...`) | Cenas do Roteiro Contempladas | Resolução (Tiles `32x32`) | Dimensão em Pixels |
-| :--- | :--- | :--- | :--- |
-| **`scene_01_book_intro.tscn`** | **Cena 1** (O Livro - Tutorial) | Viewport Fixa | `640 x 360` px |
-| **`house_interior.tscn`** | Térreo: cozinha, sala e escada; Cenas 3, 4, 5, 6 e Epílogo C | A definir conforme o mapa | A definir |
-| **`house_bedroom.tscn`** | Quarto no andar superior, acessado pela escada do térreo | A definir | A definir |
-| **`house_backyard.tscn`** | Quintal, acessado pela porta da cozinha; varal e demais elementos do quintal | A definir | A definir |
-| **`santa_teresa_map.tscn`** | **Cenas 2, 7, 8 (Mapa)** + **Epílogos Finais A e B** | `60 x 70` tiles | `1920 x 2240` px |
-| **`saci_turn_combat.tscn`** | **Cena 8 (Batalha por Turnos)** | Viewport Fixa | `640 x 360` px |
+A fase começa no menu do jogo, passa pela introdução do livro da colega, pela exploração de Santa Teresa e da casa, pela investigação das travessuras e pelo confronto narrativo com o Saci. Captura e amizade encerram o capítulo com epílogo e créditos; o desfecho incompleto permite investigar e tentar novamente.
 
----
+Já implementados: menu/Novo Jogo (Task 2.1), fundação de estado narrativo e catálogo completo de textos (Task 2.2), sistema reutilizável de diálogos e coordenação de cutscenes (Task 2.3), introdução do livro por teclado ligada à cidade (Task 2.4), diário por teclado e pistas únicas (Task 2.5), controle de áudio/acessibilidade (Task 2.6, arquivos sonoros e mistura final pendentes), chegada narrativa e primeira entrada na casa (Task 2.7), Player, inventário/combinação, mapas conectados e fade. O catálogo não executa diálogos sozinho: o HUD abre uma DialogueSession e um DialogueContext valida condições/efeitos; CutsceneCoordinator coordena apresentação, sem Player obrigatório. Distribuição narrativa dos itens e desbloqueios nos POIs, encenação de cada cena, puzzles, batalha e epílogos serão ligados ao jogo nas próximas tasks. A introdução usa os textos `book.open → book.saci → book.light`, preserva a composição recebida e chega à cidade por E/Enter ou skip por Esc. `SceneTransition.open_map()` registra `book_finished`, aplica `scene_2_sunset` e posiciona no `PlayerEntrySpawn` sob preto, antes de liberar movimento. Cinco imagens de páginas ainda faltam; a alternativa textual não conclui a arte final da Task 2.23. Auditoria e limites gráficos em `stages/stage_01_saci/BOOK_INTRO.md`. A prévia isolada `ui/dialogue_preview.tscn` permite testar por F6 sem alterar o estado real.
 
-## 2. Variáveis de Estado e Inventário da Fase 1 (`WorldState` & `InventorySystem`)
+As mecânicas de primeira pessoa, parkour, pulo/plataformas, barra de Aproximação, esquiva obrigatória na exploração, captura por timing/força e arrastar garrafa foram descartadas. O confronto será por turnos, com escolhas e itens. Não criar uma segunda versão de inventário, Player ou WorldState.
 
-### 2.1. Flags Booleanas e Contadores da Fase 1
-- `stage1_phase: StringName` (`&"scene_2_sunset"`, `&"scene_3_house_clean"`, `&"scene_4_dialogue"`, `&"scene_6_house_chaos"`, `&"scene_7_street_hub"`, `&"scene_8_climax"`, `&"epilogue"`)
-- `saci_empatico: bool = false` (Ativado na Cena 4 se o jogador perguntar *"Você ficou preso aí muito tempo?"*).
-- `muro_pintado: bool = false` (Ativado na Cena 7 no Quadro 6 se o jogador escolher `[Pintar]`).
-- `muro_simbolo_escolhido: StringName` (`&"gorro"`, `&"bambu"`, `&"redemoinho"` ou `&""`).
-- `viu_muro_ou_bonde: bool = false` (Requisito para a Quitandeira entregar a peneira).
-- `pistas_saci_lidas: int = 0` (Contador incrementado a cada página do diário desbloqueada na Fase 1).
+## 2. Cenas e mapas que devem ser preservados
 
-### 2.2. Catálogo de Itens e Pistas (`res://assets/art/items/stage_01/`)
-1. **`garrafa_vazia.tres`**: Coletada no chão da sala na Cena 6 `(464, 336)`.
-2. **`gorro_saci.tres`**: Coletado no puzzle do varal do quintal na Cena 7 (posição a definir).
-3. **`cachimbo_fumo.tres`**: Coletado na mesa da sala (Cena 3) ou no Banco da Praça (Cena 7).
-4. **`fita_vermelha.tres`**: Coletada na porteira do quintal na Cena 7 (posição a definir).
-5. **`peneira.tres`**: Entregue pela Quitandeira na Cena 7 `(512, 1984)` após `viu_muro_ou_bonde == true`.
-6. **`peneira_cruz.tres`**: Resultado da combinação no inventário de `peneira.tres` + `fita_vermelha.tres`.
+| Cena | Papel |
+| --- | --- |
+| `ui/main_menu.tscn` | Entrada por F5, capa original `assets/art/menu/menu_cover.jpeg`, Novo Jogo, Opções, Créditos e Sair. |
+| `stages/stage_01_saci/scene_01_book_intro.tscn` | Livro da colega: teclado, leitura e saída funcional na Task 2.4; composição preservada e cinco páginas de arte ainda pendentes. |
+| `stages/stage_01_saci/santa_teresa_map.tscn` | Bairro atual baseado em concept_street, **1024 × 576 px (32 × 18 tiles de 32 px)**. Cena 2 e hub da Cena 7. |
+| `stages/stage_01_saci/house_interior.tscn` | Térreo com sala, cozinha e escada; Cenas 3–6 e retorno dos epílogos. |
+| `stages/stage_01_saci/house_bedroom.tscn` | Quarto separado, conectado pela escada. |
+| `stages/stage_01_saci/house_backyard.tscn` | Quintal separado, acessado pela cozinha: varal, cavalo, galinhas e porteira. |
+| `stages/stage_01_saci/saci_climax.tscn` | **Planejada na Task 2.19:** ladeira e terraço conectados à saída norte do bairro. |
+| `stages/stage_01_saci/saci_turn_combat.tscn` | **Planejada na Task 2.20:** tela de batalha por turnos. |
 
-### 2.3. Páginas do Diário Desbloqueáveis (`pistas_saci_lidas`)
-1. `clue_origem_saci`: Ao tocar no cachimbo (Cena 3 ou Cena 7) — *"Nascido no bambu, 77 anos, Saci-Cererê"*.
-2. `clue_poder_gorro_parede`: Ao ler o grafite na parede da sala na Cena 6 — *"Quem perde o gorro perde o rumo"*.
-3. `clue_gorro_vermelho`: Ao resolver o puzzle dos 7 gorros no Varal (Cena 7).
-4. `clue_mural_origens`: Ao ler os Quadros 1 a 5 do Muro de Grafites (Indígena, Bambu, Capoeira/Africana, Gorro/Europeia, Redemoinho).
-5. `clue_inquerito_1917`: Ao examinar as páginas coladas no Bonde (Monteiro Lobato, 1917).
-6. `clue_crina_cavalo`: Ao examinar o cavalo no Quintal.
-7. `clue_bambu_rachado`: Ao examinar o gomo de bambu rachado no Bambuzal.
-8. `clue_dia_do_saci_bonus`: Desbloqueada automaticamente ao ler todas as pistas anteriores (Dia do Saci - 31 de outubro).
+A planta anterior de 1920 × 2240 e suas coordenadas não são mais instruções de montagem. Não reconstruir o bairro para recuperá-las. Usar os TileMapLayers, grupos, colisões e marcadores reais dos mapas; ajustar interações ao desenho manual. O portão/muretas removidos diante da casa na cidade não devem ser recriados. O placeholder `scene_02_santa_teresa_placeholder.tscn` é um nó vazio recebido, sem participação no fluxo de Novo Jogo.
 
----
+`HouseLevel` em `house_level.gd` coordena portas/escadas existentes. O serviço persistente `WorldState.scene_transition` oferece `travel_to()` para mapas com Player/spawn, `open_scene()` para telas sem Player e `open_map()` para entrar em mapa a partir de Control, com fase/evento/spawn explícitos sob fade. Não inventar um `house_interior.gd` já existente nem duplicar o serviço de fade.
 
-## 3. Especificação da Cena 1: O Livro (`scene_01_book_intro.tscn`)
-- **Tipo:** `Control` (`640 x 360` px).
-- **Fluxo:**
-  1. Jogador vira as páginas com `interact` (`E` / `Espaço` / Clique).
-  2. Nas últimas páginas, o texto apresenta o Saci e a página brilha (`Tween` de modulação).
-  3. Efeito de transição: distorção de tela + partículas/sprites de letras caindo da página. Carrega `santa_teresa_map.tscn` no estado `&"scene_2_sunset"`.
+## 3. Estado da sessão e API real
 
----
+`WorldState.stage01` é uma instância única de `Stage01State` (`core/stages/stage_01_state.gd`, `RefCounted`). O inventário continua em `WorldState.inventory`; o registro moral continua em `WorldStateLogic`.
 
-## 4. Especificação do Mapa Interno: A Casa (`house_interior.tscn`)
+- `WorldState.start_new_game()`: limpa sessão e ativa `book_intro`; chamado pelo menu sob o fade.
+- `WorldState.reset()`: limpa tudo e deixa o roteiro inativo, preservando o uso dos mapas por F6 para edição/testes.
+- `stage01.advance_to(next_phase)`: avança somente pela transição narrativa válida. Carregar um mapa ou atravessar uma porta não avança nem regride a história.
+- `stage01.changed` e `phase_changed`: notificam os consumidores; mapas reaplicam a aparência sem alterar a fase global.
+- `stage01.resolve_ending(...)`: valida clímax/preparação, registra o resultado uma vez e emite `ending_resolved`; WorldState chama o registro moral existente.
+- A API moral correta é `WorldState.register_entity_outcome(&"saci", WorldStateLogic.Outcome.CAPTURE/FRIENDSHIP)`. **Não existe `WorldState.Choice`.** Para resolver a Fase 1, usar `stage01.resolve_ending()` e evitar registros paralelos divergentes.
 
-### 4.1. Dimensões e Estrutura
-- O térreo de `house_interior.tscn` está sendo desenhado e contém sala, cozinha e escada para o quarto.
-- A escada conecta ao quarto em cena própria; a porta da cozinha conecta ao quintal em cena própria; a porta principal conecta à cidade. As transições devem permitir o retorno e usar pontos de entrada adequados.
-- O quintal contém o varal, o cavalo e a porteira com a fita vermelha. As dimensões e coordenadas desses mapas serão definidas durante a construção.
-- O desenho do mapa vem primeiro; colisões de cenário, móveis e áreas de transição serão configuradas posteriormente, conforme a matriz de física do projeto.
+Fases válidas:
 
-### 4.2. Organização das Cenas
-- No térreo, preservar camadas `TileMapLayer`, `YSortRoot`, móveis, estados organizado/bagunçado, pontos de entrada, escada e saídas para quintal e cidade.
-- Quarto e quintal devem ter seus próprios pontos de entrada e saída, e apresentar os estados e interações relevantes à fase.
-- O estado narrativo e os itens coletados devem persistir ao transitar entre cenas; não recriar ou reiniciar o progresso ao retornar.
-- As coordenadas do projeto original descritas nas interações abaixo são referências narrativas antigas, não posições obrigatórias para o térreo ou o quarto. Adapte-as ao mapa efetivamente desenhado.
+```text
+book_intro → scene_2_sunset → scene_3_house_clean → scene_4_dialogue
+→ scene_5_whirlwind → scene_6_house_chaos → scene_7_street_hub → scene_8_climax
 
-### 4.3. Comportamento e Diálogos por Estado na Casa
+scene_8_climax → incomplete_recovery → scene_7_street_hub → nova tentativa
+scene_8_climax → epilogue_capture OU epilogue_friendship → completed
+```
 
-#### Estado 1: `scene_3_house_clean` (Casa Organizada)
-- **Narração ao entrar:** *"Sala limpa. Móveis alinhados. Um relógio de parede marcando uma hora que não existe. Tudo no lugar. O que me trouxe aqui? Que sensação estranha…"*
-- **Sofá `(160, 352)`:** *"A almofada ainda tem a marca de alguém sentado. Mas a poeira cobre o resto da casa inteira."*
-- **Relógio `(320, 224)`:** Ponteiros giram devagar para trás. *"Os ponteiros giram devagar... para trás? Está quebrado?"*
-- **Mesa da Cozinha `(192, 160)`:** *"Uma jarra de leite aberta sobre a mesa. Você cheira. Está azedo. Mas a data da embalagem é de hoje."*
-- **Cama no quarto (cena separada; posição a definir):** *"A cama está feita. Em cima do travesseiro, um fio de crina de cavalo, trançado em um nó perfeito."*
-- **Cachimbo na Mesa de Centro `(320, 368)`:** Dispara flashback com tela tremendo:
-  > **Saci:** *"Eu nasci num gomo de bambu. Sete anos lá dentro, ouvindo o vento... Aprontei tanto que me deram setenta e sete anos para aprontar. Depois disso, viro cogumelo... Antes de ter gorro e de ter cachimbo, eu era um curumim... Os mais velhos me chamavam de Saci-Cererê."*
-  - Desbloqueia página `clue_origem_saci`. Exibe escolha `[Deseja guardar? Sim / Colocar de volta]`. Se Sim, adiciona `cachimbo_fumo.tres`.
-- **Garrafa na Estante `(512, 288)`:** *"Uma garrafa de vidro escuro, tampada com cera vermelha. Dentro, uma fumaça gira devagar..."* Escolha: `[Abrir] / [Deixar]`.
-  - **Se `[Deixar]`:** Garrafa vibra (shake), luz pisca (`HouseModulate`), som *"Tec"* e risadinha. A escolha se repete até `[Abrir]`.
-  - **Se `[Abrir]`:** *"Pop."* Rolha salta, fumaça sobe e inicia a **Cena 4**.
+Epílogos só são acessíveis pela resolução validada, não por `advance_to()` diretamente. Saltos, regressões, repetição da fase e IDs desconhecidos retornam false. `climax_attempts` conta entradas reais no clímax.
 
-#### Estado 2: `scene_4_dialogue` & `scene_5_whirlwind` (Encontro e Redemoinho)
-- Saci surge em `(480, 336)`: *"Hihihi! Quanto tempo faz? Contei até perder a conta. Quem é você, que mexe em garrafa dos outros?"*
-- **Escolha 1:**
-  - `[Eu só estava curioso]` -> *"Curioso! Hihihi! Todo mundo que me solta é curioso..."*
-  - `[Quem é você?]` -> *"Eu? Eu sou o vento que bagunça o varal. Sou o leite que azeda..."*
-  - `[Você ficou preso aí muito tempo?]` -> **Define `WorldState.saci_empatico = true`**. *"Ninguém tinha perguntado isso antes. Muito tempo. Mais do que um bambu leva para crescer..."*
-- **Escolha 2:** `[Conta a sua versão]` ou `[O que você vai fazer agora?]`.
-- **Despedida (Cena 5):** *"Obrigado pela rolha, moço. Vou comemorar... do meu jeito! Se quiser me achar, procura onde o vento fizer curva!"*
-- Saci gira em redemoinho até a porta `(320, 480)`, câmera treme, vinheta fecha em preto (desmaio) e transiciona para **Cena 6**.
+Consultas de progresso: `phase`, `active`, `objective`, `saci_empatico`, `muro_pintado`, `muro_simbolo_escolhido`, `viu_muro_ou_bonde`, `peneira_entregue`, `gorro_obtido`, `cachimbo_memoria`, `garrafa_aberta`, `pistas_saci_lidas` e `final_outcome`. Alterar por métodos, não atribuir flags por fora.
 
-#### Estado 3: `scene_6_house_chaos` (Despertar na Casa Bagunçada)
-- `State_Organized.visible = false`, `State_Chaotic.visible = true`. Luz instável.
-- **Sofá `(160, 352)` / Lustre `(320, 272)`:** *"A almofada está pendurada no lustre. Não tem escada. Não tem corda. Só uma risadinha, bem baixa, vinda do teto."*
-- **Relógio `(320, 224)`:** *"Agora ele marca todas as horas ao mesmo tempo. Os ponteiros giram. Todos para o lado errado."*
-- **Cozinha `(192, 176)`:** *"A jarra de leite virou. O chão está branco. Cada gota formou uma carinha sorrindo. Você prefere não pisar."*
-- **Acesso ao quarto pela escada:** Bloqueado fisicamente por um laço de crina na entrada do quarto. *"A cama está desfeita e o travesseiro, no armário. A crina trançada virou um laço enorme na maçaneta, impedindo a passagem para o quarto."*
-- **Estante `(512, 288)`:** *"A garrafa não está mais aqui. No lugar dela, um bilhete de carvão: 'Obrigado pela rolha. Hihihi!'"*
-- **Garrafa Vazia no Chão `(464, 336)`:** Coletável -> Adiciona `garrafa_vazia.tres` ao inventário.
-- **Parede com Grafite `(96, 240)`:** *"Um desenho a carvão: um menino de uma perna só, rindo. Ao lado: 'Quem perde o gorro perde o rumo.'"* -> Desbloqueia `clue_poder_gorro_parede`.
-- **Porta de Saída `(320, 480)`:** Carrega `santa_teresa_map.tscn` no estado `&"scene_7_street_hub"`.
+- `mark_empathy()` registra a escolha da Cena 4 uma única vez.
+- `paint_mural(gorro/bambu/redemoinho)` preserva a primeira pintura no hub.
+- `record_event(id)` registra narrações vistas e efeitos únicos; `has_event(id)` consulta. `pipe_memory` identifica a memória do cachimbo; `bottle_opened` é reservado à passagem para a Cena 4.
+- `mark_tram_seen()` e `read_mural_panel(1…6)` registram a investigação apropriada no hub.
+- Coleções retornadas pelos getters são cópias; não manter um contador de pistas paralelo.
 
----
+A persistência da Task 2.2 é entre mapas da **mesma sessão**. Save/load em disco pertence à Task 2.22. Novo Jogo não apaga preferências de áudio.
 
-## 5. Especificação do Mapa Externo: Santa Teresa (`santa_teresa_map.tscn`)
+## 4. Aparência derivada por mapa
 
-### 5.1. Dimensões e Coordenadas Globais
-- **Tamanho Total:** `60 x 70` tiles (`1920 x 2240` px).
-- **Eixo Central da Rua Principal:** `X = 960 px` (Largura: `256 px` / 8 tiles).
-- **Trilhos Horizontais do Bonde:** Cruzam de `X = 0` a `X = 1920` na altura `Y = 1472 px`.
+`get_map_visual_state(map_id)` é consulta pura para `house_interior`, `house_bedroom`, `house_backyard` e `santa_teresa_map`.
 
-### 5.2. Planta Baixa e Coordenadas de Referência
+- Antes do caos: casa/quarto/quintal recebem `house_clean`; cidade recebe `scene_2_sunset`.
+- Cenas 6–8: interiores/quintal recebem `house_chaos`; cidade recebe `scene_7_street_hub`.
+- Recuperação incompleta: `incomplete_recovery`, preservando investigação, leitura, itens e possibilidade de concluir.
+- Após resolução A/B, inclusive em `completed`: `epilogue_capture` ou `epilogue_friendship` permanece associado ao resultado.
 
-Os pontos da cidade mantêm as coordenadas planejadas abaixo. Varal, cavalo e porteira pertencem à cena separada do quintal, acessível pela cozinha; suas antigas coordenadas no mapa da cidade não se aplicam.
+`HouseLevel.applied_story_state` e `story_state_applied` expõem essa aplicação em cada carregamento/mudança. A cidade já respeita entardecer `#ffdfb3` e hub `#9eaab8` quando a sessão está ativa; F6 conserva a aparência de edição.
 
-| ID / Ponto no Mapa | Coordenada `(X, Y)` | Visível na Cena 2? | Visível na Cena 7? | Descrição e Regras de Interação |
-| :--- | :--- | :--- | :--- | :--- |
-| **Spawn Inicial (Cena 2)** | `(960, 1760)` | Sim | Sim | Ponto onde o jogador surge após a Cena 1. |
-| **Saída da Casa (Cena 7)** | `(736, 1728)` | Sim | Sim | Ponto onde o jogador surge ao sair da casa bagunçada. |
-| **Fachada da Casa** | `(736, 1696)` | Sim | Sim | Porta entreaberta. Na Cena 2, escolher `[Ainda não]` diz: *"Algo no seu peito diz que não há para onde voltar."* |
-| **Janela da Casa** | `(688, 1664)` | Sim | Sim | Na Cena 2 balança sozinha: *"Ela abre e fecha sozinha, no ritmo de uma risadinha abafada."* |
-| **Placa da Rua** | `(1120, 1696)` | Sim | Sim | *"'Rua do Saci.' Estranho. Você tem quase certeza de que não era esse o nome."* |
-| **POI 1: Varal no quintal** | A definir na cena do quintal | Não | **Sim** | Contém os 6 sub-itens interativos e o puzzle dos 7 gorros (ver Seção 5.3). |
-| **POI 2: Praça + Banco** | `(960, 1152)` | Sim (Vazio)| **Sim (Com Item)** | Cachimbo e fumo de corda fumegando em `(972, 1144)`. Dá `cachimbo_fumo.tres` + memória de 77 anos. |
-| **POI 3: Muro de Grafites**| `(1504, 1152)` | Sim (Limpo)| **Sim (Pintado)** | 6 Quadros (`X: 1400` a `1580`) + Pincel no chão em `(1580, 1180)` (ver Seção 5.4). |
-| **POI 4: Bonde Amarelo** | `(480, 1472)` | Sim (Limpo)| **Sim (Com Jornais)**| **Cena 2:** *"O banco ainda está quente."* **Cena 7:** Páginas do Inquérito de 1917 (Monteiro Lobato). Define `viu_muro_ou_bonde = true` e dá `clue_inquerito_1917`. |
-| **POI 5: Quintal e Cavalo** | A definir na cena do quintal | Conforme acesso à casa | **Sim** | Porteira dá `fita_vermelha.tres`; cavalo dá `clue_crina_cavalo`. |
-| **POI 6: Quitanda** | `(512, 1984)` | Sim (Fechada)| **Sim (Com NPC)** | Quitandeira atrás do balcão `(512, 1968)`. Se `viu_muro_ou_bonde == true`, entrega `peneira.tres`. |
-| **POI 7: Bambuzal** | `(1408, 1984)` | Sim | **Sim (Rachado)** | Gomo rachado em `(1360, 2016)` com marca de mãozinha. Piscando em sincronia com o Quadro 2 do Muro. Dá `clue_bambu_rachado`. |
-| **Gatilho da Ladeira** | `(960, 864)` | Bloqueado | **Sim** | Checa requisitos mínimos antes de subir para a Praça do Clímax. |
-| **Furacão do Saci (Cena 8)**| `(960, 320)` | Inativo | **Ativo na Cena 8** | Grande redemoinho com `InteractableArea`. O jogador se aproxima, interage e inicia o **Combate por Turnos**. |
+Os grupos caóticos atuais ainda não contêm toda a arte. **Não esconder os móveis desenhados para exibir um grupo vazio.** `story_variants_ready` fica false até a Task 2.12 completar as variantes; ao habilitá-la, visibilidade e presença física devem mudar juntas. As colisões das saídas precisam continuar alcançáveis em todos os estados. O bloqueio por crina jamais pode aprisionar quem já está no quarto.
 
-### 5.3. Detalhamento do POI 1: O Varal no Quintal
-As posições locais do varal e seus elementos serão definidas no mapa do quintal; as coordenadas abaixo são apenas referências antigas.
-Ao se aproximar, exibe a narração das roupas pingando sem vento. Possui **6 interações**:
-1. **Meias Soltas `(368, 1152)`:** *"Nenhuma é par da outra. Alguém tem uma perna só. Ou muito azar com as meias."*
-2. **Camisa de Time `(392, 1152)`:** *"Com um buraco no formato de uma risada. O número nas costas está de cabeça para baixo."*
-3. **Vestido de Festa `(416, 1152)`:** Bilhete preso com alfinete: *"Quem lava e não recolhe, a mim pertence."*
-4. **Bilhete no Poste Esquerdo `(352, 1152)`:** Escrito a carvão: *"Quem tem o gorro, manda no Saci. Mas ele sabe quando você está com ele."*
-5. **Puzzle dos 7 Gorros (`X: 432` a `480, Y: 1152`):**
-   - **6 Gorros Falsos:** Balançam com animação/Tween de brisa. Ao tocar: *"Frio. Mole. Sem graça. 'Hihihi!'"*
-   - **1 Gorro Verdadeiro:** **Completamente parado (`rotation = 0`)**. Ao chegar perto, indica que está morno e cheira a fumo de corda.
-   - **Ao Pegar:** Trilha sonora silencia por `3.0s` e retorna em tom mais grave. Entrega `gorro_saci.tres` e desbloqueia `clue_gorro_vermelho`.
+## 5. Roteiro completo em Resources
 
-### 5.4. Detalhamento do POI 3: O Muro de Grafites (`(1504, 1152)`)
-Interagir com qualquer quadro define `viu_muro_ou_bonde = true`.
-- **Quadro 1 `(1400, 1152)`:** O menino da mata (Saci-Cererê, origem indígena, duas pernas).
-- **Quadro 2 `(1436, 1152)`:** O bambu e os sete anos (pisca no mesmo ritmo do gomo do Bambuzal).
-- **Quadro 3 `(1472, 1152)`:** A perna perdida na roda de capoeira (influência africana).
-- **Quadro 4 `(1508, 1152)`:** O gorro vermelho e o cachimbo (influência europeia).
-- **Quadro 5 `(1544, 1152)`:** O redemoinho e as travessuras (animação sequencial dos itens voando).
-- **Quadro 6 `(1580, 1152)` + Pincel `(1580, 1180)`:** Mãos coloridas ao redor do espaço em branco: *"Cada um conta o Saci do seu jeito."*
-  - Escolha: `[Pintar] / [Deixar em branco]`.
-  - Se `[Pintar]`: Abre sub-menu com 3 opções (`[Gorro]`, `[Bambu]`, `[Redemoinho]`). Salva `WorldState.muro_pintado = true` e `WorldState.muro_simbolo_escolhido`, ativa o decalque correspondente no muro e toca risadinha agradecida.
+`core/dialogue/stage_01/stage_01_script.tres` contém **130 entradas e 37 escolhas**: oito cenas, todos os ramos principais, sete POIs, diário e três desfechos. `DialogueEntry`, `DialogueChoiceData` e `Stage01Narrative` são Resources de dados. DialogueContext avalia condições de flags/itens/pistas e executa efeitos explícitos; carregar o catálogo não os executa. DialogueSession separa revelar, avançar e decidir, com efeitos únicos por fala/resposta/etapa. Viagens e eventos específicos (`enter_house`, `open_bottle`, `enter_climax`) exigem callbacks registrados pelo controlador da respectiva cena; IDs desconhecidos falham sem simular sucesso. API e contrato do coordenador: `core/dialogue/README.md`.
 
----
+`text` é fala/narração exibível. `stage_direction` contém rubricas de câmera, animação e adaptação, separadas para não aparecerem como texto do jogo. `source_paragraphs` referencia os parágrafos do ODT, incluindo títulos/tabelas, a partir de 1. A cobertura e as adaptações estão em `core/dialogue/stage_01/README.md`.
 
-## 6. Especificação da Cena 8: Clímax — Combate por Turnos (`saci_turn_combat.tscn`)
+| Cena | Conteúdo que deve ser encenado |
+| --- | --- |
+| 1 — Livro | Leitura de Lendas do Brasil, últimas páginas sobre Saci, brilho, letras caindo e transporte. Cutscene da colega reutilizada, leitura por teclado e skip até a cidade implementados; completar arte/revisão gráfica na Task 2.23. |
+| 2 — Rua | Implementada na Task 2.7: chegada/tutorial únicos após o fade, objetivo no HUD, bonde com banco quente, placa do atlas existente, janela com movimento opcional e descrição da risadinha. Porta entreaberta Sim/Ainda não; concluir texto de fumo/madeira entra na casa organizada sob fade. Gravação da risadinha ainda pendente. |
+| 3 — Casa organizada | Narração de entrada, sofá/poeira, relógio ao contrário, leite azedo/data atual, cama/crina no quarto. Memória completa do cachimbo: bambu, sete anos, 77 anos, cogumelo, Saci-Cererê. Guardar/Colocar de volta. Garrafa: Abrir/Deixar, suspense sem loop automático que prenda o jogador. |
+| 4 — Saci | Aparição da fumaça, perna única/Toc e abertura. Primeira escolha: curioso / quem é você / ficou preso muito tempo (empatia). Parte comum sobre ouvir o mundo mudar e o livro contar errado. Segunda escolha: sua versão / planos. Despedida e pista do vento que faz curva. |
+| 5 — Redemoinho | Giro, saída pela porta, vento crescente, tremor opcional, vinheta e desmaio. Aplicar caos sob tela preta e revelar a protagonista em spawn seguro. |
+| 6 — Despertar | Almofada no lustre, relógio caótico, leite/carinha, quarto bloqueado por crina, bilhete na estante, garrafa vazia caída e grafite Quem perde o gorro perde o rumo. Saída e objetivo Descobrir o que aconteceu. |
+| 7 — Investigação | Rua caótica, pegadas e sete POIs em ordem livre, com retorno à casa/quintal sem repetir efeitos. |
+| 8 — Clímax | Aviso de preparação, subida, terraço/furacão, diálogo e encontro por turnos. A/B concluem o capítulo; C devolve à investigação. |
 
-### 6.1. Subida da Ladeira (`(960, 864)`) e Gatilho do Redemoinho (`(960, 320)`)
-- **Validação na Base da Ladeira `(960, 864)`:**
-  - **Condição Ideal de Captura:** Possuir `peneira_cruz` E `garrafa_vazia`.
-  - **Condição Ideal Pacífica:** Possuir `cachimbo_fumo` E `pistas_saci_lidas >= 3`.
-  - Se o jogador **não** atender a nenhuma das duas condições, exibe o aviso:
-    > *"O vento diz que ainda tem coisa para ver. Subir assim mesmo?"* `[Subir] / [Voltar]`
-- **Interação no Topo `(960, 320)`:**
-  - No centro da praça superior há um grande sprite animado do furacão do Saci (`WhirlwindBossArea`).
-  - Não há obstáculos arremessados no mapa top-down; o jogador caminha até a borda do furacão e pressiona `interact` (`E`).
-  - A tela faz o efeito clássico de transição de encontro (flash preto/branco + som de vento) e abre a interface de **Batalha por Turnos** (inspirada em *Undertale*, *EarthBound*, *Mother 3* e *Omori*).
+Preservar humor, suspense e falas longas. As influências culturais são apresentadas como versões e interpretações da lenda, sem reduzir a origem a uma única explicação. Corrigir o título antigo de “três quadrinhos” para seis quadros e remover o ramo duplicado da quitandeira. A enumeração do varal contém cinco grupos, embora anuncie seis; não inventar um requisito extra.
 
-### 6.2. Estrutura da Batalha por Turnos contra o Saci
-A batalha é governada por dois contadores na máquina de estados (`CombatStateMachine`):
-- **`calm_progress: int` (`0` a `100`):** Medidor de **Amizade / Calma** (Rota Pacífica).
-- **`capture_stage: int` (`0` a `3`):** Progresso de **Subjugação / Captura** (Rota Agressiva).
+## 6. Itens narrativos e prevenção de duplicação
 
-#### Menu Principal de Turno do Jogador (4 Botões)
-1. **`[ INTERAGIR / BRINCAR ]` (Rota Pacífica — Ações Estilo *ACT* do Undertale):**
-   Abre sub-menu de interações sociais e lúdicas para acalmar o Saci:
-   - **`[Contar Piada / Adivinha]`:** O jogador conta uma charada folclórica (*"O que é, o que é: cai em pé e corre deitado?"*). O Saci dá gargalhadas e o vento diminui (`calm_progress += 25`).
-   - **`[Entrar na Brincadeira]`:** O jogador imita o pulo de uma perna só ou faz graça com as travessuras da rua. O Saci se diverte vendo que você não tem medo dele (`calm_progress += 25`).
-   - **`[Contar Causos da Origem]`:** Disponível se `pistas_saci_lidas >= 3`. Menciona o nascimento no bambu, os 77 anos e o nome *Saci-Cererê* (`calm_progress += 35`).
-   - **`[Elogiar as Travessuras]`:** Comentário bem-humorado sobre o leite azedo e o mural pintado (`calm_progress += 15`, ou `+25` se `muro_pintado == true`).
+Os seis `.tres` existentes continuam em `core/inventory/items/stage_01/`. Não refazer a combinação implementada.
 
-2. **`[ ITEM ]` (Suporte à Rota Agressiva ou Pacífica):**
-   Permite usar os itens coletados na Fase 1 diretamente no turno:
-   - *Para Captura (Rota Agressiva):*
-     - **Usar `peneira_cruz` (`capture_stage: 0 -> 1`):** Você lança a peneira com a fita vermelha em cruz no meio do furacão! O redemoinho fica preso dentro da trama da peneira e o Saci começa a se debater.
-     - **Usar `gorro_saci` (Opcional / Facilitador — `capture_stage: 1 -> 2`):** Você mostra que está com o gorro reserva. O Saci perde as forças de vento imediatamente. (Caso não tenha o gorro, o jogador usa a ação `[Segurar Peneira]` no menu de confronto para avançar ao estágio 2).
-     - **Usar `garrafa_vazia` (`capture_stage: 2 -> 3`):** Com o Saci enfraquecido na peneira, você aproxima a garrafa e fecha a rolha (`Pop!`), encerrando o combate imediatamente no **Final A (Captura)**.
-   - *Para Amizade (Rota Pacífica):*
-     - **Oferecer `cachimbo_fumo`:** O Saci sente o cheiro de antes, acende o cachimbo e a fumaça desenha um menino de duas pernas rindo (`calm_progress += 40`).
-     - **Devolver `gorro_saci`:** Você estende o gorro voluntariamente sem exigir pedidos. O vento para de imediato (`calm_progress = 100`).
+| ID | Origem final e regra |
+| --- | --- |
+| `cachimbo_fumo` | Casa organizada OU banco no hub. Uma única identidade, mesmo após oferecer/consumir; memória, coleta e leitura são registros distintos. |
+| `garrafa_vazia` | Chão perto da estante, somente depois de abrir a garrafa e despertar. |
+| `fita_vermelha` | Porteira do quintal durante investigação. Não abre saída para um mapa inexistente. |
+| `gorro_saci` | Puzzle do varal; um verdadeiro parado, morno e com cheiro de fumo, seis falsos balançando. |
+| `peneira` | Entrega única da quitandeira depois de ver mural OU bonde. Não entregar de novo após combinar. |
+| `peneira_cruz` | Somente pela combinação de peneira + fita vermelha no inventário. |
 
-3. **`[ CONFRONTAR ]` (Rota Agressiva / Forçar Captura):**
-   - Caso o jogador já tenha lançado a `peneira_cruz` (`capture_stage == 1`), este botão muda para **`[Segurar a Peneira]`**, contendo o Saci à força até que ele fique exausto (`capture_stage = 2`), pronto para receber a `garrafa_vazia`.
-   - Caso tente confrontar sem a `peneira_cruz`, o ataque atravessa o vento sem efeito (*"Você tenta agarrar o vento com as mãos vazias! O Saci apenas ri: 'Hihihi!'"*).
+`can_grant_quest_item()`/`grant_quest_item()` validam fase, condição e identidade já recebida. Inventário não deve publicar um estado que permita uma segunda entrega reentrante. Itens de teste ainda posicionados na casa serão retirados do fluxo narrativo na Task 2.8; não ativá-los como distribuição final.
 
-4. **`[ AMIZADE (POUPAR) ]`:**
-   - Fica habilitado (texto amarelo/verde brilhante) quando `calm_progress >= 100`.
-   - Selecionar esta opção encerra o combate pacificamente e leva ao **Final B (Pacífico)**.
+Manter inventário inicial vazio, sem limite de slots que descarte recursos essenciais; ícones limpos na UI e brilho apenas no mapa. Preservar navegação por teclado, fundo full-screen, opções Examinar/Ler/Combinar e confirmação da receita. Não usar “item [nome]” de modo redundante.
 
-#### Turnos de Resposta do Saci (Reações Narrativas e Travessuras de Turno)
-A cada turno do Saci, em vez de causar *Game Over*, ele responde ao comportamento do jogador com falas dinâmicas e travessuras visuais na janela de batalha (estilo *EarthBound* / *Omori*):
-- *"Vou embolar sua linha!"* -> Embaralha a ordem dos 4 botões do menu por 1 turno.
-- *"Vou azedar seu leite!"* -> A caixa de texto fica esverdeada e trêmula no próximo turno.
-- *"Hihihi! Todo mundo quer me pegar, todo mundo quer me ouvir. Ninguém quer as duas coisas!"*
-- Conforme `calm_progress` sobe (50%, 75%, 100%), os ataques de vento cessam e o Saci passa o turno rindo das suas piadas ou ouvindo suas histórias.
+## 7. Diário: desbloquear não é ler
 
----
+| ID da pista-base | Fonte |
+| --- | --- |
+| `clue_origem_saci` | Memória do cachimbo, na casa ou praça. |
+| `clue_poder_gorro_parede` | Grafite da casa caótica. |
+| `clue_gorro_vermelho` | Puzzle do varal no quintal. |
+| `clue_mural_origens` | Leitura dos cinco quadros informativos; conta uma pista, não cinco. |
+| `clue_inquerito_1917` | Jornais no bonde. |
+| `clue_crina_cavalo` | Cavalo no quintal. |
+| `clue_bambu_rachado` | Gomo rachado no bambuzal. |
 
-## 7. Resolução dos 3 Finais
+`unlock_clue(id)` só disponibiliza a página. `mark_clue_read(id)` registra o término da apresentação/leitura da entrada, sem repetir contagem. `pistas_saci_lidas` é derivado dos IDs únicos lidos; descrições genéricas e páginas de teste não geram pistas extras.
 
-### Final A: Captura — Rota Agressiva (`WorldState.Choice.CAPTURE`)
-- **Condição de Disparo:** Usar `peneira_cruz` -> conter o Saci -> usar `garrafa_vazia` no Combate por Turnos (`capture_stage == 3`).
-- **Diálogo de Captura:**
-  > *A peneira gira no ar. A fita vermelha faz a cruz. Por um instante, o redemoinho inteiro cabe dentro dela.*  
-  > **Saci:** *"Não! Não! A rolha, não! Eu ia devolver! Eu ia..."*  
-  > *Pop. A garrafa tampada pesa na sua mão. Lá dentro, uma fumaça gira devagar. Sempre no mesmo sentido.*
-- **Epílogo no Mapa:** Rua limpa instantaneamente, roupas descem dos postes, desenhos desbotam. Cores excessivamente saturadas (`CanvasModulate`), silêncio absoluto sem risadas. Se `pistas_saci_lidas >= 4`, exibe: *"Você sabia o que ele era. Foi assim mesmo?"*
+Ler as sete pistas-base desbloqueia `clue_dia_do_saci_bonus` (Dia do Saci, 31 de outubro). Ler essa página não eleva o contador para oito. Não desbloqueá-la diretamente antes das sete. A Task 2.5 integrou `WorldState.journal` e oito Resources em `core/journal/` ao inventário existente. Tab abre a mochila; J alterna o diário, também acessível por ↑ no topo, ←/→ e E/Enter. NOVA/LIDA e o contador usam o mesmo Stage01State. Examinar não conta leitura; E/Enter após o último trecho medido com a fonte confirma o texto integral. Esc/Tab/troca de seção interrompem sem marcar. Os oito `journal.*` correspondentes têm condição de desbloqueio e efeito ao concluir; `mural.panel_1`…`mural.panel_6` registram somente textos terminados, com uma pista agregada após 1–5. Trocar de cena/HUD preserva a sessão, Novo Jogo limpa; save em disco permanece em 2.22. As próximas tasks ainda ligarão os POIs aos desbloqueios, sem antecipar recompensas. Contratos e 16 testes específicos: `core/journal/README.md`.
 
-### Final B: Pacífico — Rota da Amizade (`WorldState.Choice.FRIENDSHIP`)
-- **Condição de Disparo:** Atingir `calm_progress >= 100` (contando piadas, fazendo brincadeiras, falando da origem, oferecendo o cachimbo ou devolvendo o gorro) e selecionar **`[ AMIZADE (POUPAR) ]`**.
-- **Diálogo de Amizade e Falas Condicionais:**
-  - Se ofereceu o cachimbo: *"Esse cheiro. Esse bambu. Isso é meu de antes."*
-  - Se devolveu o gorro: *"Você podia mandar em mim com isso. Sabia? ...E mesmo assim devolveu."*
-  - Se `saci_empatico == true`: *"Você foi o primeiro que perguntou se eu estava preso há muito tempo. Ninguém mais perguntou."*
-  - Se `muro_pintado == true`: *"Vi seu desenho no muro. O bambu ficou torto. Mas ficou meu."*
-  > **Saci:** *"Está bem, moço. Eu arrumo tudo. Mas amanhã eu bagunço de novo, hein?"*
-- **Epílogo no Mapa:** O redemoinho se desfaz em pétalas de papel, os grafites viram flores no muro, a rua recupera suas cores naturais e ouve-se uma risadinha alegre ao longe.
+## 8. Sete pontos de interesse
 
-### Final C: Incompleto (Fallback Opcional)
-- **Condição de Disparo:** Iniciar o combate sem `peneira_cruz`/`garrafa_vazia`, sem `cachimbo_fumo` e com `pistas_saci_lidas < 3`, passando 3 turnos sem conseguir capturar nem acalmar o Saci.
-- **Desfecho:** O Saci boceja no combate (*"Você nem sabe quem eu sou e nem sabe brincar. Que tédio."*) e encerra a batalha sozinho. O jogador retorna para a casa quase arrumada, mas com o relógio da sala ainda girando ao contrário, permitindo voltar à rua e explorar o que faltou.
+1. **Varal/quintal:** roupas pingando sem vento; meias desencontradas, camisa invertida, vestido/bilhete, poste e sete gorros. Pegar/Deixar o verdadeiro, micro-redemoinho e silêncio de três segundos com retorno musical mais grave. Deixar permite voltar.
+2. **Praça/banco:** cachimbo e fumo como segunda oportunidade; não repetir memória nem recompensar outro cachimbo se já recebeu na casa.
+3. **Mural:** quadro 1 menino da mata; 2 bambu/sete anos; 3 capoeira/influências africanas em versões da lenda; 4 gorro/influências europeias; 5 vento/travessuras; 6 espaço aberto e pincel. Qualquer quadro visto dá confiança à quitandeira; a pista agregada exige ler 1–5. Pintar/Deixar em branco; Gorro/Bambu/Redemoinho preservado e comentado no final. Sincronizar brilho do quadro 2 e bambuzal.
+4. **Bonde:** jornais do inquérito de 1917 e página sobre relatos enviados a Monteiro Lobato; também libera confiança da quitandeira sem exigir o mural.
+5. **Cavalo/porteira:** crina trançada e cansaço, página sobre travessuras e fita vermelha. Preservar cavalo comendo e duas galinhas caminhando/comendo.
+6. **Quitanda:** NPC parada em idle_down atrás do balcão, interação por E, ramos sobre ter visto o Saci e como pará-lo; receita da avó e peneira única após a condição. Antes da condição, orientar investigação. Repetir conversa não dá outra peneira.
+7. **Bambuzal:** gomo rachado, mãozinha, vento/risadinha e página de nascimento; passagem acessível entre as moitas existentes.
+
+## 9. Clímax e batalha por turnos
+
+A saída norte do bairro será ligada à nova ladeira/terraço (Task 2.19). O marcador de furacão fora do mapa é só reserva, não uma arena pronta. Não criar desafio de sobrevivência para chegar ao Saci.
+
+Preparação de captura: `is_capture_prepared(inventory)` exige peneira com cruz + garrafa vazia. Preparação pacífica: `is_friendship_prepared(inventory, pipe_offered)` exige cachimbo possuído/já oferecido + três pistas-base lidas. Se nenhuma estiver satisfeita, perguntar **“O vento diz que ainda tem coisa para ver. Subir assim mesmo?”**, Subir/Voltar. Insistir é permitido.
+
+Na borda do furacão, E inicia a transição para batalha. A máquina de estados da Task 2.20 fará abertura → turno da protagonista → resposta do Saci → resolução, com menus por teclado:
+
+- **Interagir/Brincar:** piada/adivinha +25; brincar +25; contar origem +35 com três pistas lidas; elogiar +15 ou +25 se pintou. Ganho único por ação no encontro, sem repetir para acumular infinitamente.
+- **Item:** cachimbo oferecido +40 de calma; devolver gorro leva a 100, mas não substitui preparação pacífica. Itens de captura respeitam a sequência abaixo.
+- **Confrontar:** com peneira contendo o Saci, muda para Segurar Peneira. Sem recurso apropriado, resposta narrativa sem avanço ou consumo inválido.
+- **Amizade/Poupar:** disponível para resolver com calma ≥100 e preparação pacífica válida.
+
+Captura: peneira com cruz 0→1; segurar peneira OU mostrar gorro 1→2; garrafa 2→3. O gorro é facilitador opcional. O controlador de combate valida a etapa final e chama `resolve_ending()`; a fundação de estado não simula a batalha.
+
+Reservar recursos durante o encontro e consumi-los somente ao confirmar A/B. Retorno C/falha recuperável libera reservas sem duplicar/perder itens. Mudar para amizade desfaz a contenção temporária e libera a reserva da captura. Respostas do Saci podem embaralhar opções por um turno ou alterar visual do texto, mantendo seleção pelo ID, legibilidade e opção de reduzir efeitos.
+
+**Diretriz do usuário:** usar um **quadrado vermelho como representação provisória do Saci em batalha**, com ponto de substituição pelo asset final. Essa exceção não exige gerar sprites de combate agora e não substitui a arte de exploração existente.
+
+## 10. Finais e recuperação
+
+- **A/Captura:** o controlador conclui os três estágios, valida os recursos e resolve CAPTURE. Falas da peneira/rolha, garrafa pesada, casa/rua organizadas, desenhos desbotados, paleta saturada e silêncio. Com quatro pistas-base lidas, mostrar “Você sabia o que ele era. Foi assim mesmo?”. Moral -1 para Saci, uma única vez.
+- **B/Amizade:** calma 100 e preparação pacífica; o controlador resolve FRIENDSHIP. Falas condicionais de cachimbo, gorro, empatia e símbolo pintado; promessa de arrumar e brincar amanhã, pétalas, flores no muro e risada alegre. Moral +1 para Saci, uma única vez.
+- **C/Incompleto:** após três turnos improdutivos com ambas as preparações ausentes, Saci se entedia. Voltar a uma chegada segura, casa quase organizada/relógio invertido, mantendo investigação, itens, leitura e flags. Não registrar moral nem concluir o capítulo; permitir nova tentativa. O contador de turnos pertence ao controlador futuro; o estado já aceita a transição de recuperação.
+
+A/B preservam o resultado em `completed`, seguem para conclusão/créditos e permitem voltar ao menu/Novo Jogo, sem depender de uma Fase 2 inexistente. Registro moral e consumo não podem se repetir ao carregar o epílogo.
+
+## 11. Referências de posição atuais
+
+| Referência no bairro | Posição atual |
+| --- | --- |
+| `SpawnPoints/PlayerEntrySpawn` | (512, 448), olhando para cima. |
+| `SpawnPoints/FromHouseInterior` | (856, 368), olhando para baixo, fora do gatilho. |
+| `Transitions/EnterHouse` | Centro (856, 340), área 40 × 16; fachada/porta em (856, 336). |
+| Banco / bonde | (512, 384) / ponto de interesse (176, 304). |
+| Muro / marcadores dos quadros | Ponto de interesse (800, 160); usar Panel01…Panel06 existentes. |
+| Quitanda / quitandeira | Balcão (144, 536), NPC (144, 528), aproximação frontal (144, 560). |
+| Passagem do bambuzal | (880, 544). |
+| Saída norte reservada | (512, 32); conexão do clímax ainda pendente. |
+
+Consultar `stages/stage_01_saci/SANTA_TERESA.md` e o README dos mapas para portas, spawns e detalhes de edição. Se o usuário mover um objeto, prevalece o desenho atual: reposicionar seu componente e marcador sem refazer o cenário.
+
+## 12. Validação e referências técnicas
+
+`tests/test_stage_01_state_and_items.gd` cobre a fundação, o catálogo e a ida/volta real entre mapas. Os testes de navegação, câmera, inventário, Player e menu continuam obrigatórios. A correção das sobrescritas editáveis da cidade inclui teste de reempacotamento para não perder limites de câmera e área da porta ao salvar novamente.
+
+```bash
+godot --headless --path . -s addons/gut/gut_cmdln.gd -gdir=res://tests -gexit
+```
+
+Detalhes da API: `core/stages/README.md`. Rastreabilidade do ODT: `core/dialogue/stage_01/README.md`. O encerramento da Task 2.2 não significa que as próximas sequências já estejam encenadas; implementar uma Task por pedido, com validação a cada entrega.
+
+## 13. Áudio e acessibilidade — controle funcional da Task 2.6
+
+`AudioManager` é o único serviço de áudio; `default_bus_layout.tres` define Master/Music/SFX. `AudioDirector` é a lógica pura de uma BGM com fade, sem sobrepor músicas. Menu, livro, mapas e fases selecionam contexto; SFX e áudio posicional usam SFX. `MenuPreferences` compartilha volumes/mudos, velocidade do texto 15–120 caracteres/s e redução de tremor/flashes, persistidos fora do progresso. Opções rolam por foco de teclado. Livro e CutsceneStep.intense_effect preservam texto/duração/lógica ao omitir apresentação intensa.
+
+Concessão narrativa única do gorro dispara silêncio de 3.000.000 µs, usando tempo monotônico e processamento mesmo com mapa pausado. Trocar de mapa durante o efeito atualiza a faixa de retorno; fim usa pitch 0.85 e conserva volumes/mudos atuais. Reset/Novo Jogo/menu cancelam o efeito. O puzzle e suas pistas textuais serão ligados na Task 2.14.
+
+Validação funcional: 12/12 testes específicos, 196/196 no projeto, sem erros ou warnings. **Áudio final pendente:** pasta sem gravações, catálogo com 24 streams ausentes e origem/licença ainda não fornecidas; mistura e revisão gráfica nativa não aprovadas. Não contar infraestrutura como trilha entregue. Inventário de faltas: `assets/audio/README.md`; API e testes: `core/audio/README.md`.
+
+## 14. Chegada e primeira entrada — Task 2.7
+
+`SantaTeresaMap` coordena a Cena 2 sem reconstruir o mapa. Só na cena atual e após concluir o fade, `city.arrival` apresenta narração/tutorial, sem permitir que Esc/Tab abram outro modal por baixo. `intro_city` é registrado depois do último trecho; revisitas não repetem a chegada. HUD mostra objetivo na exploração. `NarrativeInteractions` acrescenta áreas de bonde, placa e janela; permanecem independentes dos desbloqueios investigativos e são desativadas após o caos. Quitandeira inicial orienta para a casa, sem entregar peneira. A ladeira continua sem acesso até 2.19.
+
+SceneDoor aceita roteiro opcional. `city.door` oferece Sim/Ainda não; recusar mostra hesitação e restaura controle. `enter_house` é consulta transitória em DialogueContext.transient_effects, revalidada em cada tentativa. Só concluir `city.enter` pede SceneTransition.open_map para house_interior/FromCity, avança scene_3_house_clean e registra house_entered sob preto. Destino/spawn inválidos não avançam e permitem nova tentativa; interrupção do fade restaura movimento anterior. Retorno pela porta habitual mantém inventário, leitura e fase, usa FromHouseInterior seguro e não repete introdução.
+
+12/12 testes específicos e 208/208 no projeto, sem erros ou warnings. Comparação confirmou os 332 blocos de nós/48 sub-recursos anteriores da cidade preservados; mapas da casa e project.godot intactos. A placa usa madeira do atlas de produção e fonte pixel; nenhuma arte nova foi gerada. Risadinha posicional tem integração/texto, mas a gravação e a revisão gráfica/sonora final continuam pendentes. API, posições e aceite funcional: `stages/stage_01_saci/CITY_ARRIVAL.md`. Próxima Task: 2.8.
+
+## 15. Casa organizada e memória — Task 2.8
+
+HouseInvestigation estende HouseLevel no térreo/quarto sem refazer mapas. Narração única só após o fade; sofá/relógio invertido/leite azedo/cama com crina por E. NarrativePipe usa a mesma identidade narrativa para casa e banco: memória, desbloqueio, leitura e concessão separados. Recusa permite coleta posterior; coleta/oferta/consumo impede reaparecer. HouseInvestigationScript duplica o catálogo para mostrar Origem do Saci antes da pergunta sem alterar o Resource global.
+
+Garrafa fechada é prop/diálogo, sem ItemData de garrafa vazia. Deixar apresenta Tec/vibração/piscar/risada e devolve controle até outra interação; redução de efeitos conserva texto e lógica. Abrir entrega scene_4_dialogue uma vez ao concluir Pop e emite bottle_opening_completed, integração para 2.10, sem antecipar a conversa. Nenhuma garrafa vazia/fita/peneira é distribuída no térreo organizado. Os quatro pickups antigos estão em tests/fixtures/inventory_mechanics_lab.tscn, preservando testes de coleta/combinação/UI.
+
+14/14 testes específicos e 222/222 no projeto, 9.475 asserts, sem erros ou warnings, aprovam fluxo, página interrompida, recusa/revisita, duas localizações, consumo, garrafa e escada. Caminhos usam os pés reais. Todos os blocos anteriores dos mapas permanecem; cidade/quintal/configurações intactos. PlayerWakeUpSpawn antigo (320, 384) está dentro de parede, reservado à correção no despertar em 2.12; SaciBottleSpawn deve ser validado na aparição em 2.10. Gravações e revisão gráfica/sonora final continuam pendentes. Detalhes, posições e suíte completa: stages/stage_01_saci/HOUSE_INVESTIGATION.md. Próxima Task: 2.9.
+
+## 16. Auditoria parcial do Saci — Task 2.9
+
+SaciActor e SaciVisuals em entities/folklore/saci separam one_leg/whirlwind. Somente o redemoinho possui arte local: 24 PNGs em tamanhos nativos 80×80, 64×80 e 96×96, normalizados por AtlasTexture/margens para 64×80 lógico, sem reamostragem nem cortes visíveis. Idle estático e walk de cinco frames nas quatro direções a 8 FPS. O ator começa oculto e sem colisão, permite base física opcional e informa visual_unavailable em vez de substituir arte ausente. Prévia isolada saci_visual_preview.tscn por F6, E alterna poses/caminhada; nenhum avanço de história.
+
+A forma de uma perna e suas ações não existem; character_base/body também está ausente. A consulta PixelLab só encontrou arte de batalha distinta, não integrada. A Task 2.9 permanece parcial e 2.10 não foi antecipada. Catálogo de arquivos faltantes por Task, medidas/frames e briefings para navegador: stages/stage_01_saci/ART_REQUIREMENTS.md. Não gerar nova anatomia sem restaurar/inspecionar a base exigida pela skill e não usar conceitos/capa como sprites. Mapas, Player, PNGs e configurações preservados. Foi necessário restaurar metadados de leitura/tutorial/rastreabilidade que já faltavam no roteiro; falas/escolhas/UIDs preservados e gravação/recarga coberta por teste. Validação: 11/11 testes específicos e 234/234 no projeto, 9.935 asserts, sem erros ou warnings. A aprovação não inclui os assets ausentes.

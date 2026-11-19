@@ -43,6 +43,9 @@ res://
 ```
 
 ## 2. Autoloads (Singletons Globais)
+
+**Estado implementado na Task 2.6:** três Autoloads — `EventBus`, `WorldState` e `AudioManager`. Inventário, diário e transição continuam nas instâncias de `WorldState`; não criar um InventoryManager concorrente. Áudio fica em `core/autoloads/audio_manager.gd`, com lógica pura/Resources em `core/audio/` e buses em `default_bus_layout.tres`. Os 24 arquivos sonoros ainda são pendências documentadas em `assets/audio/README.md`. A lista abaixo descreve o limite e a intenção arquitetural original.
+
 Minimize o estado global, restringindo-o a 4 Autoloads essenciais:
 1. **`EventBus` (`event_bus.gd`):** Barramento de sinais globais para desacoplar UI, Diálogo e Mundo (ex: `signal item_collected(item: ItemData)`, `signal affinity_changed(new_score: int)`).
 2. **`WorldState` (`world_state.gd`):** Armazena a matriz de escolhas morais (`CAPTURE` vs `FRIENDSHIP` para cada lenda), o índice de equilíbrio da natureza (`nature_balance: int`) e flags de investigação do diário.
@@ -54,3 +57,7 @@ Minimize o estado global, restringindo-o a 4 Autoloads essenciais:
 - **Data-Driven com `Resource`:** Itens (`ItemData`), entradas de diário (`JournalEntry`), árvores de diálogo (`DialogueNode`) e status de combate (`CombatStats`) devem herdar de `Resource` (`class_name ... extends Resource`) e ser salvos como arquivos `.tres`.
 - **Composição de Nós:** Para adicionar interatividade a qualquer objeto do mapa (uma pista no chão, um NPC, uma gaiola de animal), adicione um componente filho `InteractableComponent` (`Area2D`) em vez de duplicar código de detecção.
 - **Reuso de `SpriteFrames` / Layout de Animação:** Como todos os personagens humanoides derivam de `res://assets/art/_templates/character_base/`, suas spritesheets finais em `res://assets/art/characters/` mantêm a mesma grade de colunas/linhas, permitindo duplicar ou instanciar o `SpriteFrames` base trocando apenas a textura atlas.
+
+## 4. Integração da investigação da casa — Task 2.8
+
+`HouseInvestigation` especializa `HouseLevel` apenas no térreo/quarto, preservando serviço de viagens, Player, HUD e estado global. `HouseInvestigationScript.create()` fornece uma cópia do catálogo Resource para encenação local sem modificar o catálogo ou diário compartilhados. `NarrativePipe` é componente reutilizável casa/banco com identidade persistente em Stage01State; não criar inventário ou flag local concorrente. Garrafa fechada é diálogo, não CollectibleItem. Protótipos de coleta/combinação ficam em tests/fixtures/inventory_mechanics_lab.tscn. A transição para a Cena 4 é sinalizada por bottle_opening_completed; a Task 2.10 conectará a aparição/conversa. Contratos e validação em stages/stage_01_saci/HOUSE_INVESTIGATION.md.
