@@ -6,6 +6,10 @@
 [ext_resource type="Shader" uid="uid://cljuleeoc7dh2" path="res://assets/art/ui/stage_01/book_intro/background_blur.gdshader" id="2_c7c3h"]
 [ext_resource type="Shader" uid="uid://bfhiy527mvl46" path="res://assets/art/ui/stage_01/book_intro/book_transition.gdshader" id="10_3c50b"]
 [ext_resource type="Texture2D" uid="uid://6dvk80p6hhxs" path="res://assets/art/ui/stage_01/book_intro/rasgo_1.webp" id="11_fetjp"]
+[ext_resource type="PackedScene" path="res://ui/dialogue_view.tscn" id="reading"]
+[ext_resource type="Theme" path="res://ui/themes/gameplay_theme.tres" id="theme"]
+[ext_resource type="Script" path="res://ui/book_intro_letters.gd" id="letters"]
+[ext_resource type="FontFile" path="res://assets/fonts/entre_lendas_pixel.fnt" id="font"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tlmrg"]
 shader = ExtResource("2_c7c3h")
@@ -26,8 +30,12 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+texture_filter = 1
+theme = ExtResource("theme")
 script = ExtResource("1_31dbv")
 imagens_do_livro = Array[Texture2D]([ExtResource("2_31dbv")])
+proxima_cena = "res://stages/stage_01_saci/santa_teresa_map.tscn"
+arrival_spawn = &"PlayerEntrySpawn"
 
 [node name="Fundo" type="TextureRect" parent="." unique_id=1039528106]
 layout_mode = 1
@@ -38,6 +46,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("1_4gp4q")
 expand_mode = 1
+stretch_mode = 6
 
 [node name="Desfoque" type="ColorRect" parent="." unique_id=227027495]
 material = SubResource("ShaderMaterial_tlmrg")
@@ -72,3 +81,71 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="Letras" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("letters")
+font = ExtResource("font")
+
+[node name="Interface" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Title" type="Label" parent="Interface"]
+layout_mode = 1
+anchor_right = 1.0
+offset_left = 12.0
+offset_top = 16.0
+offset_right = -12.0
+offset_bottom = 44.0
+theme_override_colors/font_color = Color(0.96, 0.87, 0.66, 1)
+text = "Lendas do Brasil"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Reading" parent="Interface" instance=ExtResource("reading")]
+anchor_left = 0.07
+anchor_top = 0.46
+anchor_right = 0.93
+anchor_bottom = 0.90
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+cancel_hint = "Esc: pular"
+
+[node name="Help" type="Label" parent="Interface"]
+layout_mode = 1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -32.0
+offset_right = -12.0
+offset_bottom = -4.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Skip" type="Button" parent="Interface"]
+layout_mode = 1
+anchor_right = 1.0
+anchor_left = 1.0
+offset_left = -104.0
+offset_top = 12.0
+offset_right = -12.0
+offset_bottom = 36.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+text = "Pular [Esc]"

@@ -1,0 +1,51 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/dialogue_preview.gd" id="script"]
+[ext_resource type="Script" path="res://core/cutscenes/cutscene_coordinator.gd" id="coordinator"]
+[ext_resource type="PackedScene" path="res://ui/gameplay_hud.tscn" id="hud"]
+[ext_resource type="Theme" path="res://ui/themes/gameplay_theme.tres" id="theme"]
+
+[node name="DialoguePreview" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_filter = 1
+theme = ExtResource("theme")
+script = ExtResource("script")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color(0.055, 0.075, 0.1, 1)
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchor_right = 1.0
+offset_top = 8.0
+offset_bottom = 32.0
+text = "Prévia de diálogos • E/Enter, direcionais e Esc"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="Restart" type="Button" parent="."]
+layout_mode = 1
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -120.0
+offset_top = -18.0
+offset_right = 120.0
+offset_bottom = 18.0
+text = "Rever conversa"
+
+[node name="GameplayHUD" parent="." instance=ExtResource("hud")]
+
+[node name="Coordinator" type="Node" parent="."]
+script = ExtResource("coordinator")

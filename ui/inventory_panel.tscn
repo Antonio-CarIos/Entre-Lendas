@@ -1,0 +1,224 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://ui/inventory_panel.gd" id="script"]
+[ext_resource type="Texture2D" path="res://assets/art/ui/ui_inventory_background.png" id="background"]
+[ext_resource type="Theme" path="res://ui/themes/gameplay_theme.tres" id="theme"]
+[ext_resource type="PackedScene" path="res://ui/journal_panel.tscn" id="journal"]
+
+[sub_resource type="AtlasTexture" id="FullscreenBackground"]
+atlas = ExtResource("background")
+region = Rect2(32, 18, 280, 154)
+
+[node name="Inventory" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_filter = 1
+theme = ExtResource("theme")
+script = ExtResource("script")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("FullscreenBackground")
+expand_mode = 1
+stretch_mode = 0
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 44.0
+offset_right = 290.0
+offset_bottom = 78.0
+theme_override_font_sizes/font_size = 24
+text = "Inventário"
+
+[node name="Mochila" type="Label" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 86.0
+offset_right = 220.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 12
+text = "Mochila"
+
+[node name="Count" type="Label" parent="."]
+layout_mode = 0
+offset_left = 228.0
+offset_top = 86.0
+offset_right = 268.0
+offset_bottom = 104.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 2
+
+[node name="SlotScroll" type="ScrollContainer" parent="."]
+layout_mode = 0
+offset_left = 96.0
+offset_top = 118.0
+offset_right = 268.0
+offset_bottom = 278.0
+horizontal_scroll_mode = 0
+
+[node name="Slots" type="GridContainer" parent="SlotScroll"]
+layout_mode = 2
+columns = 3
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+
+[node name="SelectedName" type="Label" parent="."]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 70.0
+offset_right = 564.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 16
+text_overrun_behavior = 3
+
+[node name="Category" type="Label" parent="."]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 96.0
+offset_right = 560.0
+offset_bottom = 110.0
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.88, 0.66, 0.28, 1)
+
+[node name="Options" type="HBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 300.0
+offset_top = 114.0
+offset_right = 564.0
+offset_bottom = 142.0
+theme_override_constants/separation = 6
+
+[node name="Info" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 300.0
+offset_top = 150.0
+offset_right = 564.0
+offset_bottom = 286.0
+theme_type_variation = &"InfoPanel"
+
+[node name="Title" type="Label" parent="Info"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 8.0
+offset_right = 250.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 12
+theme_override_colors/font_color = Color(0.88, 0.66, 0.28, 1)
+
+[node name="Body" type="RichTextLabel" parent="Info"]
+layout_mode = 0
+offset_left = 12.0
+offset_top = 30.0
+offset_right = 250.0
+offset_bottom = 126.0
+bbcode_enabled = false
+scroll_active = true
+
+[node name="Hint" type="Label" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 298.0
+offset_right = 568.0
+offset_bottom = 316.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+
+[node name="Journal" parent="." instance=ExtResource("journal")]
+visible = false
+layout_mode = 0
+anchors_preset = 0
+anchor_right = 0.0
+anchor_bottom = 0.0
+offset_right = 640.0
+offset_bottom = 360.0
+
+[node name="SectionHint" type="Label" parent="."]
+layout_mode = 0
+offset_left = 80.0
+offset_top = 322.0
+offset_right = 568.0
+offset_bottom = 340.0
+theme_override_font_sizes/font_size = 12
+horizontal_alignment = 1
+text = "J: Mochila / Diário"
+
+[node name="ModalShade" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.65)
+
+[node name="CenterModal" type="Panel" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 112.0
+offset_top = 100.0
+offset_right = 528.0
+offset_bottom = 260.0
+theme_type_variation = &"InfoPanel"
+
+[node name="Text" type="Label" parent="CenterModal"]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 396.0
+offset_bottom = 76.0
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="ResultIcon" type="TextureRect" parent="CenterModal"]
+visible = false
+layout_mode = 0
+offset_left = 192.0
+offset_top = 78.0
+offset_right = 224.0
+offset_bottom = 110.0
+expand_mode = 1
+stretch_mode = 5
+
+[node name="Confirmation" type="HBoxContainer" parent="CenterModal"]
+visible = false
+layout_mode = 0
+offset_left = 88.0
+offset_top = 116.0
+offset_right = 328.0
+offset_bottom = 144.0
+theme_override_constants/separation = 12
+
+[node name="Yes" type="Button" parent="CenterModal/Confirmation"]
+layout_mode = 2
+custom_minimum_size = Vector2(114, 28)
+text = "Sim"
+focus_mode = 0
+
+[node name="No" type="Button" parent="CenterModal/Confirmation"]
+layout_mode = 2
+custom_minimum_size = Vector2(114, 28)
+text = "Não"
+focus_mode = 0
+
+[node name="Continue" type="Button" parent="CenterModal"]
+visible = false
+layout_mode = 0
+offset_left = 144.0
+offset_top = 116.0
+offset_right = 272.0
+offset_bottom = 144.0
+text = "Continuar"
+focus_mode = 0

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://core/inventory/item_data.gd" id="1_data"]
+[ext_resource type="Texture2D" path="res://assets/art/items/stage_01/gorro_saci.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"gorro_saci"
+display_name = "Gorro do Saci"
+description = "Um gorro vermelho de tecido macio, com a ponta caída. Está morno e tem um leve cheiro de fumo de corda."
+insight_text = "Enquanto os gorros falsos dançavam ao vento, este ficou parado. Quem perde o gorro perde o rumo... Devolvê-lo também pode ser uma escolha."
+category = 1
+icon = ExtResource("2_icon")
+consumable = false
+related_stage = 1

@@ -2,12 +2,16 @@
 
 [ext_resource type="Texture2D" uid="uid://5kxdbtho7raa" path="res://assets/art/props/stage_01/house/house_furniture_atlas.png" id="1_6v40e"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjrsb"]
+size = Vector2(20, 25)
+
 [node name="Chair" type="StaticBody2D" unique_id=2056531854]
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=535764080]
-position = Vector2(0, 0)
 texture = ExtResource("1_6v40e")
 region_enabled = true
 region_rect = Rect2(5, 756, 22, 44)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=81215751]
+position = Vector2(0, 9.5)
+shape = SubResource("RectangleShape2D_xjrsb")

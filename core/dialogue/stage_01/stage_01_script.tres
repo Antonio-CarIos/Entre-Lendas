@@ -1,0 +1,1246 @@
+[gd_resource type="Resource" script_class="Stage01Narrative" format=3 uid="uid://bhj4nki7yj2p1"]
+
+[ext_resource type="Script" uid="uid://r163n7pae7xh" path="res://core/dialogue/stage_01_narrative.gd" id="1_catalog"]
+[ext_resource type="Script" uid="uid://ciqmwomyuvipd" path="res://core/dialogue/dialogue_entry.gd" id="2_entry"]
+[ext_resource type="Script" uid="uid://bel3mwf20p1io" path="res://core/dialogue/dialogue_choice_data.gd" id="3_choice"]
+
+[sub_resource type="Resource" id="Entry_0"]
+script = ExtResource("2_entry")
+id = &"book.open"
+scene_id = &"scene_01"
+text = "Você abre Lendas do Brasil.
+Cada página guarda um causo. Alguns parecem guardar o vento."
+stage_direction = "Reutilizar composição e shaders da introdução da colega. Texto adaptado da rubrica do ODT."
+next_id = &"book.saci"
+
+[sub_resource type="Resource" id="Entry_1"]
+script = ExtResource("2_entry")
+id = &"book.saci"
+scene_id = &"scene_01"
+text = "Um gorro vermelho. Um cachimbo. Uma perna só.
+Nas páginas do livro, um menino ri.
+Saci-Pererê."
+next_id = &"book.light"
+
+[sub_resource type="Resource" id="Entry_2"]
+script = ExtResource("2_entry")
+id = &"book.light"
+scene_id = &"scene_01"
+text = "As letras começam a brilhar.
+Por um instante, parece que o livro está olhando de volta."
+stage_direction = "Brilho da última página, dissolução e letras caindo; transporte para Santa Teresa."
+event_id = &"book_finished"
+
+[sub_resource type="Resource" id="Entry_3"]
+script = ExtResource("2_entry")
+id = &"city.arrival"
+scene_id = &"scene_02"
+text = "Você pisca. As letras do livro ainda parecem escorrer pelos seus dedos.
+Uma ladeira de pedra. Casarões de janelas fechadas. Nenhuma voz.
+Só o vento."
+event_id = &"intro_city"
+cancel_allowed = false
+
+[sub_resource type="Resource" id="Entry_4"]
+script = ExtResource("2_entry")
+id = &"city.tram"
+scene_id = &"scene_02"
+text = "Um bonde amarelo, parado nos trilhos. Não há ninguém dentro. O banco ainda está quente."
+
+[sub_resource type="Resource" id="Entry_5"]
+script = ExtResource("2_entry")
+id = &"city.sign"
+scene_id = &"scene_02"
+text = "“Rua do Saci.” Estranho. Você tem quase certeza de que não era esse o nome."
+
+[sub_resource type="Resource" id="Entry_6"]
+script = ExtResource("2_entry")
+id = &"city.window"
+scene_id = &"scene_02"
+text = "Ela abre e fecha sozinha, no ritmo de uma risadinha abafada. Você decide não pensar nisso."
+stage_direction = "Janela abre/fecha; risadinha distante."
+
+[sub_resource type="Resource" id="Choice_7_0"]
+script = ExtResource("3_choice")
+id = &"enter"
+label = "Sim"
+next_id = &"city.enter"
+effect_id = &"enter_house"
+
+[sub_resource type="Resource" id="Choice_7_1"]
+script = ExtResource("3_choice")
+id = &"stay"
+label = "Ainda não"
+next_id = &"city.stay"
+
+[sub_resource type="Resource" id="Entry_7"]
+script = ExtResource("2_entry")
+id = &"city.door"
+scene_id = &"scene_02"
+text = "Uma casa antiga. A porta está entreaberta. Parece que alguém acabou de sair... ou de entrar.
+
+Entrar na casa?"
+stage_direction = "O portão enferrujado foi removido do texto para corresponder ao mapa atual."
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_7_0"), SubResource("Choice_7_1")])
+
+[sub_resource type="Resource" id="Entry_8"]
+script = ExtResource("2_entry")
+id = &"city.stay"
+scene_id = &"scene_02"
+text = "Algo no seu peito diz que não há para onde voltar."
+
+[sub_resource type="Resource" id="Entry_9"]
+script = ExtResource("2_entry")
+id = &"city.enter"
+scene_id = &"scene_02"
+text = "A porta range. Dentro, o cheiro de fumo de corda e madeira velha. Você entra."
+
+[sub_resource type="Resource" id="Entry_10"]
+script = ExtResource("2_entry")
+id = &"clean.arrival"
+scene_id = &"scene_03"
+text = "Sala limpa. Móveis alinhados. Um relógio de parede marcando uma hora que não existe.
+Tudo no lugar.
+O que me trouxe aqui? Que sensação estranha…"
+event_id = &"intro_house_clean"
+
+[sub_resource type="Resource" id="Entry_11"]
+script = ExtResource("2_entry")
+id = &"clean.sofa"
+scene_id = &"scene_03"
+text = "A almofada ainda tem a marca de alguém sentado. Mas a poeira cobre o resto da casa inteira."
+
+[sub_resource type="Resource" id="Entry_12"]
+script = ExtResource("2_entry")
+id = &"clean.clock"
+scene_id = &"scene_03"
+text = "Os ponteiros giram devagar... para trás? Está quebrado?"
+
+[sub_resource type="Resource" id="Entry_13"]
+script = ExtResource("2_entry")
+id = &"clean.milk"
+scene_id = &"scene_03"
+text = "Uma jarra de leite aberta sobre a mesa. Você cheira. Está azedo. Mas a data da embalagem é de hoje."
+
+[sub_resource type="Resource" id="Entry_14"]
+script = ExtResource("2_entry")
+id = &"clean.bed"
+scene_id = &"scene_03"
+text = "A cama está feita. Em cima do travesseiro, um fio de crina de cavalo, trançado em um nó perfeito."
+
+[sub_resource type="Resource" id="Entry_15"]
+script = ExtResource("2_entry")
+id = &"clean.pipe"
+scene_id = &"scene_03"
+text = "Um cachimbo apagado, ainda morno. Quem fuma por aqui?"
+next_id = &"pipe.memory_bamboo"
+
+[sub_resource type="Resource" id="Entry_16"]
+script = ExtResource("2_entry")
+id = &"pipe.memory_bamboo"
+scene_id = &"scene_03"
+speaker = "Saci"
+text = "Eu nasci num gomo de bambu. Sete anos lá dentro, ouvindo o vento.
+Quando o bambu rachou, eu saí rindo. Aprontei tanto que me deram setenta e sete anos para aprontar.
+Depois disso, viro cogumelo. Mas ninguém conta essa parte."
+stage_direction = "Voz baixa de criança; tremor opcional. Não transformar a rubrica em fala."
+next_id = &"pipe.memory_origins"
+
+[sub_resource type="Resource" id="Entry_17"]
+script = ExtResource("2_entry")
+id = &"pipe.memory_origins"
+scene_id = &"scene_03"
+speaker = "Saci"
+text = "Antes de ter gorro e de ter cachimbo, eu era um curumim. Um menino travesso, lá no sul, entre os rios. Os mais velhos me chamavam de Saci-Cererê."
+stage_direction = "Retomar cores; apresentar página Origem do Saci após a memória."
+next_id = &"pipe.keep"
+event_id = &"pipe_memory"
+
+[sub_resource type="Resource" id="Choice_18_0"]
+script = ExtResource("3_choice")
+id = &"keep"
+label = "Sim"
+next_id = &"pipe.kept"
+effect_id = &"claim_cachimbo_fumo"
+
+[sub_resource type="Resource" id="Choice_18_1"]
+script = ExtResource("3_choice")
+id = &"leave"
+label = "Colocar de volta"
+next_id = &"pipe.left"
+
+[sub_resource type="Resource" id="Entry_18"]
+script = ExtResource("2_entry")
+id = &"pipe.keep"
+scene_id = &"scene_03"
+text = "Deseja guardar o cachimbo?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_18_0"), SubResource("Choice_18_1")])
+
+[sub_resource type="Resource" id="Entry_19"]
+script = ExtResource("2_entry")
+id = &"pipe.kept"
+scene_id = &"scene_03"
+text = "Você guarda o cachimbo e o fumo de corda. O cheiro parece acompanhar você."
+
+[sub_resource type="Resource" id="Entry_20"]
+script = ExtResource("2_entry")
+id = &"pipe.left"
+scene_id = &"scene_03"
+text = "Você deixa o cachimbo no lugar. Ainda há um pouco de calor nele."
+
+[sub_resource type="Resource" id="Entry_21"]
+script = ExtResource("2_entry")
+id = &"clean.bottle"
+scene_id = &"scene_03"
+text = "Uma garrafa de vidro escuro, tampada com cera vermelha. Dentro, uma fumaça gira devagar. Sempre no mesmo sentido. Você sente que ela também está olhando para você."
+next_id = &"bottle.choice"
+
+[sub_resource type="Resource" id="Choice_22_0"]
+script = ExtResource("3_choice")
+id = &"open"
+label = "Abrir"
+next_id = &"bottle.open"
+effect_id = &"open_bottle"
+
+[sub_resource type="Resource" id="Choice_22_1"]
+script = ExtResource("3_choice")
+id = &"leave"
+label = "Deixar"
+next_id = &"bottle.leave"
+
+[sub_resource type="Resource" id="Entry_22"]
+script = ExtResource("2_entry")
+id = &"bottle.choice"
+scene_id = &"scene_03"
+text = "Abrir a garrafa?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_22_0"), SubResource("Choice_22_1")])
+
+[sub_resource type="Resource" id="Entry_23"]
+script = ExtResource("2_entry")
+id = &"bottle.leave"
+scene_id = &"scene_03"
+text = "Você recua um passo.
+Tec.
+A garrafa vibra sobre a estante. As luzes piscam. Uma risadinha, bem baixa, vem de dentro do vidro.
+Já é tarde para fingir que você não viu."
+stage_direction = "Vibração, luz e risada. Retomar a escolha por nova interação, sem loop automático de modal."
+
+[sub_resource type="Resource" id="Entry_24"]
+script = ExtResource("2_entry")
+id = &"bottle.open"
+scene_id = &"scene_03"
+text = "Seus dedos tocam a cera. Ela derrete sem calor.
+A rolha salta.
+Pop."
+stage_direction = "Rolha, Pop, fumaça; iniciar Cena 4 uma única vez."
+next_id = &"saci.appears"
+
+[sub_resource type="Resource" id="Entry_25"]
+script = ExtResource("2_entry")
+id = &"saci.appears"
+scene_id = &"scene_04"
+text = "A fumaça sobe até o teto e se enrola numa forma. Um gorro vermelho. Depois dois olhos. Depois um sorriso largo demais.
+Uma perna só pousa no chão.
+Toc."
+next_id = &"saci.greeting"
+
+[sub_resource type="Resource" id="Choice_26_0"]
+script = ExtResource("3_choice")
+id = &"curious"
+label = "Eu só estava curioso"
+next_id = &"saci.curious"
+
+[sub_resource type="Resource" id="Choice_26_1"]
+script = ExtResource("3_choice")
+id = &"identity"
+label = "Quem é você?"
+next_id = &"saci.identity"
+
+[sub_resource type="Resource" id="Choice_26_2"]
+script = ExtResource("3_choice")
+id = &"empathy"
+label = "Você ficou preso aí muito tempo?"
+next_id = &"saci.empathy"
+effect_id = &"mark_empathy"
+
+[sub_resource type="Resource" id="Entry_26"]
+script = ExtResource("2_entry")
+id = &"saci.greeting"
+scene_id = &"scene_04"
+speaker = "Saci"
+text = "Hihihi! Quanto tempo faz? Contei até perder a conta.
+Quem é você, que mexe em garrafa dos outros?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_26_0"), SubResource("Choice_26_1"), SubResource("Choice_26_2")])
+
+[sub_resource type="Resource" id="Entry_27"]
+script = ExtResource("2_entry")
+id = &"saci.curious"
+scene_id = &"scene_04"
+speaker = "Saci"
+text = "Curioso! Hihihi! Todo mundo que me solta é curioso. Curioso demais. Nunca te falaram que a curiosidade matou o gato?"
+next_id = &"saci.common"
+
+[sub_resource type="Resource" id="Entry_28"]
+script = ExtResource("2_entry")
+id = &"saci.identity"
+scene_id = &"scene_04"
+speaker = "Saci"
+text = "Eu? Eu sou o vento que bagunça o varal. Sou o leite que azeda e a linha que embola. Sou o que você procura quando perde a chave.
+Pode me chamar de Saci.(risonho) Os antigos me chamavam de outro nome, mas esse eu esqueci."
+next_id = &"saci.common"
+
+[sub_resource type="Resource" id="Entry_29"]
+script = ExtResource("2_entry")
+id = &"saci.empathy"
+scene_id = &"scene_04"
+speaker = "Saci"
+text = "... Ninguém tinha perguntado isso antes. Muito tempo. Mais do que um bambu leva para crescer. Dentro da garrafa não tem vento. Não tem rua, não tem crianças, não tem ninguém para assustar!"
+stage_direction = "O sorriso fica mais forçado."
+next_id = &"saci.empathy_smile"
+
+[sub_resource type="Resource" id="Entry_30"]
+script = ExtResource("2_entry")
+id = &"saci.empathy_smile"
+scene_id = &"scene_04"
+speaker = "Saci"
+text = "Mas isso passa! Hihihi!"
+next_id = &"saci.common"
+
+[sub_resource type="Resource" id="Choice_31_0"]
+script = ExtResource("3_choice")
+id = &"story"
+label = "Conta a sua versão"
+next_id = &"saci.story"
+
+[sub_resource type="Resource" id="Choice_31_1"]
+script = ExtResource("3_choice")
+id = &"plans"
+label = "O que você vai fazer agora?"
+next_id = &"saci.plans"
+
+[sub_resource type="Resource" id="Entry_31"]
+script = ExtResource("2_entry")
+id = &"saci.common"
+scene_id = &"scene_04"
+speaker = "Saci"
+text = "Sabe o que é pior que ficar preso? Ficar preso e ouvir o mundo mudar do lado de fora.
+Seu livro ali na mão... tem história minha dentro, não tem? Aposto que contaram errado."
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_31_0"), SubResource("Choice_31_1")])
+
+[sub_resource type="Resource" id="Entry_32"]
+script = ExtResource("2_entry")
+id = &"saci.story"
+scene_id = &"scene_04"
+speaker = "Saci"
+text = "Hihihi! Fica para depois. Quem entrega a história toda de uma vez perde a graça.
+Procura as pistas. Eu deixo uma ou outra por aí. Quem sabe você me entende."
+next_id = &"saci.farewell"
+
+[sub_resource type="Resource" id="Entry_33"]
+script = ExtResource("2_entry")
+id = &"saci.plans"
+scene_id = &"scene_04"
+speaker = "Saci"
+text = "O que eu faço desde sempre. Vou bagunçar alguma coisa, esconder outras, tô achando que essa rua tá muito é sem graça. E sem graça não dá, não."
+next_id = &"saci.farewell"
+
+[sub_resource type="Resource" id="Entry_34"]
+script = ExtResource("2_entry")
+id = &"saci.farewell"
+scene_id = &"scene_04"
+speaker = "Saci"
+text = "Obrigado pela rolha, você. Vou comemorar... do meu jeito!
+Hihihi! Se quiser me achar, procura onde o vento fizer curva!"
+stage_direction = "Giro sobre a perna única; gorro balança. Iniciar Cena 5."
+next_id = &"whirlwind.departure"
+event_id = &"saci_farewell"
+
+[sub_resource type="Resource" id="Entry_35"]
+script = ExtResource("2_entry")
+id = &"whirlwind.departure"
+scene_id = &"scene_05"
+text = "O vento toma a casa.
+Tudo gira. Uma risada atravessa a porta.
+Depois, o escuro."
+stage_direction = "O Saci gira, cria o redemoinho dentro da casa e sai pela porta. A câmera treme, um desenho de furacão toma a tela e o som aumenta, a vinheta escurece, a imagem desfoca e a tela vai a preto (o desmaio). Reduzir tremores/flashes conforme preferências; aplicar caos sob tela preta."
+event_id = &"whirlwind_departed"
+
+[sub_resource type="Resource" id="Entry_36"]
+script = ExtResource("2_entry")
+id = &"chaos.arrival"
+scene_id = &"scene_06"
+text = "Você desperta.
+A luz vacila. A casa está de pernas para o ar.
+Alguém andou se divertindo."
+event_id = &"intro_house_chaos"
+
+[sub_resource type="Resource" id="Entry_37"]
+script = ExtResource("2_entry")
+id = &"chaos.sofa"
+scene_id = &"scene_06"
+text = "A almofada está pendurada no lustre. Não tem escada. Não tem corda. Só uma risadinha, bem baixa, vinda do teto."
+
+[sub_resource type="Resource" id="Entry_38"]
+script = ExtResource("2_entry")
+id = &"chaos.clock"
+scene_id = &"scene_06"
+text = "Agora ele marca todas as horas ao mesmo tempo. Os ponteiros giram. Todos para o lado errado."
+
+[sub_resource type="Resource" id="Entry_39"]
+script = ExtResource("2_entry")
+id = &"chaos.milk"
+scene_id = &"scene_06"
+text = "A jarra de leite virou. O chão está branco. Cada gota formou uma carinha sorrindo.
+Você prefere não pisar."
+
+[sub_resource type="Resource" id="Entry_40"]
+script = ExtResource("2_entry")
+id = &"chaos.bed"
+scene_id = &"scene_06"
+text = "A cama está desfeita e o travesseiro, no armário. A crina trançada virou um laço enorme na maçaneta, impedindo a passagem para o quarto.
+Alguém andou se divertindo."
+
+[sub_resource type="Resource" id="Entry_41"]
+script = ExtResource("2_entry")
+id = &"chaos.shelf"
+scene_id = &"scene_06"
+text = "A garrafa não está mais aqui. No lugar dela, um bilhete de carvão:
+“Obrigado pela rolha. Hihihi!”"
+
+[sub_resource type="Resource" id="Entry_42"]
+script = ExtResource("2_entry")
+id = &"chaos.wall"
+scene_id = &"scene_06"
+text = "Um desenho a carvão: um menino de uma perna só, rindo. Ao lado, uma frase que parece escrita por várias mãos:
+“Quem perde o gorro perde o rumo.”"
+
+[sub_resource type="Resource" id="Entry_43"]
+script = ExtResource("2_entry")
+id = &"chaos.exit"
+scene_id = &"scene_06"
+text = "A porta está torta, mas aberta. Lá fora, o vento assobia o nome de alguém. Parece o seu."
+
+[sub_resource type="Resource" id="Choice_44_0"]
+script = ExtResource("3_choice")
+id = &"take"
+label = "Sim"
+next_id = &"chaos.bottle_taken"
+effect_id = &"claim_garrafa_vazia"
+
+[sub_resource type="Resource" id="Choice_44_1"]
+script = ExtResource("3_choice")
+id = &"leave"
+label = "Não"
+
+[sub_resource type="Resource" id="Entry_44"]
+script = ExtResource("2_entry")
+id = &"chaos.bottle"
+scene_id = &"scene_06"
+text = "A garrafa vazia está caída perto da estante.
+Deseja pegá-la?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_44_0"), SubResource("Choice_44_1")])
+
+[sub_resource type="Resource" id="Entry_45"]
+script = ExtResource("2_entry")
+id = &"chaos.bottle_taken"
+scene_id = &"scene_06"
+text = "Você guarda a garrafa vazia. É difícil acreditar que alguém coube ali dentro."
+
+[sub_resource type="Resource" id="Entry_46"]
+script = ExtResource("2_entry")
+id = &"hub.arrival"
+scene_id = &"scene_07"
+text = "Toda a rua está completamente bagunçada.  Quem colocou essas roupas penduradas nos postes? E esses desenhos nas paredes? O que eu fiz?! Pegadas de uma perna só levam para todos os lados."
+event_id = &"intro_street_hub"
+
+[sub_resource type="Resource" id="Entry_47"]
+script = ExtResource("2_entry")
+id = &"clothes.arrival"
+scene_id = &"scene_07"
+text = "Um varal atravessa o quintal de um poste a outro. Camisas, lençóis, vestidos. Todos pingando. Mas o chão está seco, e não tem vento.
+As roupas balançam mesmo assim. Como se alguém estivesse respirando por trás delas."
+event_id = &"intro_clothesline"
+
+[sub_resource type="Resource" id="Entry_48"]
+script = ExtResource("2_entry")
+id = &"clothes.socks"
+scene_id = &"scene_07"
+text = "Uma meia. Só uma. Do outro lado do varal, outra meia. Nenhuma é par da outra.
+Alguém tem uma perna só. Ou muito azar com as meias."
+
+[sub_resource type="Resource" id="Entry_49"]
+script = ExtResource("2_entry")
+id = &"clothes.shirt"
+scene_id = &"scene_07"
+text = "A camisa de um time de futebol, com um buraco no formato de uma risada. O número nas costas está de cabeça para baixo."
+
+[sub_resource type="Resource" id="Entry_50"]
+script = ExtResource("2_entry")
+id = &"clothes.dress"
+scene_id = &"scene_07"
+text = "O vestido tem um bilhete preso com alfinete: “Quem lava e não recolhe, a mim pertence.” Assinado com um desenho de um gorro."
+
+[sub_resource type="Resource" id="Entry_51"]
+script = ExtResource("2_entry")
+id = &"clothes.note"
+scene_id = &"scene_07"
+text = "Escrito a carvão no poste, com letra torta:
+“Quem tem o gorro, manda no Saci.”
+Logo abaixo, em letra menor: “Mas ele sabe quando você está com ele.”"
+
+[sub_resource type="Resource" id="Entry_52"]
+script = ExtResource("2_entry")
+id = &"clothes.caps"
+scene_id = &"scene_07"
+text = "Sete gorros vermelhos, presos por pregadores. Todos têm a mesma cor e o mesmo cheiro de fumaça.
+Seis deles são só pano. Um deles..."
+
+[sub_resource type="Resource" id="Entry_53"]
+script = ExtResource("2_entry")
+id = &"clothes.false_cap"
+scene_id = &"scene_07"
+text = "Você toca no gorro. Frio. Mole. Sem graça.
+“Hihihi!”"
+
+[sub_resource type="Resource" id="Entry_54"]
+script = ExtResource("2_entry")
+id = &"clothes.true_cap"
+scene_id = &"scene_07"
+text = "Está parado e quente. Tem o cheiro de fumo de corda.
+Você tem a impressão de que ele estava esperando você."
+next_id = &"clothes.cap_choice"
+
+[sub_resource type="Resource" id="Choice_55_0"]
+script = ExtResource("3_choice")
+id = &"take"
+label = "Pegar"
+next_id = &"clothes.cap_taken"
+effect_id = &"claim_gorro_saci"
+
+[sub_resource type="Resource" id="Choice_55_1"]
+script = ExtResource("3_choice")
+id = &"leave"
+label = "Deixar"
+next_id = &"clothes.cap_left"
+
+[sub_resource type="Resource" id="Entry_55"]
+script = ExtResource("2_entry")
+id = &"clothes.cap_choice"
+scene_id = &"scene_07"
+text = "Pegar o gorro?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_55_0"), SubResource("Choice_55_1")])
+
+[sub_resource type="Resource" id="Entry_56"]
+script = ExtResource("2_entry")
+id = &"clothes.cap_taken"
+scene_id = &"scene_07"
+text = "Seus dedos tocam o pano. Um redemoinho pequeno gira além do quintal, hesita... e some.
+Você guardou o gorro vermelho."
+stage_direction = "Silêncio de 3 segundos e retorno da música mais grave; entregar e apresentar pista uma vez."
+
+[sub_resource type="Resource" id="Entry_57"]
+script = ExtResource("2_entry")
+id = &"clothes.cap_left"
+scene_id = &"scene_07"
+text = "O gorro continua ali, parado. Você pode voltar depois."
+
+[sub_resource type="Resource" id="Entry_58"]
+script = ExtResource("2_entry")
+id = &"journal.cap"
+scene_id = &"journal"
+text = "O Gorro Vermelho
+
+Na lenda, o poder do Saci está no gorro. Dizem que quem consegue tirá-lo passa a mandar nele e pode até fazer pedidos. Por isso o Saci o protege tanto, e por isso ele fica tão bravo quando alguém chega perto.
+O gorro vermelho também é um traço do folclore brasileiro: ele ajuda a identificar o Saci em desenhos, histórias e até em festas de rua."
+condition_id = &"clue:clue_gorro_vermelho"
+
+[sub_resource type="Resource" id="Entry_59"]
+script = ExtResource("2_entry")
+id = &"bench.pipe"
+scene_id = &"scene_07"
+text = "Um cachimbo apoiado no banco. Ao lado, um rolo de fumo de corda. A fumaça ainda sobe."
+stage_direction = "Mesma identidade narrativa do cachimbo da casa, inclusive depois de oferecido/consumido."
+next_id = &"pipe.memory_bamboo"
+
+[sub_resource type="Resource" id="Entry_60"]
+script = ExtResource("2_entry")
+id = &"mural.arrival"
+scene_id = &"scene_07"
+text = "Um muro enorme, coberto de tinta fresca. Ainda escorre.
+Os desenhos estão em ordem, como se alguém quisesse que você lesse. No canto, uma assinatura: um gorro vermelho e uma risadinha."
+event_id = &"intro_mural"
+
+[sub_resource type="Resource" id="Entry_61"]
+script = ExtResource("2_entry")
+id = &"mural.panel_1"
+scene_id = &"scene_07"
+text = "Antes de ter gorro, antes de ter cachimbo, antes de ter uma perna só... ele era um menino.
+Um curumim travesso, que vivia entre os rios e as matas do sul. Os mais velhos o chamavam de Saci-Cererê.
+Ele ria alto. Assustava os bichos. E ninguém conseguia pegá-lo."
+stage_direction = "Imagem: um menino pequeno, de pele escura, com duas pernas, correndo entre árvores e rios. Pés descalços e olhar travesso. Em algumas versões, ele tem até uma pequena cauda."
+
+[sub_resource type="Resource" id="Entry_62"]
+script = ExtResource("2_entry")
+id = &"mural.panel_2"
+scene_id = &"scene_07"
+text = "Dizem que ele nasce de um gomo de bambu. Sete anos lá dentro, ouvindo o vento.
+Quando o bambu rachou, ele saiu rindo. E o vento nunca mais o largou."
+stage_direction = "Imagem: um gomo de bambu brilhando no meio da mata, com uma mãozinha saindo de dentro. Brilho sincronizado ao bambuzal."
+
+[sub_resource type="Resource" id="Entry_63"]
+script = ExtResource("2_entry")
+id = &"mural.panel_3"
+scene_id = &"scene_07"
+text = "Com o tempo, a lenda foi sendo contada por muitos povos.
+Em algumas versões, sua imagem de menino negro de uma perna só se aproxima da capoeira.
+Numa dessas histórias, ele perde uma perna na roda — mas o vento continua com ele."
+stage_direction = "Imagem: o mesmo menino, agora numa roda de capoeira, dando um golpe rápido. Uma das pernas está pintada tracejada, como se tivesse sumido. Adaptado: apresentar como versão da lenda, não uma explicação histórica única."
+
+[sub_resource type="Resource" id="Entry_64"]
+script = ExtResource("2_entry")
+id = &"mural.panel_4"
+scene_id = &"scene_07"
+text = "Em outras versões, quem cruzou o mar trouxe histórias de seres pequenos, de gorro, que faziam travessuras.
+O menino ganhou o gorro vermelho. Com ele, ganhou o poder de sumir e de ressurgir.
+E, de lambuja, ganhou um cachimbo."
+stage_direction = "Imagem: o menino de uma perna só recebe um gorro vermelho. Ao fundo, silhuetas de casinhas europeias e pequenos seres de chapéu."
+
+[sub_resource type="Resource" id="Entry_65"]
+script = ExtResource("2_entry")
+id = &"mural.panel_5"
+scene_id = &"scene_07"
+text = "Hoje ele vive no vento. Gira, gira, gira... e vai bagunçando.
+Esconde sua chave. Azeda o leite. Apaga a vela. Trança a crina do cavalo. Faz o feijão queimar.
+Mas se você é gentil, às vezes ele devolve."
+stage_direction = "Imagem: o Saci no meio de um redemoinho cheio de objetos voando: leite azedando, linha embolando, fogo apagando, crina trançando."
+
+[sub_resource type="Resource" id="Entry_66"]
+script = ExtResource("2_entry")
+id = &"mural.panel_6"
+scene_id = &"scene_07"
+text = "“Cada um conta o Saci do seu jeito.”
+O resto do muro está em branco. Alguém deixou um pincel no chão."
+stage_direction = "Imagem: várias mãos pintadas em cores diferentes ao redor de um espaço vazio. Embaixo, a frase."
+next_id = &"mural.paint_choice"
+
+[sub_resource type="Resource" id="Choice_67_0"]
+script = ExtResource("3_choice")
+id = &"paint"
+label = "Pintar"
+next_id = &"mural.symbols"
+
+[sub_resource type="Resource" id="Choice_67_1"]
+script = ExtResource("3_choice")
+id = &"leave"
+label = "Deixar em branco"
+next_id = &"mural.leave"
+
+[sub_resource type="Resource" id="Entry_67"]
+script = ExtResource("2_entry")
+id = &"mural.paint_choice"
+scene_id = &"scene_07"
+text = "Pintar sua versão?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_67_0"), SubResource("Choice_67_1")])
+
+[sub_resource type="Resource" id="Choice_68_0"]
+script = ExtResource("3_choice")
+id = &"gorro"
+label = "Gorro"
+next_id = &"mural.painted"
+effect_id = &"paint_gorro"
+
+[sub_resource type="Resource" id="Choice_68_1"]
+script = ExtResource("3_choice")
+id = &"bambu"
+label = "Bambu"
+next_id = &"mural.painted"
+effect_id = &"paint_bambu"
+
+[sub_resource type="Resource" id="Choice_68_2"]
+script = ExtResource("3_choice")
+id = &"redemoinho"
+label = "Redemoinho"
+next_id = &"mural.painted"
+effect_id = &"paint_redemoinho"
+
+[sub_resource type="Resource" id="Entry_68"]
+script = ExtResource("2_entry")
+id = &"mural.symbols"
+scene_id = &"scene_07"
+text = "Que símbolo você quer deixar no muro?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_68_0"), SubResource("Choice_68_1"), SubResource("Choice_68_2")])
+
+[sub_resource type="Resource" id="Entry_69"]
+script = ExtResource("2_entry")
+id = &"mural.painted"
+scene_id = &"scene_07"
+text = "Você pinta devagar. A tinta é morna, e parece gostar de ser usada.
+Quando termina, o muro estremece. De longe, uma risadinha. Diferente das outras. Quase... agradecida."
+
+[sub_resource type="Resource" id="Entry_70"]
+script = ExtResource("2_entry")
+id = &"mural.leave"
+scene_id = &"scene_07"
+text = "Você devolve o pincel ao chão. O espaço em branco continua esperando. Como todo bom causo."
+
+[sub_resource type="Resource" id="Entry_71"]
+script = ExtResource("2_entry")
+id = &"journal.mural_indigenous"
+scene_id = &"journal"
+text = "Em muitas narrativas, o Saci se liga à tradição indígena, como um menino travesso e ágil, ligado à floresta. Em várias versões ele tinha duas pernas e era visto como um espírito da mata, e não como um monstro."
+
+[sub_resource type="Resource" id="Entry_72"]
+script = ExtResource("2_entry")
+id = &"journal.mural_african"
+scene_id = &"journal"
+text = "Na versão que se espalhou depois, o Saci passou a ser retratado como um menino negro de uma perna só, e uma das explicações liga essa perna à capoeira. Isso mostra que a lenda não é só indígena: ela foi crescendo conforme novos povos a contavam."
+
+[sub_resource type="Resource" id="Entry_73"]
+script = ExtResource("2_entry")
+id = &"journal.mural_european"
+scene_id = &"journal"
+text = "Algumas interpretações associam o gorro vermelho à influência de histórias europeias.
+As narrativas do Saci reúnem referências indígenas, africanas e europeias, sem se reduzirem a uma única versão de origem."
+
+[sub_resource type="Resource" id="Entry_74"]
+script = ExtResource("2_entry")
+id = &"tram.newspapers"
+scene_id = &"scene_07"
+text = "Páginas de jornal coladas no vidro, todas amareladas. \"Inquérito sobre o Saci-Pererê, 1917.\"
+Um escritor pediu aos leitores que contassem o que sabiam do Saci. Chegaram cartas do Brasil inteiro."
+event_id = &"tram_inquiry_seen"
+
+[sub_resource type="Resource" id="Entry_75"]
+script = ExtResource("2_entry")
+id = &"journal.inquiry"
+scene_id = &"journal"
+text = "Monteiro Lobato fez um inquérito em jornal (1917) pedindo relatos sobre o Saci. As histórias que chegaram ajudaram a popularizá-lo e a fixar a imagem que conhecemos."
+condition_id = &"clue:clue_inquerito_1917"
+
+[sub_resource type="Resource" id="Entry_76"]
+script = ExtResource("2_entry")
+id = &"yard.horse"
+scene_id = &"scene_07"
+text = "Um cavalo parado, com a crina trançada em dezenas de nós minúsculos. Ele parece cansado."
+
+[sub_resource type="Resource" id="Entry_77"]
+script = ExtResource("2_entry")
+id = &"journal.horse"
+scene_id = &"journal"
+text = "O Saci gosta de trançar a crina dos cavalos e cavalgá-los de noite. É uma das travessuras mais antigas da lenda."
+condition_id = &"clue:clue_crina_cavalo"
+
+[sub_resource type="Resource" id="Choice_78_0"]
+script = ExtResource("3_choice")
+id = &"take"
+label = "Sim"
+next_id = &"yard.ribbon_taken"
+effect_id = &"claim_fita_vermelha"
+
+[sub_resource type="Resource" id="Choice_78_1"]
+script = ExtResource("3_choice")
+id = &"leave"
+label = "Não"
+
+[sub_resource type="Resource" id="Entry_78"]
+script = ExtResource("2_entry")
+id = &"yard.ribbon"
+scene_id = &"scene_07"
+text = "A porteira tem uma fita vermelha amarrada.
+Deseja pegar a fita vermelha?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_78_0"), SubResource("Choice_78_1")])
+
+[sub_resource type="Resource" id="Entry_79"]
+script = ExtResource("2_entry")
+id = &"yard.ribbon_taken"
+scene_id = &"scene_07"
+text = "Você desamarra e guarda a fita vermelha. Ela é comprida o bastante para fazer uma cruz."
+
+[sub_resource type="Resource" id="Choice_80_0"]
+script = ExtResource("3_choice")
+id = &"how"
+label = "Como faço para pará-lo?"
+next_id = &"vendor.recipe"
+
+[sub_resource type="Resource" id="Choice_80_1"]
+script = ExtResource("3_choice")
+id = &"saw"
+label = "Você viu o Saci?"
+next_id = &"vendor.saw"
+
+[sub_resource type="Resource" id="Entry_80"]
+script = ExtResource("2_entry")
+id = &"vendor.greeting"
+scene_id = &"scene_07"
+speaker = "Quitandeira"
+text = "Psiu! Ele foi embora?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_80_0"), SubResource("Choice_80_1")])
+
+[sub_resource type="Resource" id="Entry_81"]
+script = ExtResource("2_entry")
+id = &"vendor.saw"
+scene_id = &"scene_07"
+speaker = "Quitandeira"
+text = "Ele passou por aqui, levou meu fubá e deixou pegada de uma perna só no pão. Toda a cidade está uma bagunça só."
+next_id = &"vendor.greeting"
+
+[sub_resource type="Resource" id="Choice_82_0"]
+script = ExtResource("3_choice")
+id = &"take"
+label = "Pedir a peneira"
+next_id = &"vendor.give"
+condition_id = &"wall_or_tram_seen"
+effect_id = &"claim_peneira"
+
+[sub_resource type="Resource" id="Choice_82_1"]
+script = ExtResource("3_choice")
+id = &"investigate"
+label = "Vou investigar mais"
+next_id = &"vendor.distrust"
+condition_id = &"wall_or_tram_unseen"
+
+[sub_resource type="Resource" id="Choice_82_2"]
+script = ExtResource("3_choice")
+id = &"back"
+label = "Voltar"
+
+[sub_resource type="Resource" id="Entry_82"]
+script = ExtResource("2_entry")
+id = &"vendor.recipe"
+scene_id = &"scene_07"
+speaker = "Quitandeira"
+text = "Minha avó dizia assim: pega uma peneira, amarra uma fita em cruz, e joga no redemoinho. Ele fica preso lá dentro. Aí tem que botar numa garrafa bem tampada."
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_82_0"), SubResource("Choice_82_1"), SubResource("Choice_82_2")])
+
+[sub_resource type="Resource" id="Entry_83"]
+script = ExtResource("2_entry")
+id = &"vendor.give"
+scene_id = &"scene_07"
+speaker = "Quitandeira"
+text = "Toma a peneira. Mas não me deixa sozinha com ele, hein?"
+condition_id = &"sieve_not_claimed"
+
+[sub_resource type="Resource" id="Entry_84"]
+script = ExtResource("2_entry")
+id = &"vendor.distrust"
+scene_id = &"scene_07"
+speaker = "Quitandeira"
+text = "Antes, dê uma olhada no muro ou no bonde. Talvez tenham deixado alguma pista. Eu fico aqui... mas volte, está bem?"
+
+[sub_resource type="Resource" id="Entry_85"]
+script = ExtResource("2_entry")
+id = &"vendor.already_helped"
+scene_id = &"scene_07"
+speaker = "Quitandeira"
+text = "A peneira que eu tinha está com você. Minha avó dizia: fita em cruz, redemoinho e garrafa bem tampada. Tome cuidado."
+condition_id = &"sieve_claimed"
+
+[sub_resource type="Resource" id="Entry_86"]
+script = ExtResource("2_entry")
+id = &"bamboo.crack"
+scene_id = &"scene_07"
+text = "Um gomo de bambu rachado ao meio, sozinho no chão. Dentro, uma marca de mãozinha minúscula.
+O vento passa pelo bambu e faz um som que parece uma risadinha."
+
+[sub_resource type="Resource" id="Entry_87"]
+script = ExtResource("2_entry")
+id = &"journal.bamboo"
+scene_id = &"journal"
+text = "Em muitas versões, o Saci nasce dentro de um gomo de bambu, onde passa sete anos antes de sair."
+condition_id = &"clue:clue_bambu_rachado"
+
+[sub_resource type="Resource" id="Entry_88"]
+script = ExtResource("2_entry")
+id = &"journal.origin"
+scene_id = &"journal"
+text = "Em algumas versões, o Saci nasce num gomo de bambu, onde passa sete anos ouvindo o vento. Ao sair, tem setenta e sete anos para aprontar; depois, dizem, vira cogumelo.
+Outras narrativas lembram um menino travesso ligado à mata, o Saci-Cererê. Cada causo guarda uma parte diferente dessa história."
+condition_id = &"clue:clue_origem_saci"
+
+[sub_resource type="Resource" id="Entry_89"]
+script = ExtResource("2_entry")
+id = &"journal.wall_power"
+scene_id = &"journal"
+text = "Quem perde o gorro perde o rumo.
+O gorro aparece ligado ao poder do Saci. Quem consegue guardá-lo pode ter uma escolha difícil nas mãos."
+condition_id = &"clue:clue_poder_gorro_parede"
+
+[sub_resource type="Resource" id="Entry_90"]
+script = ExtResource("2_entry")
+id = &"journal.mural"
+scene_id = &"journal"
+text = "O menino da mata, o bambu, a roda de capoeira, o gorro e o vento.
+As versões do Saci se transformam com quem as conta. Narrativas indígenas, africanas e europeias se encontram nesses causos. Não existe uma única história que apague todas as outras.
+Travessuras com leite, fogo, objetos e crina dos cavalos continuam reaparecendo nas histórias."
+condition_id = &"clue:clue_mural_origens"
+
+[sub_resource type="Resource" id="Entry_91"]
+script = ExtResource("2_entry")
+id = &"journal.bonus"
+scene_id = &"journal"
+text = "Dia do Saci — 31 de outubro
+
+Uma data para lembrar o Saci e celebrar os causos do folclore brasileiro. Cada pessoa que conta uma história também ajuda a mantê-la viva."
+condition_id = &"clue:clue_dia_do_saci_bonus"
+
+[sub_resource type="Resource" id="Choice_92_0"]
+script = ExtResource("3_choice")
+id = &"climb"
+label = "Subir"
+next_id = &"climax.climb"
+effect_id = &"enter_climax"
+
+[sub_resource type="Resource" id="Choice_92_1"]
+script = ExtResource("3_choice")
+id = &"return"
+label = "Voltar"
+
+[sub_resource type="Resource" id="Entry_92"]
+script = ExtResource("2_entry")
+id = &"climax.warning"
+scene_id = &"scene_08"
+text = "O vento diz que ainda tem coisa para ver. Subir assim mesmo?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_92_0"), SubResource("Choice_92_1")])
+
+[sub_resource type="Resource" id="Entry_93"]
+script = ExtResource("2_entry")
+id = &"climax.climb"
+scene_id = &"scene_08"
+text = "As pegadas de uma perna só se juntam numa trilha só. Elas sobem. Você sobe junto.
+O vento aumenta a cada degrau. As roupas dos postes voam na mesma direção. Até o céu parece girar."
+event_id = &"intro_climb"
+
+[sub_resource type="Resource" id="Entry_94"]
+script = ExtResource("2_entry")
+id = &"climax.arrival"
+scene_id = &"scene_08"
+text = "A praça está no centro de um furacão. Bancos, páginas, sapatos, gorros... tudo girando devagar.
+No meio, uma figura de uma perna só, rindo. Já não é uma risadinha. É uma risada que ocupa o céu inteiro."
+event_id = &"intro_climax"
+
+[sub_resource type="Resource" id="Entry_95"]
+script = ExtResource("2_entry")
+id = &"battle.opening"
+scene_id = &"scene_08"
+speaker = "Saci"
+text = "Você achou meu gorro, você? Achou meu cachimbo, meu mural, meu bambu? Então sabe tudo o que importa... e quase nada ao mesmo tempo.
+Hihihi! Todo mundo quer me pegar, todo mundo quer me ouvir. Ninguém quer as duas coisas."
+next_id = &"battle.question"
+
+[sub_resource type="Resource" id="Choice_96_0"]
+script = ExtResource("3_choice")
+id = &"talk"
+label = "Interagir / Brincar"
+next_id = &"battle.act"
+
+[sub_resource type="Resource" id="Choice_96_1"]
+script = ExtResource("3_choice")
+id = &"item"
+label = "Item"
+next_id = &"battle.items"
+
+[sub_resource type="Resource" id="Choice_96_2"]
+script = ExtResource("3_choice")
+id = &"confront"
+label = "Confrontar"
+next_id = &"battle.confront"
+
+[sub_resource type="Resource" id="Choice_96_3"]
+script = ExtResource("3_choice")
+id = &"spare"
+label = "Amizade / Poupar"
+next_id = &"friendship.promise"
+condition_id = &"friendship_ready"
+
+[sub_resource type="Resource" id="Entry_96"]
+script = ExtResource("2_entry")
+id = &"battle.question"
+scene_id = &"scene_08"
+text = "O vento para por um instante. O Saci está parado à sua frente, de olhos arregalados, o gorro balançando.
+Saci: E agora, você? O que você vai fazer comigo?"
+stage_direction = "Troca das duas opções antigas pelo menu de quatro ações da revisão RPG. Saci em batalha é um quadrado vermelho provisório, a pedido do usuário."
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_96_0"), SubResource("Choice_96_1"), SubResource("Choice_96_2"), SubResource("Choice_96_3")])
+
+[sub_resource type="Resource" id="Choice_97_0"]
+script = ExtResource("3_choice")
+id = &"joke"
+label = "Contar piada / adivinha"
+next_id = &"battle.joke"
+
+[sub_resource type="Resource" id="Choice_97_1"]
+script = ExtResource("3_choice")
+id = &"play"
+label = "Entrar na brincadeira"
+next_id = &"battle.play"
+
+[sub_resource type="Resource" id="Choice_97_2"]
+script = ExtResource("3_choice")
+id = &"origin"
+label = "Contar a origem"
+next_id = &"friendship.origin"
+condition_id = &"three_read_clues"
+
+[sub_resource type="Resource" id="Choice_97_3"]
+script = ExtResource("3_choice")
+id = &"praise"
+label = "Elogiar as travessuras"
+next_id = &"battle.praise"
+
+[sub_resource type="Resource" id="Entry_97"]
+script = ExtResource("2_entry")
+id = &"battle.act"
+scene_id = &"scene_08"
+text = "Como você quer se aproximar do Saci?"
+choices = Array[ExtResource("3_choice")]([SubResource("Choice_97_0"), SubResource("Choice_97_1"), SubResource("Choice_97_2"), SubResource("Choice_97_3")])
+
+[sub_resource type="Resource" id="Entry_98"]
+script = ExtResource("2_entry")
+id = &"battle.joke"
+scene_id = &"scene_08"
+text = "O que é, o que é: cai em pé e corre deitado?
+O Saci tenta segurar a risada. Não consegue."
+
+[sub_resource type="Resource" id="Entry_99"]
+script = ExtResource("2_entry")
+id = &"battle.play"
+scene_id = &"scene_08"
+text = "Você acompanha o ritmo do vento.
+O Saci dá uma volta a mais só para ver se você acompanha.
+Hihihi!"
+
+[sub_resource type="Resource" id="Entry_100"]
+script = ExtResource("2_entry")
+id = &"battle.praise"
+scene_id = &"scene_08"
+text = "Você comenta uma das travessuras que encontrou pelo caminho.
+Pela primeira vez, ele parece interessado em ouvir sua versão."
+
+[sub_resource type="Resource" id="Entry_101"]
+script = ExtResource("2_entry")
+id = &"battle.items"
+scene_id = &"scene_08"
+text = "O que você quer mostrar ao Saci?"
+stage_direction = "Submenu usa os itens realmente presentes; sem gerar itens a partir do texto."
+
+[sub_resource type="Resource" id="Entry_102"]
+script = ExtResource("2_entry")
+id = &"battle.confront"
+scene_id = &"scene_08"
+text = "Você tenta agarrar o vento com as mãos vazias.
+O Saci apenas ri.
+Hihihi!"
+stage_direction = "Se a peneira já contiver o Saci, a ação muda para Segurar Peneira."
+
+[sub_resource type="Resource" id="Entry_103"]
+script = ExtResource("2_entry")
+id = &"battle.trick_tangle"
+scene_id = &"scene_08"
+speaker = "Saci"
+text = "Vou embolar sua linha!"
+stage_direction = "Resposta de turno, sem controles invertidos na exploração nem remoção definitiva de itens."
+
+[sub_resource type="Resource" id="Entry_104"]
+script = ExtResource("2_entry")
+id = &"battle.trick_key"
+scene_id = &"scene_08"
+speaker = "Saci"
+text = "Vou esconder sua chave!"
+stage_direction = "Resposta de turno, sem controles invertidos na exploração nem remoção definitiva de itens."
+
+[sub_resource type="Resource" id="Entry_105"]
+script = ExtResource("2_entry")
+id = &"battle.trick_milk"
+scene_id = &"scene_08"
+speaker = "Saci"
+text = "Vou azedar seu leite!"
+stage_direction = "Resposta de turno, sem controles invertidos na exploração nem remoção definitiva de itens."
+
+[sub_resource type="Resource" id="Entry_106"]
+script = ExtResource("2_entry")
+id = &"capture.sieve"
+scene_id = &"scene_08"
+text = "A peneira gira no ar. A fita vermelha faz a cruz. Por um instante, o redemoinho inteiro cabe dentro dela."
+stage_direction = "Ação por turno: usar peneira com cruz, sem timing obrigatório."
+
+[sub_resource type="Resource" id="Entry_107"]
+script = ExtResource("2_entry")
+id = &"capture.hold"
+scene_id = &"scene_08"
+text = "O Saci se debate sob a peneira. Você a mantém firme."
+stage_direction = "Ação por turno: Segurar Peneira ou mostrar o gorro; sem barra de força."
+
+[sub_resource type="Resource" id="Entry_108"]
+script = ExtResource("2_entry")
+id = &"capture.plea"
+scene_id = &"scene_08"
+speaker = "Saci"
+text = "Não! Não! A rolha, não! Eu ia devolver! Eu ia..."
+next_id = &"capture.bottle"
+
+[sub_resource type="Resource" id="Entry_109"]
+script = ExtResource("2_entry")
+id = &"capture.bottle"
+scene_id = &"scene_08"
+text = "Pop.
+A garrafa tampada pesa na sua mão. Lá dentro, uma fumaça gira devagar. Sempre no mesmo sentido."
+stage_direction = "Fechar garrafa por ação de turno, sem arrastar com mouse."
+
+[sub_resource type="Resource" id="Entry_110"]
+script = ExtResource("2_entry")
+id = &"capture.epilogue"
+scene_id = &"epilogue_capture"
+text = "A rua volta ao lugar. As roupas descem dos postes. Os desenhos desbotam. A casa se arruma sozinha.
+Tudo está em ordem. Silêncio.
+Você olha para a garrafa. Ela parece um pouco mais pesada do que antes."
+event_id = &"epilogue_capture_seen"
+
+[sub_resource type="Resource" id="Entry_111"]
+script = ExtResource("2_entry")
+id = &"capture.remorse"
+scene_id = &"epilogue_capture"
+text = "Você sabia o que ele era. Foi assim mesmo?"
+stage_direction = "Paleta saturada e silêncio, sem risadinha."
+condition_id = &"four_read_clues"
+
+[sub_resource type="Resource" id="Entry_112"]
+script = ExtResource("2_entry")
+id = &"friendship.lower_tools"
+scene_id = &"scene_08"
+text = "Você deixa de lado a ideia de prender o Saci.
+O vento parece esperar."
+stage_direction = "Evita citar peneira ou garrafa que podem não estar no inventário."
+next_id = &"friendship.surprise"
+
+[sub_resource type="Resource" id="Entry_113"]
+script = ExtResource("2_entry")
+id = &"friendship.surprise"
+scene_id = &"scene_08"
+speaker = "Saci"
+text = "Hm? Vai desistir? Todo mundo que chega até aqui me quer na garrafa."
+
+[sub_resource type="Resource" id="Entry_114"]
+script = ExtResource("2_entry")
+id = &"friendship.offer_pipe"
+scene_id = &"scene_08"
+text = "Você estende o cachimbo e o fumo de corda."
+next_id = &"friendship.pipe_memory"
+
+[sub_resource type="Resource" id="Entry_115"]
+script = ExtResource("2_entry")
+id = &"friendship.pipe_memory"
+scene_id = &"scene_08"
+speaker = "Saci"
+text = "... Onde achou isso? Esse cheiro. Esse bambu. Isso é meu de antes."
+stage_direction = "A fumaça forma por um instante um menino de duas pernas rindo."
+
+[sub_resource type="Resource" id="Entry_116"]
+script = ExtResource("2_entry")
+id = &"friendship.origin"
+scene_id = &"scene_08"
+speaker = "Você"
+text = "Você nasceu num gomo de bambu. Era um menino da mata, chamado Saci-Cererê. Depois a lenda cresceu com muitos povos."
+next_id = &"friendship.remembered"
+
+[sub_resource type="Resource" id="Entry_117"]
+script = ExtResource("2_entry")
+id = &"friendship.remembered"
+scene_id = &"scene_08"
+speaker = "Saci"
+text = "... Ninguém lembra disso. Todo mundo só lembra do gorro e do susto."
+
+[sub_resource type="Resource" id="Entry_118"]
+script = ExtResource("2_entry")
+id = &"friendship.return_hat"
+scene_id = &"scene_08"
+text = "Você estende o gorro vermelho. O vento para completamente."
+next_id = &"friendship.hat_power"
+
+[sub_resource type="Resource" id="Entry_119"]
+script = ExtResource("2_entry")
+id = &"friendship.hat_power"
+scene_id = &"scene_08"
+speaker = "Saci"
+text = "Você podia mandar em mim com isso. Sabia?"
+next_id = &"friendship.hat_reply"
+
+[sub_resource type="Resource" id="Entry_120"]
+script = ExtResource("2_entry")
+id = &"friendship.hat_reply"
+scene_id = &"scene_08"
+text = "Você: Sabia.
+Saci: ...E mesmo assim devolveu."
+
+[sub_resource type="Resource" id="Entry_121"]
+script = ExtResource("2_entry")
+id = &"friendship.empathy"
+scene_id = &"epilogue_friendship"
+speaker = "Saci"
+text = "Você foi o primeiro que perguntou se eu estava preso há muito tempo. Ninguém mais perguntou."
+condition_id = &"saci_empatico"
+
+[sub_resource type="Resource" id="Entry_122"]
+script = ExtResource("2_entry")
+id = &"friendship.paint_gorro"
+scene_id = &"epilogue_friendship"
+speaker = "Saci"
+text = "Vi seu desenho no muro. O gorro ficou torto. Mas ficou meu."
+condition_id = &"painted_gorro"
+
+[sub_resource type="Resource" id="Entry_123"]
+script = ExtResource("2_entry")
+id = &"friendship.paint_bambu"
+scene_id = &"epilogue_friendship"
+speaker = "Saci"
+text = "Vi seu desenho no muro. O bambu ficou torto. Mas ficou meu."
+condition_id = &"painted_bambu"
+
+[sub_resource type="Resource" id="Entry_124"]
+script = ExtResource("2_entry")
+id = &"friendship.paint_redemoinho"
+scene_id = &"epilogue_friendship"
+speaker = "Saci"
+text = "Vi seu desenho no muro. O redemoinho ficou torto. Mas ficou meu."
+condition_id = &"painted_redemoinho"
+
+[sub_resource type="Resource" id="Entry_125"]
+script = ExtResource("2_entry")
+id = &"friendship.promise"
+scene_id = &"epilogue_friendship"
+speaker = "Saci"
+text = "Está bem, você. Eu arrumo tudo. Mas amanhã eu bagunço de novo, hein?"
+next_id = &"friendship.epilogue"
+
+[sub_resource type="Resource" id="Entry_126"]
+script = ExtResource("2_entry")
+id = &"friendship.epilogue"
+scene_id = &"epilogue_friendship"
+text = "As roupas voltam aos varais. Os desenhos viram flores no muro. A garrafa vazia fica no chão, esquecida.
+Ao longe, uma risadinha. Alegre."
+stage_direction = "Redemoinho em pétalas; arte escolhida no mural preservada entre flores."
+event_id = &"epilogue_friendship_seen"
+
+[sub_resource type="Resource" id="Entry_127"]
+script = ExtResource("2_entry")
+id = &"incomplete.arrival"
+scene_id = &"incomplete_recovery"
+text = "Você chega à praça sem entender nada. O Saci ri, gira duas vezes e perde a graça."
+next_id = &"incomplete.bored"
+
+[sub_resource type="Resource" id="Entry_128"]
+script = ExtResource("2_entry")
+id = &"incomplete.bored"
+scene_id = &"incomplete_recovery"
+speaker = "Saci"
+text = "Você nem sabe quem eu sou. Que tédio."
+next_id = &"incomplete.clock"
+
+[sub_resource type="Resource" id="Entry_129"]
+script = ExtResource("2_entry")
+id = &"incomplete.clock"
+scene_id = &"incomplete_recovery"
+text = "Quase tudo está em ordem. Um relógio, na sala, ainda gira ao contrário."
+stage_direction = "Retorno seguro à investigação; não registra resultado moral e não remove recursos."
+
+[resource]
+script = ExtResource("1_catalog")
+entries = Array[ExtResource("2_entry")]([SubResource("Entry_0"), SubResource("Entry_1"), SubResource("Entry_2"), SubResource("Entry_3"), SubResource("Entry_4"), SubResource("Entry_5"), SubResource("Entry_6"), SubResource("Entry_7"), SubResource("Entry_8"), SubResource("Entry_9"), SubResource("Entry_10"), SubResource("Entry_11"), SubResource("Entry_12"), SubResource("Entry_13"), SubResource("Entry_14"), SubResource("Entry_15"), SubResource("Entry_16"), SubResource("Entry_17"), SubResource("Entry_18"), SubResource("Entry_19"), SubResource("Entry_20"), SubResource("Entry_21"), SubResource("Entry_22"), SubResource("Entry_23"), SubResource("Entry_24"), SubResource("Entry_25"), SubResource("Entry_26"), SubResource("Entry_27"), SubResource("Entry_28"), SubResource("Entry_29"), SubResource("Entry_30"), SubResource("Entry_31"), SubResource("Entry_32"), SubResource("Entry_33"), SubResource("Entry_34"), SubResource("Entry_35"), SubResource("Entry_36"), SubResource("Entry_37"), SubResource("Entry_38"), SubResource("Entry_39"), SubResource("Entry_40"), SubResource("Entry_41"), SubResource("Entry_42"), SubResource("Entry_43"), SubResource("Entry_44"), SubResource("Entry_45"), SubResource("Entry_46"), SubResource("Entry_47"), SubResource("Entry_48"), SubResource("Entry_49"), SubResource("Entry_50"), SubResource("Entry_51"), SubResource("Entry_52"), SubResource("Entry_53"), SubResource("Entry_54"), SubResource("Entry_55"), SubResource("Entry_56"), SubResource("Entry_57"), SubResource("Entry_58"), SubResource("Entry_59"), SubResource("Entry_60"), SubResource("Entry_61"), SubResource("Entry_62"), SubResource("Entry_63"), SubResource("Entry_64"), SubResource("Entry_65"), SubResource("Entry_66"), SubResource("Entry_67"), SubResource("Entry_68"), SubResource("Entry_69"), SubResource("Entry_70"), SubResource("Entry_71"), SubResource("Entry_72"), SubResource("Entry_73"), SubResource("Entry_74"), SubResource("Entry_75"), SubResource("Entry_76"), SubResource("Entry_77"), SubResource("Entry_78"), SubResource("Entry_79"), SubResource("Entry_80"), SubResource("Entry_81"), SubResource("Entry_82"), SubResource("Entry_83"), SubResource("Entry_84"), SubResource("Entry_85"), SubResource("Entry_86"), SubResource("Entry_87"), SubResource("Entry_88"), SubResource("Entry_89"), SubResource("Entry_90"), SubResource("Entry_91"), SubResource("Entry_92"), SubResource("Entry_93"), SubResource("Entry_94"), SubResource("Entry_95"), SubResource("Entry_96"), SubResource("Entry_97"), SubResource("Entry_98"), SubResource("Entry_99"), SubResource("Entry_100"), SubResource("Entry_101"), SubResource("Entry_102"), SubResource("Entry_103"), SubResource("Entry_104"), SubResource("Entry_105"), SubResource("Entry_106"), SubResource("Entry_107"), SubResource("Entry_108"), SubResource("Entry_109"), SubResource("Entry_110"), SubResource("Entry_111"), SubResource("Entry_112"), SubResource("Entry_113"), SubResource("Entry_114"), SubResource("Entry_115"), SubResource("Entry_116"), SubResource("Entry_117"), SubResource("Entry_118"), SubResource("Entry_119"), SubResource("Entry_120"), SubResource("Entry_121"), SubResource("Entry_122"), SubResource("Entry_123"), SubResource("Entry_124"), SubResource("Entry_125"), SubResource("Entry_126"), SubResource("Entry_127"), SubResource("Entry_128"), SubResource("Entry_129")])

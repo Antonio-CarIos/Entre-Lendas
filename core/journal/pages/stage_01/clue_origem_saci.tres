@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="JournalEntry" format=3]
+
+[ext_resource type="Script" path="res://core/journal/journal_entry.gd" id="script"]
+[ext_resource type="Texture2D" path="res://assets/art/items/stage_01/cachimbo_fumo.png" id="art"]
+
+[resource]
+script = ExtResource("script")
+id = &"clue_origem_saci"
+title = "Origem do Saci"
+text = "Em algumas versões, o Saci nasce num gomo de bambu, onde passa sete anos ouvindo o vento. Ao sair, tem setenta e sete anos para aprontar; depois, dizem, vira cogumelo.
+Outras narrativas lembram um menino travesso ligado à mata, o Saci-Cererê. Cada causo guarda uma parte diferente dessa história."
+origin = "Memória do cachimbo — casa ou praça"
+dialogue_id = &"journal.origin"
+bonus = false
+illustration = ExtResource("art")

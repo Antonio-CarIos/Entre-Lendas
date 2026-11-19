@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="JournalEntry" format=3]
+
+[ext_resource type="Script" path="res://core/journal/journal_entry.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+id = &"clue_inquerito_1917"
+title = "O inquérito de 1917"
+text = "Monteiro Lobato fez um inquérito em jornal (1917) pedindo relatos sobre o Saci. As histórias que chegaram ajudaram a popularizá-lo e a fixar a imagem que conhecemos."
+origin = "Jornais no bonde"
+dialogue_id = &"journal.inquiry"
+bonus = false

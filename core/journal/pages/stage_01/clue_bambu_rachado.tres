@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="JournalEntry" format=3]
+
+[ext_resource type="Script" path="res://core/journal/journal_entry.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+id = &"clue_bambu_rachado"
+title = "O bambu rachado"
+text = "Em muitas versões, o Saci nasce dentro de um gomo de bambu, onde passa sete anos antes de sair."
+origin = "Bambuzal"
+dialogue_id = &"journal.bamboo"
+bonus = false

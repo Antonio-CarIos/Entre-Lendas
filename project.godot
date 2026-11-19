@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Entre Lendas"
-run/main_scene="uid://bnl0oekw26ma6"
+run/main_scene="res://ui/main_menu.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 EventBus="*res://core/autoloads/event_bus.gd"
 WorldState="*res://core/autoloads/world_state.gd"
+AudioManager="*res://core/autoloads/audio_manager.gd"
 
 [display]
 

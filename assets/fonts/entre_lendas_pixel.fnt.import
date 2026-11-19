@@ -1,0 +1,17 @@
+[remap]
+
+importer="font_data_bmfont"
+type="FontFile"
+uid="uid://moj1gsku41sy"
+path="res://.godot/imported/entre_lendas_pixel.fnt-9787844d82e1344c4ced888ea83f70b9.fontdata"
+
+[deps]
+
+source_file="res://assets/fonts/entre_lendas_pixel.fnt"
+dest_files=["res://.godot/imported/entre_lendas_pixel.fnt-9787844d82e1344c4ced888ea83f70b9.fontdata"]
+
+[params]
+
+fallbacks=[]
+compress=true
+scaling_mode=2

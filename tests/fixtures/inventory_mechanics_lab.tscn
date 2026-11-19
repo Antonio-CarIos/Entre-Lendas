@@ -1,0 +1,34 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://stages/stage_01_saci/house_interior.tscn" id="base"]
+[ext_resource type="PackedScene" path="res://components/interactables/collectible_item.tscn" id="collectible_task14"]
+[ext_resource type="Resource" path="res://core/inventory/items/stage_01/cachimbo_fumo.tres" id="item_task14_cachimbo_fumo"]
+[ext_resource type="Resource" path="res://core/inventory/items/stage_01/fita_vermelha.tres" id="item_task14_fita_vermelha"]
+[ext_resource type="Resource" path="res://core/inventory/items/stage_01/garrafa_vazia.tres" id="item_task14_garrafa_vazia"]
+[ext_resource type="Resource" path="res://core/inventory/items/stage_01/peneira.tres" id="item_test_peneira"]
+
+[node name="InventoryMechanicsLab" instance=ExtResource("base")]
+
+[node name="BottleCollectible" parent="YSortRoot" instance=ExtResource("collectible_task14")]
+position = Vector2(320, 472)
+item_data = ExtResource("item_task14_garrafa_vazia")
+persistent_id = &"stage01_house_bottle"
+
+
+[node name="PipeCollectible" parent="YSortRoot" instance=ExtResource("collectible_task14")]
+position = Vector2(368, 440)
+item_data = ExtResource("item_task14_cachimbo_fumo")
+persistent_id = &"stage01_house_pipe"
+
+
+[node name="RibbonCollectible" parent="YSortRoot" instance=ExtResource("collectible_task14")]
+position = Vector2(272, 440)
+item_data = ExtResource("item_task14_fita_vermelha")
+persistent_id = &"stage01_house_ribbon"
+
+
+[node name="SieveCollectible" parent="YSortRoot" instance=ExtResource("collectible_task14")]
+position = Vector2(368, 488)
+item_data = ExtResource("item_test_peneira")
+persistent_id = &"stage01_house_sieve"
+

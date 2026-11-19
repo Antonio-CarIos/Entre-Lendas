@@ -1,0 +1,106 @@
+[gd_resource type="Theme" format=3 uid="uid://chvmdd3ug5xyq"]
+
+[ext_resource type="FontFile" uid="uid://moj1gsku41sy" path="res://assets/fonts/entre_lendas_pixel.fnt" id="1_font"]
+
+[sub_resource type="StyleBoxFlat" id="Focus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.96, 0.82, 0.51, 1)
+
+[sub_resource type="StyleBoxFlat" id="Hover"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.15, 0.17, 0.16, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.88, 0.66, 0.27, 1)
+
+[sub_resource type="StyleBoxFlat" id="Button"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.07, 0.105, 0.13, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.4, 0.36, 0.26, 1)
+
+[sub_resource type="StyleBoxFlat" id="Pressed"]
+content_margin_left = 8.0
+content_margin_top = 6.0
+content_margin_right = 8.0
+content_margin_bottom = 6.0
+bg_color = Color(0.32, 0.12, 0.09, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.88, 0.66, 0.27, 1)
+
+[sub_resource type="StyleBoxFlat" id="CheckFocus"]
+bg_color = Color(0, 0, 0, 0)
+border_width_bottom = 2
+border_color = Color(0.96, 0.82, 0.51, 1)
+
+[sub_resource type="Gradient" id="Gold"]
+colors = PackedColorArray(0.96, 0.82, 0.51, 1, 0.96, 0.82, 0.51, 1)
+
+[sub_resource type="GradientTexture2D" id="Grabber"]
+gradient = SubResource("Gold")
+width = 8
+height = 14
+
+[sub_resource type="StyleBoxFlat" id="GrabberArea"]
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.72, 0.47, 0.19, 1)
+
+[sub_resource type="StyleBoxFlat" id="Slider"]
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color(0.19, 0.22, 0.23, 1)
+border_width_bottom = 1
+border_color = Color(0.4, 0.36, 0.26, 1)
+
+[sub_resource type="StyleBoxFlat" id="Panel"]
+content_margin_left = 12.0
+content_margin_top = 12.0
+content_margin_right = 12.0
+content_margin_bottom = 12.0
+bg_color = Color(0.035, 0.065, 0.09, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.52, 0.4, 0.22, 1)
+
+[resource]
+default_font = ExtResource("1_font")
+default_font_size = 12
+Button/colors/font_color = Color(0.96, 0.92, 0.84, 1)
+Button/colors/font_focus_color = Color(1, 0.84, 0.5, 1)
+Button/colors/font_hover_color = Color(1, 0.84, 0.5, 1)
+Button/styles/focus = SubResource("Focus")
+Button/styles/hover = SubResource("Hover")
+Button/styles/normal = SubResource("Button")
+Button/styles/pressed = SubResource("Pressed")
+CheckButton/colors/font_color = Color(0.96, 0.92, 0.84, 1)
+CheckButton/colors/font_focus_color = Color(1, 0.84, 0.5, 1)
+CheckButton/styles/focus = SubResource("CheckFocus")
+HSlider/icons/grabber = SubResource("Grabber")
+HSlider/icons/grabber_highlight = SubResource("Grabber")
+HSlider/styles/grabber_area = SubResource("GrabberArea")
+HSlider/styles/grabber_area_highlight = SubResource("GrabberArea")
+HSlider/styles/slider = SubResource("Slider")
+Label/colors/font_color = Color(0.96, 0.92, 0.84, 1)
+PanelContainer/styles/panel = SubResource("Panel")
+RichTextLabel/colors/default_color = Color(0.96, 0.92, 0.84, 1)

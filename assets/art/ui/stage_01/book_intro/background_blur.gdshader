@@ -1,7 +1,12 @@
 shader_type canvas_item;
 uniform sampler2D screen_texture : hint_screen_texture, filter_linear_mipmap;
 uniform float amount: hint_range(0.0, 5.0) = 2.5;
+varying vec4 item_tint;
+
+void vertex() {
+    item_tint = COLOR;
+}
 
 void fragment() {
-    COLOR = textureLod(screen_texture, SCREEN_UV, amount);
+    COLOR = textureLod(screen_texture, SCREEN_UV, amount) * item_tint;
 }

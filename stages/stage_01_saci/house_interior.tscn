@@ -1,12 +1,24 @@
 [gd_scene format=4 uid="uid://bnl0oekw26ma6"]
 
-[ext_resource type="Texture2D" uid="uid://obdaaf25yb6x" path="res://assets/art/tilesets/stage_01/house_interior_struture.png" id="1_x41qh"]
+[ext_resource type="Texture2D" uid="uid://obdaaf25yb6x" path="res://assets/art/tilesets/stage_01/house/house_interior_structure.png" id="1_x41qh"]
 [ext_resource type="Texture2D" uid="uid://5kxdbtho7raa" path="res://assets/art/props/stage_01/house/house_furniture_atlas.png" id="2_1npj7"]
 [ext_resource type="PackedScene" uid="uid://cqrvyjx5roye" path="res://components/props/plant_pot_01.tscn" id="3_1dugq"]
 [ext_resource type="PackedScene" uid="uid://d0s1k0rqfuwnn" path="res://components/props/chair_down.tscn" id="4_mjf7a"]
 [ext_resource type="PackedScene" uid="uid://bvpopxuni53jv" path="res://components/props/chair_facing_up.tscn" id="5_thakv"]
 [ext_resource type="PackedScene" uid="uid://k351uvwiqqyv" path="res://components/props/countertop_type_a.tscn" id="6_kpxmj"]
 [ext_resource type="PackedScene" uid="uid://bh7fjjpp3knag" path="res://components/props/plate_rack.tscn" id="7_8e2yy"]
+[ext_resource type="PackedScene" path="res://entities/player/player.tscn" id="8_player"]
+[ext_resource type="PackedScene" path="res://ui/gameplay_hud.tscn" id="hud_task14"]
+
+[ext_resource type="Script" path="res://stages/stage_01_saci/house_investigation.gd" id="house_level"]
+[ext_resource type="PackedScene" path="res://components/transitions/stair_transition.tscn" id="stairs_transition"]
+
+[ext_resource type="PackedScene" path="res://components/interactables/scene_door.tscn" id="backyard_door"]
+[ext_resource type="Script" path="res://components/camera/room_camera.gd" id="room_camera"]
+[ext_resource type="PackedScene" path="res://components/transitions/threshold_door.tscn" id="city_threshold"]
+
+[ext_resource type="PackedScene" path="res://components/interactables/narrative_pipe.tscn" id="narrative_pipe"]
+[ext_resource type="Script" path="res://components/interactables/dialogue_interactable.gd" id="investigation_area"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_y6fnx"]
 texture = ExtResource("1_x41qh")
@@ -1128,8 +1140,11 @@ texture_region_size = Vector2i(32, 32)
 14:25/0 = 0
 15:25/0 = 0
 16:25/0 = 0
+16:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.36974, -24.836851, 15.805267, -24.836851, 16, -10.514814, -16, -10.514814)
 17:25/0 = 0
+17:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.36974, -24.836851, 15.805267, -24.836851, 16, -10.514814, -16, -10.514814)
 18:25/0 = 0
+18:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16.36974, -24.836851, 15.805267, -24.836851, 16, -10.514814, -16, -10.514814)
 19:25/0 = 0
 0:26/0 = 0
 1:26/0 = 0
@@ -1234,6 +1249,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_xjfx7"]
 tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_3306v")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1npj7"]
@@ -1828,10 +1844,15 @@ texture_region_size = Vector2i(32, 32)
 14:15/0 = 0
 14:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 15:15/0 = 0
+15:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 6.0539856, 16, 6.0539856, 16, 16, -16, 16)
 16:15/0 = 0
+16:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 6.0539856, 16, 6.0539856, 16, 16, -16, 16)
 17:15/0 = 0
+17:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 6.0539856, 16, 6.0539856, 16, 16, -16, 16)
 18:15/0 = 0
+18:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 6.0539856, 16, 6.0539856, 16, 16, -16, 16)
 19:15/0 = 0
+19:15/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, 6.0539856, 16, 6.0539856, 16, 16, -16, 16)
 0:16/0 = 0
 0:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:16/0 = 0
@@ -1854,10 +1875,15 @@ texture_region_size = Vector2i(32, 32)
 13:16/0 = 0
 14:16/0 = 0
 15:16/0 = 0
+15:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 16:16/0 = 0
+16:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 17:16/0 = 0
+17:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 18:16/0 = 0
+18:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 19:16/0 = 0
+19:16/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 0:17/0 = 0
 0:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:17/0 = 0
@@ -1880,10 +1906,15 @@ texture_region_size = Vector2i(32, 32)
 13:17/0 = 0
 14:17/0 = 0
 15:17/0 = 0
+15:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 16:17/0 = 0
+16:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 17:17/0 = 0
+17:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 18:17/0 = 0
+18:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 19:17/0 = 0
+19:17/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 0:18/0 = 0
 0:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:18/0 = 0
@@ -1906,13 +1937,21 @@ texture_region_size = Vector2i(32, 32)
 13:18/0 = 0
 14:18/0 = 0
 15:18/0 = 0
+15:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 16:18/0 = 0
+16:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 17:18/0 = 0
+17:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 18:18/0 = 0
+18:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 19:18/0 = 0
+19:18/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:19/0 = 0
+1:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:19/0 = 0
+2:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 3:19/0 = 0
+3:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:19/0 = 0
 6:19/0 = 0
 6:19/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
@@ -1928,10 +1967,14 @@ texture_region_size = Vector2i(32, 32)
 17:19/0 = 0
 18:19/0 = 0
 0:20/0 = 0
+0:20/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:20/0 = 0
+1:20/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:20/0 = 0
 3:20/0 = 0
+3:20/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:20/0 = 0
+4:20/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:20/0 = 0
 6:20/0 = 0
 8:20/0 = 0
@@ -1947,10 +1990,12 @@ texture_region_size = Vector2i(32, 32)
 18:20/0 = 0
 19:20/0 = 0
 0:21/0 = 0
+0:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:21/0 = 0
 2:21/0 = 0
 3:21/0 = 0
 4:21/0 = 0
+4:21/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:21/0 = 0
 9:21/0 = 0
 10:21/0 = 0
@@ -1964,10 +2009,14 @@ texture_region_size = Vector2i(32, 32)
 18:21/0 = 0
 19:21/0 = 0
 0:22/0 = 0
+0:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:22/0 = 0
+1:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:22/0 = 0
 3:22/0 = 0
+3:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:22/0 = 0
+4:22/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:22/0 = 0
 6:22/0 = 0
 8:22/0 = 0
@@ -1983,8 +2032,11 @@ texture_region_size = Vector2i(32, 32)
 18:22/0 = 0
 19:22/0 = 0
 1:23/0 = 0
+1:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:23/0 = 0
+2:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 3:23/0 = 0
+3:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:23/0 = 0
 5:23/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 6:23/0 = 0
@@ -2042,7 +2094,6 @@ texture_region_size = Vector2i(32, 32)
 12:28/0 = 0
 13:28/0 = 0
 17:28/0 = 0
-17:28/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 18:28/0 = 0
 19:28/0 = 0
 1:29/0 = 0
@@ -2064,13 +2115,60 @@ texture_region_size = Vector2i(32, 32)
 13:30/0 = 0
 18:30/0 = 0
 19:30/0 = 0
+16:25/0 = 0
+16:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.931538, -22.304153, 15.931538, -22.304153, 16, -9.240292, -16, -9.240292)
+17:25/0 = 0
+17:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, -9.240292, -16, -9.240292)
+18:25/0 = 0
+18:25/0/physics_layer_0/polygon_0/points = PackedVector2Array(-15.931538, -22.304153, 15.931538, -22.304153, 16, -9.240292, -16, -9.240292)
+16:26/0 = 0
+17:26/0 = 0
+18:26/0 = 0
+16:27/0 = 0
+17:27/0 = 0
+18:27/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_d78qu"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_1npj7")
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8e2yy"]
+size = Vector2(37, 70)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mjf7a"]
+size = Vector2(31.5, 42)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_thakv"]
+size = Vector2(31, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kpxmj"]
+size = Vector2(48, 82.5)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_8e2yy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5yrl5"]
+size = Vector2(85, 86)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_d78qu"]
+radius = 5.0
+height = 22.0
+
+[sub_resource type="RectangleShape2D" id="FrontDoorBoundaryShape"]
+size = Vector2(64, 8)
+
+[sub_resource type="CircleShape2D" id="InvestigationShape"]
+radius = 18.0
+
+[sub_resource type="RectangleShape2D" id="SofaShape"]
+size = Vector2(92, 16)
+
 [node name="HouseInterior" type="Node2D" unique_id=604944092]
+script = ExtResource("house_level")
+
+[node name="OutsideDarkness" type="Polygon2D" parent="."]
+color = Color(0.06666667, 0.0627451, 0.050980393, 1)
+polygon = PackedVector2Array(-1024, -1024, 1664, -1024, 1664, 1696, -1024, 1696)
 
 [node name="HouseModulate" type="CanvasModulate" parent="." unique_id=1567427739]
 position = Vector2(-6, 0)
@@ -2090,6 +2188,18 @@ tile_set = SubResource("TileSet_d78qu")
 [node name="YSortRoot" type="Node2D" parent="." unique_id=1037089912]
 y_sort_enabled = true
 
+[node name="Player" parent="YSortRoot" unique_id=551088715 instance=ExtResource("8_player")]
+position = Vector2(320, 440)
+
+[node name="Camera2D" parent="YSortRoot/Player" index="3"]
+position = Vector2(0, -16)
+limit_left = -32
+limit_top = 224
+limit_right = 672
+limit_bottom = 672
+script = ExtResource("room_camera")
+floor_layer_path = NodePath("../../../FloorLayer")
+
 [node name="State_Organized" type="Node2D" parent="YSortRoot" unique_id=119006937]
 y_sort_enabled = true
 
@@ -2102,6 +2212,15 @@ region_enabled = true
 region_rect = Rect2(269, 346, 38, 69)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/State_Organized/Door" unique_id=562591577]
+position = Vector2(-0.5, 0)
+shape = SubResource("RectangleShape2D_8e2yy")
+disabled = true
+
+[node name="BackyardDoor" parent="YSortRoot/State_Organized/Door" instance=ExtResource("backyard_door")]
+position = Vector2(0, 28)
+target_scene = "res://stages/stage_01_saci/house_backyard.tscn"
+target_spawn = &"FromHouseInterior"
+question = "Deseja sair e ir para o quintal?"
 
 [node name="Stove" type="StaticBody2D" parent="YSortRoot/State_Organized" unique_id=1795864439]
 position = Vector2(134, 354.75)
@@ -2113,6 +2232,8 @@ region_enabled = true
 region_rect = Rect2(416, 1120, 32, 51.233887)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/State_Organized/Stove" unique_id=1676379195]
+position = Vector2(0, 4.25)
+shape = SubResource("RectangleShape2D_mjf7a")
 
 [node name="Sink" type="StaticBody2D" parent="YSortRoot/State_Organized" unique_id=19306912]
 position = Vector2(166, 370.18436)
@@ -2124,30 +2245,37 @@ texture = ExtResource("2_1npj7")
 region_enabled = true
 region_rect = Rect2(64, 1280, 31.07769, 21.221558)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/State_Organized/Sink" unique_id=9140433]
-
 [node name="Sprite2D2" type="Sprite2D" parent="YSortRoot/State_Organized/Sink" unique_id=1656063764]
-position = Vector2(-6e-05, -25.18436)
+position = Vector2(-6.1035156e-05, -25.184357)
 scale = Vector2(1.0005531, 1.0172414)
 texture = ExtResource("2_1npj7")
 region_enabled = true
 region_rect = Rect2(352, 1250.5747, 32, 29.355225)
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/State_Organized/Sink" unique_id=9140433]
+position = Vector2(0, -12.184357)
+shape = SubResource("RectangleShape2D_thakv")
+
 [node name="Refrigerator" type="StaticBody2D" parent="YSortRoot/State_Organized" unique_id=475039073]
 position = Vector2(92, 340)
 
 [node name="Sprite2D" type="Sprite2D" parent="YSortRoot/State_Organized/Refrigerator" unique_id=762669182]
+position = Vector2(0, -1)
 texture = ExtResource("2_1npj7")
 region_enabled = true
 region_rect = Rect2(425.85846, 1247.9308, 44.23758, 83.380005)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/State_Organized/Refrigerator" unique_id=1439562883]
+position = Vector2(2, -1.25)
+shape = SubResource("RectangleShape2D_kpxmj")
 
 [node name="PlantPot" parent="YSortRoot/State_Organized" unique_id=1256516688 instance=ExtResource("3_1dugq")]
 position = Vector2(617.5, 608)
+physics_material_override = SubResource("PhysicsMaterial_8e2yy")
 
 [node name="ChairDown" parent="YSortRoot/State_Organized" unique_id=2056531854 instance=ExtResource("4_mjf7a")]
 position = Vector2(108, 474)
+disable_mode = 1
 
 [node name="ChairDown2" parent="YSortRoot/State_Organized" unique_id=1168150051 instance=ExtResource("4_mjf7a")]
 position = Vector2(145, 474)
@@ -2161,14 +2289,19 @@ region_enabled = true
 region_rect = Rect2(7.859314, 1036, 81.66528, 83.89502)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/State_Organized/Table" unique_id=1221842257]
+position = Vector2(-0.5, 2)
+shape = SubResource("RectangleShape2D_5yrl5")
 
-[node name="OilLamp" type="StaticBody2D" parent="YSortRoot/State_Organized" unique_id=296817851]
-position = Vector2(123, 504)
+[node name="OilLamp" type="StaticBody2D" parent="YSortRoot/State_Organized/Table" unique_id=296817851]
+position = Vector2(-2, -17)
 
-[node name="Sprite2D" type="Sprite2D" parent="YSortRoot/State_Organized/OilLamp" unique_id=1848947435]
+[node name="Sprite2D" type="Sprite2D" parent="YSortRoot/State_Organized/Table/OilLamp" unique_id=1848947435]
 texture = ExtResource("2_1npj7")
 region_enabled = true
 region_rect = Rect2(138.62993, 2148.8984, 10.497803, 24.681152)
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="YSortRoot/State_Organized/Table/OilLamp" unique_id=1012114068]
+shape = SubResource("CapsuleShape2D_d78qu")
 
 [node name="PlantPot2" parent="YSortRoot/State_Organized" unique_id=2113719566 instance=ExtResource("3_1dugq")]
 position = Vector2(26.5, 608)
@@ -2204,11 +2337,102 @@ texture = ExtResource("2_1npj7")
 region_enabled = true
 region_rect = Rect2(384, 1288, 32, 24)
 
+[node name="Sofa" type="StaticBody2D" parent="YSortRoot/State_Organized"]
+position = Vector2(416, 376)
+collision_layer = 1
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortRoot/State_Organized/Sofa"]
+position = Vector2(0, -16)
+texture = ExtResource("2_1npj7")
+region_enabled = true
+region_rect = Rect2(448, 1920, 96, 32)
+
+[node name="Cushion" type="Sprite2D" parent="YSortRoot/State_Organized/Sofa"]
+position = Vector2(12, -18)
+texture = ExtResource("2_1npj7")
+region_enabled = true
+region_rect = Rect2(576, 1760, 32, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/State_Organized/Sofa"]
+position = Vector2(0, -8)
+shape = SubResource("SofaShape")
+
+[node name="Pipe" parent="YSortRoot/State_Organized" instance=ExtResource("narrative_pipe")]
+position = Vector2(380, 378)
+
+[node name="Clock" type="Node2D" parent="YSortRoot/State_Organized"]
+position = Vector2(496, 304)
+
+[node name="Frame" type="Polygon2D" parent="YSortRoot/State_Organized/Clock"]
+polygon = PackedVector2Array(-12,-18,12,-18,16,-14,16,10,12,14,-12,14,-16,10,-16,-14)
+color = Color(0.32, 0.23, 0.13, 1)
+
+[node name="Face" type="Polygon2D" parent="YSortRoot/State_Organized/Clock"]
+polygon = PackedVector2Array(-10,-15,10,-15,13,-12,13,8,10,11,-10,11,-13,8,-13,-12)
+color = Color(0.88, 0.79, 0.60, 1)
+
+[node name="Hands" type="Node2D" parent="YSortRoot/State_Organized/Clock"]
+position = Vector2(0, -2)
+
+[node name="Minutes" type="Line2D" parent="YSortRoot/State_Organized/Clock/Hands"]
+points = PackedVector2Array(0,0,0,-10)
+width = 2.0
+default_color = Color(0.18,0.15,0.12,1)
+
+[node name="Hours" type="Line2D" parent="YSortRoot/State_Organized/Clock/Hands"]
+points = PackedVector2Array(0,0,7,3)
+width = 2.0
+default_color = Color(0.18,0.15,0.12,1)
+
+[node name="Milk" type="Node2D" parent="YSortRoot/State_Organized/Table"]
+position = Vector2(22, -16)
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortRoot/State_Organized/Table/Milk"]
+position = Vector2(0, -10)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_1npj7")
+region_enabled = true
+region_rect = Rect2(520, 1220, 16, 32)
+
+[node name="ClosedBottle" type="Node2D" parent="YSortRoot/State_Organized"]
+position = Vector2(560, 352)
+
+[node name="Shelf" type="Sprite2D" parent="YSortRoot/State_Organized/ClosedBottle"]
+position = Vector2(0, -4)
+texture = ExtResource("2_1npj7")
+region_enabled = true
+region_rect = Rect2(320, 1288, 32, 24)
+
+[node name="Sprite2D" type="Sprite2D" parent="YSortRoot/State_Organized/ClosedBottle"]
+position = Vector2(0, -20)
+modulate = Color(0.38, 0.50, 0.52, 1)
+texture = ExtResource("2_1npj7")
+region_enabled = true
+region_rect = Rect2(488, 1220, 16, 32)
+
+[node name="RedWax" type="Polygon2D" parent="YSortRoot/State_Organized/ClosedBottle"]
+polygon = PackedVector2Array(-3,-26,3,-26,3,-22,-3,-22)
+color = Color(0.70, 0.12, 0.12, 1)
+
+[node name="Smoke" type="Line2D" parent="YSortRoot/State_Organized/ClosedBottle"]
+points = PackedVector2Array(-2,-13,2,-13,3,-15,-2,-16,-3,-18,2,-20)
+width = 1.0
+default_color = Color(0.96, 0.92, 0.84, 0.65)
+
 [node name="State_Chaotic" type="Node2D" parent="YSortRoot" unique_id=324219477]
 y_sort_enabled = true
 
 [node name="SharedProps" type="Node2D" parent="YSortRoot" unique_id=1528574968]
 y_sort_enabled = true
+
+[node name="FrontDoorBoundary" type="StaticBody2D" parent="YSortRoot/SharedProps"]
+position = Vector2(320, 676)
+collision_layer = 1
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="YSortRoot/SharedProps/FrontDoorBoundary"]
+shape = SubResource("FrontDoorBoundaryShape")
 
 [node name="SpawnPoints" type="Node2D" parent="." unique_id=373791859]
 
@@ -2221,6 +2445,84 @@ position = Vector2(320, 384)
 [node name="SaciBottleSpawn" type="Marker2D" parent="SpawnPoints" unique_id=1278572812]
 position = Vector2(480, 336)
 
+[node name="FromBackyard" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(36, 392)
+metadata/facing_direction = Vector2(0, 1)
+
+[node name="FromBedroom" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(496, 608)
+metadata/facing_direction = Vector2(0, 1)
+
+[node name="FromCity" type="Marker2D" parent="SpawnPoints"]
+position = Vector2(320, 624)
+metadata/facing_direction = Vector2(0, -1)
+
+[node name="Transitions" type="Node2D" parent="."]
+
+[node name="StairsToBedroom" parent="Transitions" instance=ExtResource("stairs_transition")]
+position = Vector2(496, 532)
+target_scene = "res://stages/stage_01_saci/house_bedroom.tscn"
+target_spawn = &"FromHouseInterior"
+travel_direction = Vector2(0, -1)
+
+[node name="FrontDoorToCity" parent="Transitions" instance=ExtResource("city_threshold")]
+position = Vector2(320, 648)
+target_scene = "res://stages/stage_01_saci/santa_teresa_map.tscn"
+target_spawn = &"FromHouseInterior"
+question = "Deseja sair e ir para a cidade?"
+
 [node name="Camera2D" type="Camera2D" parent="." unique_id=921172319]
 position = Vector2(320, 452)
 zoom = Vector2(0.9, 0.8)
+enabled = false
+
+[node name="NarrativeInteractions" type="Node2D" parent="."]
+
+[node name="Sofa" type="Area2D" parent="NarrativeInteractions"]
+position = Vector2(416, 385)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("investigation_area")
+entry_id = &"clean.sofa"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NarrativeInteractions/Sofa"]
+shape = SubResource("InvestigationShape")
+
+[node name="Clock" type="Area2D" parent="NarrativeInteractions"]
+position = Vector2(496, 350)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("investigation_area")
+entry_id = &"clean.clock"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NarrativeInteractions/Clock"]
+shape = SubResource("InvestigationShape")
+
+[node name="Milk" type="Area2D" parent="NarrativeInteractions"]
+position = Vector2(147, 535)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("investigation_area")
+entry_id = &"clean.milk"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NarrativeInteractions/Milk"]
+shape = SubResource("InvestigationShape")
+
+[node name="Bottle" type="Area2D" parent="NarrativeInteractions"]
+position = Vector2(560, 356)
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+script = ExtResource("investigation_area")
+entry_id = &"clean.bottle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NarrativeInteractions/Bottle"]
+shape = SubResource("InvestigationShape")
+
+[node name="GameplayHUD" parent="." unique_id=988412147 instance=ExtResource("hud_task14")]
+player_path = NodePath("../YSortRoot/Player")
+
+[editable path="YSortRoot/Player"]

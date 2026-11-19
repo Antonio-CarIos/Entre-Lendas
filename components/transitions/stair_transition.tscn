@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://components/transitions/stair_transition.gd" id="script"]
+
+[sub_resource type="RectangleShape2D" id="shape"]
+size = Vector2(56, 24)
+
+[node name="StairTransition" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("script")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("shape")

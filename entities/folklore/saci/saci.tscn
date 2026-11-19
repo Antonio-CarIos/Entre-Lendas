@@ -1,0 +1,25 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://entities/folklore/saci/saci_actor.gd" id="actor"]
+[ext_resource type="Resource" path="res://entities/folklore/saci/saci_visuals.tres" id="visuals"]
+
+[sub_resource type="RectangleShape2D" id="Feet"]
+size = Vector2(20, 12)
+
+[node name="Saci" type="CharacterBody2D"]
+texture_filter = 1
+y_sort_enabled = true
+motion_mode = 1
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("actor")
+visuals = ExtResource("visuals")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+offset = Vector2(0, -40)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -6)
+shape = SubResource("Feet")
+disabled = true

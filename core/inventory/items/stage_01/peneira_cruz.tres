@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://core/inventory/item_data.gd" id="1_data"]
+[ext_resource type="Texture2D" path="res://assets/art/items/stage_01/peneira_cruz.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"peneira_cruz"
+display_name = "Peneira com Cruz"
+description = "Uma peneira de palha com uma fita vermelha amarrada em cruz. Os nós estão firmes sobre o aro de madeira."
+insight_text = "A cruz pode conter um redemoinho. Conter o vento e compreender quem está nele são decisões diferentes."
+category = 0
+icon = ExtResource("2_icon")
+consumable = false
+related_stage = 1

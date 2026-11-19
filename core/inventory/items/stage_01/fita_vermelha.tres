@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://in0jo7rvxlw2"]
+
+[ext_resource type="Script" uid="uid://dgadmgggr21af" path="res://core/inventory/item_data.gd" id="1_data"]
+[ext_resource type="Texture2D" uid="uid://dbdjdj161gw2n" path="res://assets/art/items/stage_01/fita_vermelha.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"fita_vermelha"
+display_name = "Fita Vermelha"
+description = "Uma tira de tecido vermelho, resistente e comprida o bastante para formar dois laços cruzados."
+insight_text = "A trama de uma peneira pode dar apoio a essa cruz. É preciso ter as duas peças para experimentar."
+category = 3
+icon = ExtResource("2_icon")

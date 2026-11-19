@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="JournalEntry" format=3]
+
+[ext_resource type="Script" path="res://core/journal/journal_entry.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+id = &"clue_mural_origens"
+title = "Muitas vozes, um Saci"
+text = "O menino da mata, o bambu, a roda de capoeira, o gorro e o vento.
+As versões do Saci se transformam com quem as conta. Narrativas indígenas, africanas e europeias se encontram nesses causos. Não existe uma única história que apague todas as outras.
+Travessuras com leite, fogo, objetos e crina dos cavalos continuam reaparecendo nas histórias."
+origin = "Quadros 1 a 5 do mural"
+dialogue_id = &"journal.mural"
+bonus = false

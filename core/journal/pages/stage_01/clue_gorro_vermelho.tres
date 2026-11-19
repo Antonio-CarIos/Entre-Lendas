@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="JournalEntry" format=3]
+
+[ext_resource type="Script" path="res://core/journal/journal_entry.gd" id="script"]
+[ext_resource type="Texture2D" path="res://assets/art/items/stage_01/gorro_saci.png" id="art"]
+
+[resource]
+script = ExtResource("script")
+id = &"clue_gorro_vermelho"
+title = "O gorro vermelho"
+text = "O Gorro Vermelho
+
+Na lenda, o poder do Saci está no gorro. Dizem que quem consegue tirá-lo passa a mandar nele e pode até fazer pedidos. Por isso o Saci o protege tanto, e por isso ele fica tão bravo quando alguém chega perto.
+O gorro vermelho também é um traço do folclore brasileiro: ele ajuda a identificar o Saci em desenhos, histórias e até em festas de rua."
+origin = "Varal do quintal"
+dialogue_id = &"journal.cap"
+bonus = false
+illustration = ExtResource("art")

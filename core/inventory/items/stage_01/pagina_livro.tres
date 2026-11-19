@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://core/inventory/item_data.gd" id="1_data"]
+[ext_resource type="Texture2D" path="res://assets/art/items/stage_01/pagina_livro.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"pagina_livro"
+display_name = "Página do Livro"
+description = "Uma folha amarelada de Lendas do Brasil. Há marcas de dobra nas bordas e um desenho de bambu junto de um gorro vermelho."
+insight_text = "As versões da lenda se encontram nos detalhes, mas nenhuma conta tudo sozinha."
+category = 2
+icon = ExtResource("2_icon")
+consumable = false
+related_stage = 1
+lore_text = "Lendas do Brasil\n\nAntes do gorro e do cachimbo, os mais velhos o chamavam de Saci-Cererê. Sua história reúne a memória indígena, a influência africana da capoeira e o gorro de origem europeia.\n\nO Saci conta que nasceu em um gomo de bambu. Viveu sete anos ouvindo o vento lá dentro e recebeu setenta e sete anos para aprontar. Depois, diz ele, vira cogumelo."

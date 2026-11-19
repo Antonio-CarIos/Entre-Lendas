@@ -1,0 +1,140 @@
+[gd_resource type="Theme" format=3 uid="uid://cmteexuprmm2u"]
+
+[ext_resource type="Texture2D" uid="uid://v0yl4tkngn2h" path="res://assets/art/ui/ui_sheet_dialog_and_buttons.png" id="dialog"]
+[ext_resource type="FontFile" uid="uid://moj1gsku41sy" path="res://assets/fonts/entre_lendas_pixel.fnt" id="font"]
+[ext_resource type="Texture2D" uid="uid://csnnarcn2y5u3" path="res://assets/art/ui/ui_sheet_inventory_diary.png" id="inventory"]
+[ext_resource type="Texture2D" uid="uid://b1oks4fus0e8c" path="res://assets/art/ui/ui_scrollbar.png" id="scrollbar"]
+[ext_resource type="Texture2D" uid="uid://bdqdfwsjwvxym" path="res://assets/art/ui/ui_scrollbar_track.png" id="scroll_track"]
+
+[sub_resource type="AtlasTexture" id="AtlasDisabled"]
+atlas = ExtResource("dialog")
+region = Rect2(8, 136, 72, 24)
+
+[sub_resource type="StyleBoxTexture" id="Disabled"]
+texture = SubResource("AtlasDisabled")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+modulate_color = Color(0.4, 0.4, 0.4, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasFocus"]
+atlas = ExtResource("dialog")
+region = Rect2(8, 104, 72, 24)
+
+[sub_resource type="StyleBoxTexture" id="Focus"]
+texture = SubResource("AtlasFocus")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasButton"]
+atlas = ExtResource("dialog")
+region = Rect2(8, 136, 72, 24)
+
+[sub_resource type="StyleBoxTexture" id="Button"]
+texture = SubResource("AtlasButton")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasDialog"]
+atlas = ExtResource("dialog")
+region = Rect2(16, 176, 224, 64)
+
+[sub_resource type="StyleBoxTexture" id="Dialog"]
+texture = SubResource("AtlasDialog")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasSlotFocus"]
+atlas = ExtResource("inventory")
+region = Rect2(72, 88, 40, 40)
+
+[sub_resource type="StyleBoxTexture" id="SlotFocus"]
+texture = SubResource("AtlasSlotFocus")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasSlot"]
+atlas = ExtResource("inventory")
+region = Rect2(8, 88, 40, 40)
+
+[sub_resource type="StyleBoxTexture" id="Slot"]
+texture = SubResource("AtlasSlot")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="AtlasTexture" id="AtlasPanel"]
+atlas = ExtResource("inventory")
+region = Rect2(136, 72, 112, 176)
+
+[sub_resource type="StyleBoxTexture" id="Panel"]
+texture = SubResource("AtlasPanel")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+
+[sub_resource type="AtlasTexture" id="NoScrollArrow"]
+atlas = ExtResource("scrollbar")
+region = Rect2(0, 0, 1, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasScrollThumb"]
+atlas = ExtResource("scrollbar")
+region = Rect2(117, 116, 22, 32)
+
+[sub_resource type="StyleBoxTexture" id="ScrollThumb"]
+texture = SubResource("AtlasScrollThumb")
+texture_margin_left = 4.0
+texture_margin_top = 14.0
+texture_margin_right = 4.0
+texture_margin_bottom = 14.0
+
+[sub_resource type="StyleBoxTexture" id="ScrollTrack"]
+texture = ExtResource("scroll_track")
+texture_margin_left = 4.0
+texture_margin_top = 4.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+
+[resource]
+default_font = ExtResource("font")
+default_font_size = 16
+Button/colors/font_color = Color(0.96, 0.92, 0.84, 1)
+Button/colors/font_disabled_color = Color(0.4, 0.4, 0.38, 1)
+Button/colors/font_focus_color = Color(1, 0.8, 0.4, 1)
+Button/styles/disabled = SubResource("Disabled")
+Button/styles/focus = SubResource("Focus")
+Button/styles/hover = SubResource("Focus")
+Button/styles/normal = SubResource("Button")
+Button/styles/pressed = SubResource("Focus")
+InfoPanel/base_type = &"Panel"
+InfoPanel/styles/panel = SubResource("Dialog")
+InventorySlot/base_type = &"Button"
+InventorySlot/styles/focus = SubResource("SlotFocus")
+InventorySlot/styles/hover = SubResource("Slot")
+InventorySlot/styles/normal = SubResource("Slot")
+InventorySlot/styles/pressed = SubResource("SlotFocus")
+Label/colors/font_color = Color(0.96, 0.92, 0.84, 1)
+Panel/styles/panel = SubResource("Panel")
+RichTextLabel/colors/default_color = Color(0.96, 0.92, 0.84, 1)
+VScrollBar/icons/decrement = SubResource("NoScrollArrow")
+VScrollBar/icons/decrement_highlight = SubResource("NoScrollArrow")
+VScrollBar/icons/decrement_pressed = SubResource("NoScrollArrow")
+VScrollBar/icons/increment = SubResource("NoScrollArrow")
+VScrollBar/icons/increment_highlight = SubResource("NoScrollArrow")
+VScrollBar/icons/increment_pressed = SubResource("NoScrollArrow")
+VScrollBar/styles/grabber = SubResource("ScrollThumb")
+VScrollBar/styles/grabber_highlight = SubResource("ScrollThumb")
+VScrollBar/styles/grabber_pressed = SubResource("ScrollThumb")
+VScrollBar/styles/scroll = SubResource("ScrollTrack")
+VScrollBar/styles/scroll_focus = SubResource("ScrollTrack")

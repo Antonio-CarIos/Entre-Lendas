@@ -1,0 +1,118 @@
+[gd_resource type="Resource" script_class="AudioCatalog" format=3 uid="uid://du2468tn4oxpa"]
+
+[ext_resource type="Script" uid="uid://d2aphdapnugis" path="res://core/audio/audio_catalog.gd" id="catalog"]
+[ext_resource type="Script" uid="uid://tkv5qokl5dve" path="res://core/audio/audio_cue.gd" id="cue"]
+
+[sub_resource type="Resource" id="menu"]
+script = ExtResource("cue")
+id = &"menu"
+kind = 0
+
+[sub_resource type="Resource" id="book"]
+script = ExtResource("cue")
+id = &"book"
+kind = 0
+
+[sub_resource type="Resource" id="city_sunset"]
+script = ExtResource("cue")
+id = &"city_sunset"
+kind = 0
+
+[sub_resource type="Resource" id="house_clean"]
+script = ExtResource("cue")
+id = &"house_clean"
+kind = 0
+
+[sub_resource type="Resource" id="saci_conversation"]
+script = ExtResource("cue")
+id = &"saci_conversation"
+kind = 0
+
+[sub_resource type="Resource" id="whirlwind"]
+script = ExtResource("cue")
+id = &"whirlwind"
+kind = 0
+
+[sub_resource type="Resource" id="investigation"]
+script = ExtResource("cue")
+id = &"investigation"
+kind = 0
+
+[sub_resource type="Resource" id="climax"]
+script = ExtResource("cue")
+id = &"climax"
+kind = 0
+
+[sub_resource type="Resource" id="epilogue_capture"]
+script = ExtResource("cue")
+id = &"epilogue_capture"
+kind = 0
+
+[sub_resource type="Resource" id="epilogue_friendship"]
+script = ExtResource("cue")
+id = &"epilogue_friendship"
+kind = 0
+
+[sub_resource type="Resource" id="recovery"]
+script = ExtResource("cue")
+id = &"recovery"
+kind = 0
+
+[sub_resource type="Resource" id="city_wind"]
+script = ExtResource("cue")
+id = &"city_wind"
+kind = 1
+
+[sub_resource type="Resource" id="house_ambience"]
+script = ExtResource("cue")
+id = &"house_ambience"
+kind = 1
+
+[sub_resource type="Resource" id="bamboo_wind"]
+script = ExtResource("cue")
+id = &"bamboo_wind"
+kind = 1
+
+[sub_resource type="Resource" id="ui_move"]
+script = ExtResource("cue")
+id = &"ui_move"
+
+[sub_resource type="Resource" id="ui_confirm"]
+script = ExtResource("cue")
+id = &"ui_confirm"
+
+[sub_resource type="Resource" id="page_turn"]
+script = ExtResource("cue")
+id = &"page_turn"
+
+[sub_resource type="Resource" id="door_open"]
+script = ExtResource("cue")
+id = &"door_open"
+
+[sub_resource type="Resource" id="saci_laugh"]
+script = ExtResource("cue")
+id = &"saci_laugh"
+
+[sub_resource type="Resource" id="cork_pop"]
+script = ExtResource("cue")
+id = &"cork_pop"
+
+[sub_resource type="Resource" id="bamboo_crack"]
+script = ExtResource("cue")
+id = &"bamboo_crack"
+
+[sub_resource type="Resource" id="hat_pulse"]
+script = ExtResource("cue")
+id = &"hat_pulse"
+
+[sub_resource type="Resource" id="furniture_move"]
+script = ExtResource("cue")
+id = &"furniture_move"
+
+[sub_resource type="Resource" id="petals"]
+script = ExtResource("cue")
+id = &"petals"
+
+[resource]
+script = ExtResource("catalog")
+cues = Array[ExtResource("cue")]([SubResource("menu"), SubResource("book"), SubResource("city_sunset"), SubResource("house_clean"), SubResource("saci_conversation"), SubResource("whirlwind"), SubResource("investigation"), SubResource("climax"), SubResource("epilogue_capture"), SubResource("epilogue_friendship"), SubResource("recovery"), SubResource("city_wind"), SubResource("house_ambience"), SubResource("bamboo_wind"), SubResource("ui_move"), SubResource("ui_confirm"), SubResource("page_turn"), SubResource("door_open"), SubResource("saci_laugh"), SubResource("cork_pop"), SubResource("bamboo_crack"), SubResource("hat_pulse"), SubResource("furniture_move"), SubResource("petals")])

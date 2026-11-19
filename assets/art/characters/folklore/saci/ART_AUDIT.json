@@ -1,0 +1,542 @@
+{
+  "schema_version": 1,
+  "status": "partial",
+  "form": "whirlwind",
+  "canvas": [
+    64,
+    80
+  ],
+  "generation": "No new pixel art generated",
+  "missing_template": "res://assets/art/_templates/character_base/body/",
+  "clips": [
+    {
+      "animation": "idle_down",
+      "fps": 8.0,
+      "loop": true,
+      "region": [
+        19,
+        5,
+        36,
+        69
+      ],
+      "margin": [
+        13,
+        11,
+        28,
+        11
+      ],
+      "frames": [
+        {
+          "path": "res://assets/art/characters/folklore/saci/idle/down.png",
+          "size": [
+            80,
+            80
+          ],
+          "used_rect": [
+            19,
+            5,
+            36,
+            69
+          ],
+          "sha256": "74bc8f714c0317e66b6c9e1c624fb3f92de1030f8288b520b0a05bc46621bf76",
+          "index": 0
+        }
+      ],
+      "source_anchor_x": 38,
+      "median_foot_x": 37.5
+    },
+    {
+      "animation": "idle_up",
+      "fps": 8.0,
+      "loop": true,
+      "region": [
+        22,
+        7,
+        35,
+        67
+      ],
+      "margin": [
+        16,
+        13,
+        29,
+        13
+      ],
+      "frames": [
+        {
+          "path": "res://assets/art/characters/folklore/saci/idle/up.png",
+          "size": [
+            80,
+            80
+          ],
+          "used_rect": [
+            22,
+            7,
+            35,
+            67
+          ],
+          "sha256": "4ab2a89a3917edac6ce48be7384d4516f28f485d6981617fdbb244a79f904ee9",
+          "index": 1
+        }
+      ],
+      "source_anchor_x": 38,
+      "median_foot_x": 38.0
+    },
+    {
+      "animation": "idle_left",
+      "fps": 8.0,
+      "loop": true,
+      "region": [
+        22,
+        7,
+        34,
+        64
+      ],
+      "margin": [
+        14,
+        16,
+        30,
+        16
+      ],
+      "frames": [
+        {
+          "path": "res://assets/art/characters/folklore/saci/idle/left.png",
+          "size": [
+            80,
+            80
+          ],
+          "used_rect": [
+            22,
+            7,
+            34,
+            64
+          ],
+          "sha256": "7140f918f3d3347066bc2635f1d74de2d5d8cf280782190fb3f79b7dbfcc13bb",
+          "index": 2
+        }
+      ],
+      "source_anchor_x": 40,
+      "median_foot_x": 39.5
+    },
+    {
+      "animation": "idle_right",
+      "fps": 8.0,
+      "loop": true,
+      "region": [
+        22,
+        6,
+        33,
+        64
+      ],
+      "margin": [
+        18,
+        16,
+        31,
+        16
+      ],
+      "frames": [
+        {
+          "path": "res://assets/art/characters/folklore/saci/idle/right.png",
+          "size": [
+            80,
+            80
+          ],
+          "used_rect": [
+            22,
+            6,
+            33,
+            64
+          ],
+          "sha256": "b47e64f9a8ce822b86f1d0f3df5d220cc3f247b86b0015603d0892e3369e2139",
+          "index": 3
+        }
+      ],
+      "source_anchor_x": 36,
+      "median_foot_x": 36.0
+    },
+    {
+      "animation": "walk_down",
+      "fps": 8.0,
+      "loop": true,
+      "region": [
+        14,
+        5,
+        41,
+        69
+      ],
+      "margin": [
+        13,
+        11,
+        23,
+        11
+      ],
+      "frames": [
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_down/frame_000.png",
+          "size": [
+            64,
+            80
+          ],
+          "used_rect": [
+            14,
+            5,
+            36,
+            69
+          ],
+          "sha256": "b396ab0bbb53bb2382857347523c04d74e28961fe52dd8788d2a67058c522462",
+          "index": 4
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_down/frame_001.png",
+          "size": [
+            64,
+            80
+          ],
+          "used_rect": [
+            14,
+            5,
+            36,
+            69
+          ],
+          "sha256": "312c4148f386e8bec7ef5eb756d73535d89ed7211f6737a3f4cfec35b8dda678",
+          "index": 5
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_down/frame_002.png",
+          "size": [
+            64,
+            80
+          ],
+          "used_rect": [
+            15,
+            7,
+            36,
+            67
+          ],
+          "sha256": "987926d1bd7ea63b2d04c16cfa04dfc015c3ad126eaefab9dfcde5b4fd685eb4",
+          "index": 6
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_down/frame_003.png",
+          "size": [
+            64,
+            80
+          ],
+          "used_rect": [
+            14,
+            6,
+            41,
+            68
+          ],
+          "sha256": "d36ad19597102c9667dda180bec7a8172b7b0709c1ad611080ee1129f4fc6ae1",
+          "index": 7
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_down/frame_004.png",
+          "size": [
+            64,
+            80
+          ],
+          "used_rect": [
+            14,
+            5,
+            38,
+            68
+          ],
+          "sha256": "91353c9803c28b83b59f2e2e40e18fbd91c65238dec349b71722c3567f883f5d",
+          "index": 8
+        }
+      ],
+      "source_anchor_x": 33,
+      "median_foot_x": 32.5
+    },
+    {
+      "animation": "walk_up",
+      "fps": 8.0,
+      "loop": true,
+      "region": [
+        29,
+        13,
+        36,
+        69
+      ],
+      "margin": [
+        14,
+        11,
+        28,
+        11
+      ],
+      "frames": [
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_up/frame_000.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            30,
+            15,
+            35,
+            67
+          ],
+          "sha256": "b8fcabe0ab74c31a1bdfa5b062712bfdfb867b7ecc01c3d5f65b6d68e1064ddc",
+          "index": 9
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_up/frame_001.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            30,
+            14,
+            34,
+            67
+          ],
+          "sha256": "332bb8487a3615e7984a6234866e6aacbb59a4283ed772ba36a20b75ab536f50",
+          "index": 10
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_up/frame_002.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            30,
+            13,
+            34,
+            67
+          ],
+          "sha256": "0091b8ce1c2558b7d910f9e23d5d225042234bf26507d54b2ff1e190418f64fb",
+          "index": 11
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_up/frame_003.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            29,
+            13,
+            35,
+            67
+          ],
+          "sha256": "ee156eb53bd04e01cc37f03692e16728d1355b77930fd6dfd5f2cbad700ad7ab",
+          "index": 12
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_up/frame_004.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            31,
+            14,
+            33,
+            68
+          ],
+          "sha256": "01362d488a12a727029a15020f5f0bc4fb90695ab73ef8b9188e51e70390ff18",
+          "index": 13
+        }
+      ],
+      "source_anchor_x": 47,
+      "median_foot_x": 46.5
+    },
+    {
+      "animation": "walk_left",
+      "fps": 8.0,
+      "loop": true,
+      "region": [
+        30,
+        14,
+        41,
+        67
+      ],
+      "margin": [
+        14,
+        13,
+        23,
+        13
+      ],
+      "frames": [
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_left/frame_000.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            30,
+            15,
+            34,
+            64
+          ],
+          "sha256": "4f1c5396385169a652e59b8656661e1f37f0dbabd0a4c67c93ad1709e4620a31",
+          "index": 14
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_left/frame_001.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            30,
+            14,
+            35,
+            65
+          ],
+          "sha256": "d4bd5dda3d64c5d7965166b4d5caf60c2d6f1f91c9eceacb0ff0513c379b3566",
+          "index": 15
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_left/frame_002.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            30,
+            14,
+            38,
+            66
+          ],
+          "sha256": "0c3540d480bc0ac0fdae57c58282d21d19ea57ddddef7d79d7cb0702d2215591",
+          "index": 16
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_left/frame_003.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            30,
+            16,
+            41,
+            64
+          ],
+          "sha256": "fc74ab4fb2bdcf9ba67c03157c53b2f12034f1552df817b907f187a905dd2d86",
+          "index": 17
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_left/frame_004.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            30,
+            17,
+            41,
+            64
+          ],
+          "sha256": "b50519ad867cb82afb7e515273b93b12238d312f4ed9813e263afde7f8e3efc3",
+          "index": 18
+        }
+      ],
+      "source_anchor_x": 48,
+      "median_foot_x": 47.5
+    },
+    {
+      "animation": "walk_right",
+      "fps": 8.0,
+      "loop": true,
+      "region": [
+        22,
+        13,
+        41,
+        68
+      ],
+      "margin": [
+        7,
+        12,
+        23,
+        12
+      ],
+      "frames": [
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_right/frame_000.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            30,
+            14,
+            33,
+            64
+          ],
+          "sha256": "e612b22335416c82df907154d84fddc788a015572870294e314334abc22f3466",
+          "index": 19
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_right/frame_001.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            28,
+            13,
+            35,
+            66
+          ],
+          "sha256": "4632df6155717c2d7d76e8f413f18538cabfda7f4722b38b1f284f5fd48b1a14",
+          "index": 20
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_right/frame_002.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            26,
+            13,
+            37,
+            67
+          ],
+          "sha256": "6a1f04fba0c36bda89fddf52035b285dff964271ffc4d5cfd7333fc83687b5e5",
+          "index": 21
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_right/frame_003.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            23,
+            14,
+            40,
+            67
+          ],
+          "sha256": "382a302914c57c9fe764a34a6f516d6c65d19c701ca48c42b6f1c61b216cdc78",
+          "index": 22
+        },
+        {
+          "path": "res://assets/art/characters/folklore/saci/walk_right/frame_004.png",
+          "size": [
+            96,
+            96
+          ],
+          "used_rect": [
+            22,
+            15,
+            41,
+            66
+          ],
+          "sha256": "dd5c02208216845a9d51d08a7cb2cdaeae9391bb4be5a05f267eb5f39ff6df54",
+          "index": 23
+        }
+      ],
+      "source_anchor_x": 47,
+      "median_foot_x": 46.5
+    }
+  ],
+  "alignment": "Per-clip common crop; median of the last two opaque rows as X anchor, maximum opaque bottom as Y anchor. Frames keep their original intra-clip movement. No scaling or raster modification."
+}

@@ -1,0 +1,309 @@
+[gd_scene load_steps=7 format=3]
+
+[ext_resource type="Script" path="res://ui/main_menu.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/art/menu/menu_cover.jpeg" id="2_cover"]
+[ext_resource type="Theme" path="res://ui/themes/main_menu_theme.tres" id="3_theme"]
+
+[sub_resource type="Gradient" id="BottomShade"]
+colors = PackedColorArray(0.02, 0.04, 0.06, 0, 0.02, 0.04, 0.06, 0.96)
+
+[sub_resource type="GradientTexture2D" id="ShadeTexture"]
+gradient = SubResource("BottomShade")
+width = 2
+height = 128
+fill_from = Vector2(0, 0)
+fill_to = Vector2(0, 1)
+
+[sub_resource type="StyleBoxEmpty" id="CreditsText"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+script = ExtResource("1_script")
+
+[node name="Backdrop" type="TextureRect" parent="."]
+modulate = Color(0.12, 0.16, 0.2, 1)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_cover")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Cover" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_cover")
+expand_mode = 1
+stretch_mode = 5
+
+[node name="BottomShade" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -120.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+texture = SubResource("ShadeTexture")
+expand_mode = 1
+
+[node name="Main" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 30.0
+offset_top = 276.0
+offset_right = 610.0
+offset_bottom = 332.0
+
+[node name="Margin" type="MarginContainer" parent="Main"]
+layout_mode = 2
+
+[node name="Buttons" type="GridContainer" parent="Main/Margin"]
+layout_mode = 2
+theme_override_constants/h_separation = 6
+theme_override_constants/v_separation = 6
+columns = 4
+
+[node name="NewGame" type="Button" parent="Main/Margin/Buttons"]
+custom_minimum_size = Vector2(112, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Novo Jogo"
+
+[node name="Options" type="Button" parent="Main/Margin/Buttons"]
+custom_minimum_size = Vector2(112, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Opções"
+
+[node name="Credits" type="Button" parent="Main/Margin/Buttons"]
+custom_minimum_size = Vector2(112, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Créditos"
+
+[node name="Quit" type="Button" parent="Main/Margin/Buttons"]
+custom_minimum_size = Vector2(112, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+text = "Sair"
+
+[node name="ModalShade" type="ColorRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.04, 0.06, 0.82)
+
+[node name="Options" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 110.0
+offset_top = 39.0
+offset_right = 530.0
+offset_bottom = 321.0
+
+[node name="Margin" type="MarginContainer" parent="Options"]
+layout_mode = 2
+
+[node name="Scroll" type="ScrollContainer" parent="Options/Margin"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+follow_focus = true
+
+[node name="Content" type="VBoxContainer" parent="Options/Margin/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Options/Margin/Scroll/Content"]
+layout_mode = 2
+text = "OPÇÕES"
+horizontal_alignment = 1
+
+[node name="VolumeValue" type="Label" parent="Options/Margin/Scroll/Content"]
+layout_mode = 2
+text = "Volume geral: 100%"
+
+[node name="Volume" type="HSlider" parent="Options/Margin/Scroll/Content"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+focus_mode = 2
+step = 5.0
+value = 100.0
+
+[node name="Mute" type="CheckButton" parent="Options/Margin/Scroll/Content"]
+layout_mode = 2
+text = "Silenciar áudio"
+
+[node name="MusicValue" type="Label" parent="Options/Margin/Scroll/Content"]
+layout_mode = 2
+text = "Música"
+
+[node name="MusicVolume" type="HSlider" parent="Options/Margin/Scroll/Content"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+focus_mode = 2
+step = 5.0
+value = 80.0
+
+[node name="MusicMute" type="CheckButton" parent="Options/Margin/Scroll/Content"]
+layout_mode = 2
+text = "Silenciar música"
+
+[node name="SFXValue" type="Label" parent="Options/Margin/Scroll/Content"]
+layout_mode = 2
+text = "Efeitos sonoros"
+
+[node name="SFXVolume" type="HSlider" parent="Options/Margin/Scroll/Content"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+focus_mode = 2
+step = 5.0
+value = 100.0
+
+[node name="SFXMute" type="CheckButton" parent="Options/Margin/Scroll/Content"]
+layout_mode = 2
+text = "Silenciar efeitos sonoros"
+
+[node name="TextValue" type="Label" parent="Options/Margin/Scroll/Content"]
+layout_mode = 2
+text = "Velocidade do texto"
+
+[node name="TextVolume" type="HSlider" parent="Options/Margin/Scroll/Content"]
+custom_minimum_size = Vector2(0, 24)
+layout_mode = 2
+focus_mode = 2
+step = 15.0
+value = 45.0
+min_value = 15.0
+max_value = 120.0
+
+[node name="ReducedEffects" type="CheckButton" parent="Options/Margin/Scroll/Content"]
+layout_mode = 2
+text = "Reduzir tremor e flashes"
+
+[node name="Help" type="Label" parent="Options/Margin/Scroll/Content"]
+custom_minimum_size = Vector2(0, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "←/→: ajustar • ↑/↓: selecionar\nE/Enter: alternar • Esc: voltar"
+autowrap_mode = 3
+
+[node name="Back" type="Button" parent="Options/Margin/Scroll/Content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Voltar"
+
+[node name="Credits" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 110.0
+offset_top = 39.0
+offset_right = 530.0
+offset_bottom = 321.0
+
+[node name="Margin" type="MarginContainer" parent="Credits"]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Credits/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="Credits/Margin/Content"]
+layout_mode = 2
+text = "ENTRE LENDAS"
+horizontal_alignment = 1
+
+[node name="Text" type="RichTextLabel" parent="Credits/Margin/Content"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("CreditsText")
+text = "Criação e desenvolvimento\nEquipe Entre Lendas\n\nIntrodução do livro\nArte, composição e shaders: colaboração da equipe\n\nCenários\nAnokolisa — World Build: Environment Pack\n\nFonte e interface\nProjeto Entre Lendas"
+scroll_active = true
+
+[node name="Back" type="Button" parent="Credits/Margin/Content"]
+custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+text = "Voltar"
+
+[node name="Confirm" type="PanelContainer" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 110.0
+offset_top = 102.0
+offset_right = 530.0
+offset_bottom = 258.0
+
+[node name="Margin" type="MarginContainer" parent="Confirm"]
+layout_mode = 2
+
+[node name="Content" type="VBoxContainer" parent="Confirm/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Text" type="Label" parent="Confirm/Margin/Content"]
+custom_minimum_size = Vector2(396, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Deseja sair de Entre Lendas?"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Choices" type="HBoxContainer" parent="Confirm/Margin/Content"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="No" type="Button" parent="Confirm/Margin/Content/Choices"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Não"
+
+[node name="Yes" type="Button" parent="Confirm/Margin/Content/Choices"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Sim"
+
+[node name="Hint" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 12.0
+offset_top = -23.0
+offset_right = -12.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 10
+text = "Direcionais: escolher   E/Enter: confirmar   Esc: voltar"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3

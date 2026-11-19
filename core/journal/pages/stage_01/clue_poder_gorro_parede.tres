@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="JournalEntry" format=3]
+
+[ext_resource type="Script" path="res://core/journal/journal_entry.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+id = &"clue_poder_gorro_parede"
+title = "O poder do gorro"
+text = "Quem perde o gorro perde o rumo.
+O gorro aparece ligado ao poder do Saci. Quem consegue guardá-lo pode ter uma escolha difícil nas mãos."
+origin = "Grafite na casa caótica"
+dialogue_id = &"journal.wall_power"
+bonus = false

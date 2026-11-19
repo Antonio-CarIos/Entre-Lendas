@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="JournalEntry" format=3]
+
+[ext_resource type="Script" path="res://core/journal/journal_entry.gd" id="script"]
+
+[resource]
+script = ExtResource("script")
+id = &"clue_dia_do_saci_bonus"
+title = "Dia do Saci"
+text = "Dia do Saci — 31 de outubro
+
+Uma data para lembrar o Saci e celebrar os causos do folclore brasileiro. Cada pessoa que conta uma história também ajuda a mantê-la viva."
+origin = "Lendas do Brasil — sete pistas lidas"
+dialogue_id = &"journal.bonus"
+bonus = true

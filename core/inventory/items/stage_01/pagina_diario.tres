@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="ItemData" format=3]
+
+[ext_resource type="Script" path="res://core/inventory/item_data.gd" id="1_data"]
+[ext_resource type="Texture2D" path="res://assets/art/items/stage_01/pagina_diario.png" id="2_icon"]
+
+[resource]
+script = ExtResource("1_data")
+id = &"pagina_diario"
+display_name = "Página do Diário"
+description = "Uma folha de anotações manuscritas. Entre palavras apressadas, há um pequeno desenho de um redemoinho."
+insight_text = "Registrar as pistas ajuda a ouvir a história por trás das travessuras."
+category = 2
+icon = ExtResource("2_icon")
+consumable = false
+related_stage = 1
+lore_text = "Anotações de Santa Teresa\n\nO varal guarda um gorro que não acompanha o vento. O muro lembra que quem perde o gorro perde o rumo. O cachimbo traz memórias do bambu e do nome Saci-Cererê.\n\nUma peneira com fita em cruz e uma garrafa vazia podem prender o Saci. Conhecer sua história, brincar junto e devolver o que é dele podem abrir outro caminho."
